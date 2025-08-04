@@ -1,0 +1,74 @@
+.header {
+    // position: fixed;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff; // Màu nền của header
+    /* hoặc màu khác */
+    height: 75px;
+
+    & .logo {
+        align-items: center;
+        display: flex;
+    }
+
+    & .logo-text {
+        padding-left:5px;
+        text-decoration: none;
+        color: #000;
+        padding-right: 5px;
+
+        & .logo-text-1 {
+        font-size: 20px;
+
+            display: block;
+            font-weight: 600;
+            color: #6879E1;
+
+        }
+        & .logo-text-2 {
+            padding-left:2px;
+            font-size: 16px;
+            display: block;
+            font-weight: 600;
+            color: #64758C;
+        }
+    }
+
+}
+
+
+.find {
+    padding-right: 60px;
+
+    & .search {
+
+        width: 420px;
+
+        & input {
+            height: 40px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+
+        }
+
+        & button {
+            height: 40px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+
+        }
+    }
+}
+
+.sign-in-up {
+    & .register-btn {
+        color: #6879E1;
+        font-weight: 600;
+    }
+}

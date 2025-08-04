@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+}
+.outlet {
+  margin-left: 120px; /* chính là độ rộng của Navigation */
+  padding: 24px;
+  flex: 1;
+}
