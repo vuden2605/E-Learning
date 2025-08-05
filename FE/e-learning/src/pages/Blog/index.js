@@ -1,9 +1,9 @@
-function Posts() {
+function Blog() {
   return (
     <div>
-      <h1>Danh sách bài viết</h1>
+      <h1>Blog</h1>
       {/* Nội dung của trang Bài viết */}
     </div>
   );
 }
-export default Posts;
+export default Blog;

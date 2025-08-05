@@ -1,15 +1,13 @@
+import{ NavLink,Link } from 'react-router-dom';
 import './style.scss';
-import { Link } from 'react-router-dom';
+import { RiHome9Line } from "react-icons/ri";
+import { TbRoad } from "react-icons/tb";
+import { BsFillPostcardHeartFill } from "react-icons/bs";
 import logo from '../../images/logo.png';
-import { Input,Button } from 'antd';
-const { Search } = Input;
-function Header() {
-    const onSearch = (value) =>{
-        console.log(value);
-        // onClear();
-    } 
-    return (
-        <div className="header">
+import { Button } from 'antd';
+function Navigation() {
+  return (
+      <ul className="navigation">
             <div className='logo'>
                 <Link to="/">
                     <img src={logo} alt="Logo" height='70px' width='70px'/>
@@ -19,9 +17,27 @@ function Header() {
                 <span className='logo-text-2'>Vững Tương Lai</span>
                 </Link>
             </div>
-            <div className='find'>
-                <Search className='search' placeholder="Tìm kiếm khóa học, video..." onSearch={onSearch} enterButton />
+            <div className='nav-list'>
+                <NavLink to="/" className="nav-item" >
+                {/* <RiHome9Line className="nav-icon" /> */}
+                Trang chủ
+            </NavLink>
+            <NavLink to="/courses" className="nav-item" >
+                {/* <TbRoad className="nav-icon" /> */}
+                Khóa học
+            </NavLink>
+            <NavLink to="/careers" className="nav-item" >
+                {/* <BsFillPostcardHeartFill className="nav-icon" /> */}
+                Nghề nghiệp
+            </NavLink>
+            <NavLink to="/blog" className="nav-item" >
+                Blog
+            </NavLink>
+            <NavLink to="/about" className="nav-item" >
+                About Us
+            </NavLink>
             </div>
+            
             <div className='sign-in-up'>
                 <Link to="/login">
                 <Button type="primary" shape="round" size='large'>
@@ -34,7 +50,8 @@ function Header() {
           </Button>
                 </Link>
             </div>
-        </div>
-    );
+            
+      </ul>
+  );
 }
-export default Header;
+export default Navigation;

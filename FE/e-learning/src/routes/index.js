@@ -1,7 +1,9 @@
 import LayoutDefault from '../LayoutDefault';
+import Blog from '../pages/Blog';
 import Home from '../pages/Home';
-import LearningPath from '../pages/LearningPath';
-import Posts from '../pages/Post';
+import About from '../pages/About';
+import Courses from '../pages/Courses';
+import Careers from '../pages/Careers';
 export const routes =[
     {
         path: '/',
@@ -12,12 +14,20 @@ export const routes =[
                 element: <Home />
             },
             {
-                path: '/learning-paths',
-                element: <LearningPath />
+                path: '/courses',
+                element: <Courses/>
             },
             {
-                path: '/posts',
-                element: <Posts />
+                path: '/careers',
+                element: <Careers />
+            },
+            {
+                path: '/blog',
+                element: <Blog/>
+            },
+            {
+                path: '/about',
+                element: <About />
             }
         ]
     }

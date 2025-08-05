@@ -1,9 +1,9 @@
-function LearningPath() {
+function Careers() {
   return (
     <div>
-      <h1>Lộ trình học tập</h1>
+      <h1>Careers</h1>
       {/* Nội dung của trang Lộ trình học tập */}
     </div>
   );
 }
-export default LearningPath;
+export default Careers;
