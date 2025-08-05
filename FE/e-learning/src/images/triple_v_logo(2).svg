@@ -1,0 +1,21 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background để dễ nhìn logo màu trắng -->
+  <rect width="80" height="30" fill="#1a1a1a" rx="10"/>
+  
+  <!-- Chữ V đầu tiên -->
+  <polygon points="20,20 50,100 80,20 65,20 50,70 35,20" fill="white" stroke="none"/>
+  
+  <!-- Chữ V thứ hai -->
+  <polygon points="110,20 140,100 170,20 155,20 140,70 125,20" fill="white" stroke="none"/>
+  
+  <!-- Chữ V thứ ba -->
+  <polygon points="200,20 230,100 260,20 245,20 230,70 215,20" fill="white" stroke="none"/>
+  
+  <!-- Hiệu ứng gradient cho độ sâu (tùy chọn) -->
+  <defs>
+    <linearGradient id="vGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,112 @@
+.navigation {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 70px;
+    background-color: #49BBBD;
+    list-style: none;
+    margin-top: 0px;
+    padding: 0 100px;
+    display: flex;
+    justify-content: space-between;
+
+    & .logo {
+        // align-items: center;
+        display: flex;
+        padding-top: 10px;
+        & img {
+            width: 150px;
+            height: 100px;
+            // height: 60px;
+            // border-radius: 50%;
+            // object-fit: cover;
+        }
+    }
+
+    & .logo-text {
+        // width: 200px;;
+        padding-left:5px;
+        text-decoration: none;
+        color: #000;
+        padding-right: 5px;
+
+        & .logo-text-1 {
+        font-size: 15px;
+            display: block;
+            font-weight: 700;
+            color: #9c3759;
+
+        }
+        & .logo-text-2 {
+            padding-left:2px;
+            font-size: 15px;
+            display: block;
+            font-weight: 600;
+            color: #fff;
+        }
+    }
+    
+    & .nav-list{
+        display: flex;
+        margin-left: 150px;
+        
+        & a{
+            padding-left: 60px;
+        }
+    }
+
+    & a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        // padding: 8px 0;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        margin: 1px;
+        
+
+    }
+    & a:hover {
+        color : #ccc;
+    }
+    & .active {
+                color : #ccc;
+
+    }
+
+    & svg {
+        width: 40px;
+        height: 40px;
+
+    }
+
+    & .sign-in-up {
+        display: flex;
+
+        & span{
+            font-size: 15px;
+        }
+    & .ant-btn-lg {
+        background-color: #fff;
+        color: #ACACAC;
+        font-weight: 600;
+        margin-right: 10px;
+        width: 100px;
+        height: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    & .register-btn {
+        background-color: #7ECCCD;
+        color: #fff;
+        font-weight: 600;
+        width: 100px;
+        height: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+}
+
+}

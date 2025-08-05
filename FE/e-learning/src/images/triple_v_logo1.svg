@@ -1,0 +1,40 @@
+<svg width="300" height="150" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background tối để nhìn rõ logo -->
+  <rect width="300" height="150" fill="#1a1a1a" rx="10"/>
+  
+  <!-- Định nghĩa gradient cho núi -->
+  <defs>
+    <linearGradient id="mountainGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:white;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="mountainGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FFF0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00cccc;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="mountainGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:white;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e0e0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Núi đồi thứ nhất (trái) - màu trắng -->
+  <polygon points="20,130 80,40 140,130" 
+           fill="url(#mountainGradient1)" 
+           stroke="none"/>
+  
+  <!-- Núi đồi thứ hai (giữa) - cao nhất, màu cyan -->
+  <polygon points="90,130 150,20 210,130" 
+           fill="url(#mountainGradient2)" 
+           stroke="none"/>
+  
+  <!-- Núi đồi thứ ba (phải) - màu trắng -->
+  <polygon points="160,130 220,45 280,130" 
+           fill="url(#mountainGradient3)" 
+           stroke="none"/>
+  
+  <!-- Đường nền để tạo cảm giác đất -->
+  <rect x="0" y="130" width="300" height="20" fill="#2a2a2a"/>
+</svg>
