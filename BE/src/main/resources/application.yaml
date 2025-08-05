@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost\\SQLEXPRESS:1433;databaseName=E-LearningTest;encrypt=true;trustServerCertificate=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+jwt:
+  secret-key: your-super-secret-key-12345678901234567890123456789012
+  access-valid-duration: 30000
+  refresh-valid-duration: 604800000
