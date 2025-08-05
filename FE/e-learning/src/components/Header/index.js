@@ -4,18 +4,19 @@ import { RiHome9Line } from "react-icons/ri";
 import { TbRoad } from "react-icons/tb";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
 import logo from '../../images/logo.png';
+// import logo from '../../images/triple_v_logo.jpg';
 import { Button } from 'antd';
 function Navigation() {
   return (
       <ul className="navigation">
             <div className='logo'>
                 <Link to="/">
-                    <img src={logo} alt="Logo" height='70px' width='70px'/>
+                    <img src={logo} alt="Logo" height='70px' width='170px'/>
                 </Link>
-                <Link to="/" className='logo-text'>
+                {/* <Link to="/" className='logo-text'>
                 <span className='logo-text-1'>Chắc Kiến Thức</span>
                 <span className='logo-text-2'>Vững Tương Lai</span>
-                </Link>
+                </Link> */}
             </div>
             <div className='nav-list'>
                 <NavLink to="/" className="nav-item" >
