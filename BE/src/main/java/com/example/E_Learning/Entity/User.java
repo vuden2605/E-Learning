@@ -3,6 +3,7 @@ package com.example.E_Learning.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 @Entity
 @Getter
@@ -19,11 +20,12 @@ public class User {
     private String lastName;
 	private String email;
 	private String password;
-	private String role;
 	@Builder.Default
-	private boolean isActive = true;
+	private String role = "USER";
 	@Builder.Default
-	private LocalTime createdAt = LocalTime.now();
-	@OneToOne (mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private InstructorInfo instructor;
+	private Boolean active = true;
+	@Builder.Default
+	private LocalDateTime createdAt = LocalDateTime.now();
+	@OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Instructor instructor;
 }

@@ -1,9 +1,7 @@
 package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,14 +9,16 @@ import java.util.List;
 @Table (name = "instructor_infos")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class InstructorInfo {
+public class Instructor {
 	@Id
 	private Long id;
 	@OneToOne
 	@MapsId
 	@JoinColumn(name = "user_id")
-	private User userId;
+	private User user;
 	private String education;
 	private String experience;
 	private String specialization;
