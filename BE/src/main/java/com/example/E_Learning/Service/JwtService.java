@@ -25,7 +25,7 @@ public class JwtService {
 	}
 	public String generateAccessToken(User user) {
 		return io.jsonwebtoken.Jwts.builder()
-				.setSubject(user.getEmail())
+				.setSubject(user.getId().toString())
 				.claim("scope", user.getRole())
 				.claim("id", user.getId())
 				.claim("type","access_token")
