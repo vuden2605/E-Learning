@@ -10,10 +10,10 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.SQLServerDialect
 jwt:
   secret-key: your-super-secret-key-12345678901234567890123456789012
-  access-valid-duration: 30000
-  refresh-valid-duration: 604800000
+  access-time: 300000
+  refresh-time: 604800000

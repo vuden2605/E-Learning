@@ -25,7 +25,7 @@ public class Course {
 	private Boolean isApproved;
 	@OneToOne
 	@JoinColumn(name = "instructor_id")
-	private InstructorInfo instructor;
+	private Instructor instructor;
 	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Lesson> lessons;
 }

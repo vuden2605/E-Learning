@@ -1,15 +1,16 @@
-package com.example.E_Learning.DTO.Request;
+package com.example.E_Learning.DTO.Response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
-public class InstructorCreationRequest {
-	private String firstName;
-	private String lastName;
-	private String email;
-	private String password;
+@Builder
+public class InstructorResponse {
+	private UserResponse user;
 	private String education;
 	private String experience;
 	private String specialization;
