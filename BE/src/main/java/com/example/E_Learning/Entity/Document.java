@@ -1,13 +1,18 @@
 package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "documents")
 public class Document {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)

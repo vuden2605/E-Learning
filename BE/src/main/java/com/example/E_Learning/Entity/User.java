@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 @Entity
 @Getter
 @Setter
@@ -26,6 +26,4 @@ public class User {
 	private Boolean active = true;
 	@Builder.Default
 	private LocalDateTime createdAt = LocalDateTime.now();
-	@OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Instructor instructor;
 }

@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table (name = "instructor_infos")
+@Table (name = "instructors")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,7 +26,4 @@ public class Instructor {
 	private String schoolName;
 	@Builder.Default
 	private Boolean isApproved = false;
-	@OneToMany (mappedBy = "instructor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Course>  courses;
-
 }

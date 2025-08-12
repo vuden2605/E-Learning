@@ -40,6 +40,7 @@ public class InstructorService {
 		Instructor instructor = instructorMapper.toInstructor(instructorCreationRequest);
 		instructor.setUser(user);
 		userRepository.save(user);
+		instructorRepository.save(instructor);
 		UserResponse userResponse = userMapper.toUserResponse(user);
 		InstructorResponse instructorResponse = instructorMapper.toInstructorResponse(instructor);
 		instructorResponse.setUser(userResponse);

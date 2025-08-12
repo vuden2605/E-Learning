@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,11 +23,15 @@ import java.util.List;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	private final String[] publicEndpoints = {
+	private final String[] authEndpoints = {
 			"/auth/login",
 			"/auth/refresh-token",
 			"/user/create",
 			"/instructor/create"
+	};
+	private final String [] publicEndpoints = {
+			"/category/**",
+			"/course/**"
 	};
 	private final CustomJwtDecoder customJwtDecoder;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -38,7 +43,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.authorizeHttpRequests(request -> request
-				.requestMatchers(publicEndpoints).permitAll()
+				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
+				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
 				.anyRequest().authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2 -> oauth2
