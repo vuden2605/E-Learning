@@ -1,7 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.button-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    //   align-items: center;
+    gap: 1rem;
+}
+
+.button-label {
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.shine-button {
+    position: relative;
+    //   padding: 1.2rem 2.5rem;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    height: 40px;
+    width: 100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+    //   min-width: 200px;
+}
+
+.shine-button::before {
+    content: '';
+    position: absolute;
+    height: 250%;
+    width: 40px;
+    top: 0;
+    left: -60px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: rotate(45deg) translateY(-35%);
+    animation: shine 3s ease infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -80px;
+    }
+
+    40% {
+        left: calc(100% + 20px);
+    }
+
+    100% {
+        left: calc(100% + 20px);
+    }
+}
+
+.button-ocean {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    box-shadow:
+        0 10px 30px rgba(102, 126, 234, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.button-ocean:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 15px 40px rgba(102, 126, 234, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: #000;
+}
+
 .navigation {
     position: sticky;
     top: 0;
-    z-index: 1000;
+    right: 0;
+    z-index: 99999999;
     height: 70px;
     background-color: #49BBBD;
     list-style: none;
@@ -9,11 +88,14 @@
     padding: 0 100px;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
 
     & .logo {
         // align-items: center;
         display: flex;
         padding-top: 10px;
+
         & img {
             width: 150px;
             height: 100px;
@@ -25,32 +107,33 @@
 
     & .logo-text {
         // width: 200px;;
-        padding-left:5px;
+        padding-left: 5px;
         text-decoration: none;
         color: #000;
         padding-right: 5px;
 
         & .logo-text-1 {
-        font-size: 15px;
+            font-size: 15px;
             display: block;
             font-weight: 700;
             color: #9c3759;
 
         }
+
         & .logo-text-2 {
-            padding-left:2px;
+            padding-left: 2px;
             font-size: 15px;
             display: block;
             font-weight: 600;
             color: #fff;
         }
     }
-    
-    & .nav-list{
+
+    & .nav-list {
         display: flex;
         margin-left: 150px;
-        
-        & a{
+
+        & a {
             padding-left: 60px;
         }
     }
@@ -66,14 +149,16 @@
         align-items: center;
         display: flex;
         margin: 1px;
-        
+
 
     }
+
     & a:hover {
-        color : #ccc;
+        color: #ccc;
     }
+
     & .active {
-                color : #ccc;
+        color: #ccc;
 
     }
 
@@ -86,27 +171,33 @@
     & .sign-in-up {
         display: flex;
 
-        & span{
+        & span {
             font-size: 15px;
+
         }
-    & .ant-btn-lg {
-        background-color: #fff;
-        color: #ACACAC;
-        font-weight: 600;
-        margin-right: 10px;
-        width: 100px;
-        height: 40px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+        & .ant-btn-lg {
+            background-color: #fff;
+            color: #6975DD;
+            font-weight: 600;
+            margin-right: 10px;
+            width: 100px;
+            height: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            &:hover{
+                background-color: #000;
+            }
+        }
+
+        & .register-btn {
+            background-color: #7ECCCD;
+            color: #fff;
+            font-weight: 600;
+            width: 100px;
+            height: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
     }
-    & .register-btn {
-        background-color: #7ECCCD;
-        color: #fff;
-        font-weight: 600;
-        width: 100px;
-        height: 40px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
-    
-}
 
 }
