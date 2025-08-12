@@ -126,7 +126,7 @@ function Paragraph() {
                         <h1 className='strong-points-header-2 tab-header-2'>Cloud Software</h1>
                     </div>
                     <div className='strong-points-content tab-sub'>
-                        <p>WWW is one powerful online software suite that combines all the tools needed to run
+                        <p>VVV is one powerful online software suite that combines all the tools needed to run
                             <br />a successful school or office.
                         </p>
 
@@ -161,10 +161,10 @@ function Paragraph() {
                 <div className='define-www tab' data-aos="fade-up" data-aos-delay="100" >
                     <div className='define-www-header tab-header'>
                         <h1 className='define-www-header-1 tab-header-1'>What is </h1>
-                        <h1 className='define-www-header-2 tab-header-2'>WWW?</h1>
+                        <h1 className='define-www-header-2 tab-header-2'>VVV?</h1>
                     </div>
                     <div className='define-www-content tab-sub'>
-                        <p>WWW is a platform that allows educators to create online classes whereby they can
+                        <p>VVV is a platform that allows educators to create online classes whereby they can
                             <br />store the course materials online; manage assignments, quizzes and exams; monitor
                             <br />due dates; grade results and provide students with feedback all in one place.</p>
                     </div>
@@ -217,12 +217,12 @@ function Paragraph() {
                     <div className='www-can-do-content' data-aos="fade-right">
                         <div className='www-can-do-header tab-header'>
                             <h1 className='www-can-do-header-1 tab-header-1'>Everything you can do in a physical
-                                <br /> classroom,<span className='www-can-do-header-2 tab-header-2'> you can do with WWW</span>
+                                <br /> classroom,<span className='www-can-do-header-2 tab-header-2'> you can do with VVV</span>
                             </h1>
                         </div>
                         <div className='www-can-do-sub'>
                             <p>
-                                WWW’s school management software helps traditional
+                                VVV’s school management software helps traditional
                                 <br />and online schools manage scheduling, attendance,
                                 <br />payments and virtual classrooms all in one secure
                                 <br />cloud-based system.
