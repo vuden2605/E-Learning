@@ -25,7 +25,7 @@ public class Course {
 	private Category category;
 	private String thumbnailUrl;
 	private Integer studentCount;
-	private BigDecimal price;
+	private Long price;
 	@Builder.Default
 	private LocalDateTime createdAt = LocalDateTime.now();
 	private LocalDateTime updatedAt;

@@ -17,7 +17,8 @@ public class CourseDetailResponse {
 	private String title;
 	private String description;
 	private String thumbnailUrl;
-	private BigDecimal price;
+	private Long price;
+	private Integer studentCount;
 	private LocalDateTime createdAt;
 	private CategoryResponse category;
 	private InstructorResponse instructor;
