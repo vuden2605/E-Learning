@@ -1,6 +1,8 @@
 package com.example.E_Learning.Controller;
 
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
+import com.example.E_Learning.DTO.Request.CourseFilterRequest;
+import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,15 +55,17 @@ public class CourseController {
 //				.build();
 //	}
 	@GetMapping("/filter")
-	public ApiResponse<PageResponse<CourseResponse>> getCourses (@RequestParam(required = false) Long categoryId,
-	                                                     @RequestParam(required = false) Long minPrice,
-	                                                     @RequestParam(required = false) Long maxPrice,
-	                                                     @RequestParam (defaultValue = "0") int page,
-	                                                     @RequestParam (defaultValue = "2") int pageSize) {
-		Pageable pageable = PageRequest.of(page,pageSize);
+	public ApiResponse<PageResponse<CourseResponse>> getCourses (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
+		Pageable pageable = PageRequest.of(pageRequest.getPage(),
+				                           pageRequest.getPageSize(),
+				                           Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
+		);
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(categoryId,minPrice,maxPrice,pageable))
-				.build();
+						.result(courseService.findCoursesByFilter(courseFilterRequest.getCategoryId(),
+								                                  courseFilterRequest.getMinPrice(),
+								                                  courseFilterRequest.getMaxPrice()
+																  ,pageable))
+						.build();
 	}
 
 }

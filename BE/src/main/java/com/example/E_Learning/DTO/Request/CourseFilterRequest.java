@@ -1,0 +1,17 @@
+package com.example.E_Learning.DTO.Request;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class CourseFilterRequest {
+	private Long categoryId;
+	private Long minPrice;
+	private Long maxPrice;
+
+}
