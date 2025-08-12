@@ -14,7 +14,7 @@
     // background-color: #fff;
     background-color: #f6efef;
     // clip-path: ellipse(100% 50% at 50% 50%);
-    clip-path: ellipse(100% 100% at 50% 100%);
+    clip-path: ellipse(140% 100% at 50% 100%);
 
     margin-top: 30px;
     padding: 20px;
@@ -22,6 +22,7 @@
     .paragraph-content {
         padding: 20px;
         line-height: 1.5;
+        justify-items: center;
 
         .our-success {
             h1 {
@@ -96,24 +97,30 @@
             }
         }
 
-        .strong-points {
-            color: #181818;
+        .tab {
+            background-color: #f0e2e1;
             margin-top: 170px;
+            margin-left: 40px;
+            margin-right: 40px;
+            border-radius: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding-bottom: 60px;
+            width: 90%;
 
-            .strong-points-header {
+            .tab-header {
                 display: flex;
                 justify-content: center;
                 font-size: 1.5rem;
                 font-weight: 700;
 
-                .strong-points-header-1 {
+                .tab-header-1 {
                     color: #2F327D;
                     margin-right: 10px;
                     margin-bottom: 0px;
 
                 }
 
-                .strong-points-header-2 {
+                .tab-header-2 {
                     color: #00CBB8;
                     margin-bottom: 0px;
 
@@ -121,16 +128,17 @@
 
             }
 
-            .strong-points-content {
+            .tab-sub {
                 display: flex;
                 justify-content: center;
                 text-align: center;
                 font-size: 1.2rem;
                 font-weight: 400;
+                color: #696984;
 
             }
 
-            .strong-points-list {
+            .tab-list-cards {
                 display: flex;
                 justify-content: center;
                 flex-wrap: wrap;
@@ -140,7 +148,9 @@
                 transform: scale(0.8);
                 transition: transform 1s ease-out, opacity 0.6s ease-out;
 
-                .strong-points-item {
+                .tab-card {
+                    color: #2F327D;
+
                     position: relative;
                     display: flex;
                     flex-direction: column;
@@ -149,7 +159,7 @@
                     height: 300px;
                     width: 350px;
                     background-color: #fff;
-                    border-radius: 10px;
+                    border-radius: 20px;
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
                     // // animation
                     // opacity: 0;
@@ -170,6 +180,7 @@
                     }
 
                     h2 {
+
                         display: flex;
                         margin-top: 100px;
                         text-align: center;
@@ -180,6 +191,7 @@
 
                     p {
                         text-align: center;
+                        color: #696984;
 
                     }
                 }
@@ -190,6 +202,200 @@
             .strong-points-list.zoom-in {
                 opacity: 1;
                 transform: scale(1);
+            }
+        }
+
+        .define-www {
+            background-color: #f6efef !important;
+            padding-bottom: 20px;
+
+            .define-www-list {
+                opacity: 1 !important;
+                margin-top: 20px;
+                color: #fff;
+                font-size: 20px;
+
+                .define-www-item-1,
+                .define-www-item-2 {
+                    width: 600px;
+                    height: 400px;
+
+                    /* Đường dẫn ảnh */
+                    background-size: cover;
+                    /* Ảnh sẽ phủ hết màn hình */
+                    background-position: center;
+                    /* Căn giữa ảnh */
+                    background-repeat: no-repeat;
+
+                    /* Không lặp lại ảnh */
+                    h2 {
+                        font-weight: 400;
+                        margin-bottom: 40px;
+                        padding-top: 20px;
+                        z-index: 2;
+                        color: #fff;
+                    }
+
+                }
+
+                .define-www-item-1 {
+                    // background-image: url('../../../images/giaovien.png');
+                    position: relative;
+
+                }
+
+                .define-www-item-1::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background: url('../../../images/giaovien.png') center/cover;
+                    transition: filter 0.3s ease;
+                    z-index: 0;
+                }
+
+                .define-www-item-1 .btn-card-1 {
+                    position: relative;
+                    z-index: 1;
+                    /* Nằm trên nền */
+                }
+
+                /* Khi hover vào button → nền mờ */
+                .define-www-item-1:has(.btn-card-1:hover)::before {
+                    filter: brightness(70%);
+                }
+
+
+                .define-www-item-2 {
+                    // background-image: url('../../../images/hocsinh.png');
+                    position: relative;
+
+                }
+
+                .define-www-item-2::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    background: url('../../../images/hocsinh.png') center/cover;
+                    transition: filter 0.3s ease;
+                    z-index: 0;
+                }
+
+                .define-www-item-2 .btn-card-2 {
+                    position: relative;
+                    z-index: 1;
+                    /* Nằm trên nền */
+                }
+
+                /* Khi hover vào button → nền mờ */
+                .define-www-item-2:has(.btn-card-2:hover)::before {
+                    filter: brightness(70%);
+                }
+
+                /* From Uiverse.io by alexmaracinaru */
+                a {
+                    text-decoration: none;
+                }
+
+                .button-card {
+                    cursor: pointer;
+                    width: 250px;
+                    height: 60px;
+                    font-weight: 700;
+                    transition: all 0.2s;
+                    padding: 10px 20px;
+                    border-radius: 100px;
+                    background: transparent;
+                    border: 1px solid #fff;
+                    display: flex;
+                    align-items: center;
+                    font-size: 15px;
+                    // opacity: 0.7;
+                }
+
+                .btn-card-2 {
+                    background-color: #28B1DD;
+                    border: 0px solid #fff;
+
+                }
+
+
+                .button-card>span {
+                    color: #fff;
+                    font-size: 18px;
+                }
+
+                .btn-card-2:hover {
+                    color: #f2eef5;
+                    background: #4fc4cf;
+
+                }
+
+                .btn-card-1:hover {
+                    color: #f2eef5;
+                    background-color: #a99999;
+                }
+
+
+                .button-card>svg {
+                    width: 34px;
+                    margin-left: 10px;
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                .button-card:hover svg {
+                    transform: translateX(6px);
+                }
+
+                .button-card:active {
+                    transform: scale(0.95);
+                }
+
+
+
+
+            }
+        }
+
+        .www-can-do {
+            display: flex;
+            padding-top: 40px;
+            // padding-left: 30px;
+            // padding-right: 30px;
+            // width: 80%;
+
+            .www-can-do-content {
+                flex: 1;
+                text-align: left;
+                color: #696984;
+                font-size: 1.2rem;;
+                margin-left: 40px;
+                .www-can-do-header {
+                    justify-content: left;
+                    font-size: 1.5rem;
+
+                    .www-can-do-header-1 {
+                        font-size: 30px;
+                        margin-top: 0px;
+
+                    }
+
+                    .www-can-do-header-2 {
+                        font-size: 30px;
+                    }
+
+                    .www-can-do-sub {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .www-can-do-video {
+                flex: 1;
+                margin-right: 30px;
+                video{
+                border-radius:20px 20px 10px 10px;
+                }
             }
         }
     }
@@ -209,3 +415,6 @@
         transform: scale(1);
     }
 }
+
+//button
+/* From Uiverse.io by Gaurav-WebDev */
