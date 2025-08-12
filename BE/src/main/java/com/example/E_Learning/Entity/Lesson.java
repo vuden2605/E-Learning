@@ -1,9 +1,7 @@
 package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "lessons")
 public class Lesson {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -25,6 +26,4 @@ public class Lesson {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
-	@OneToMany (mappedBy = "lesson", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Document> documents;
 }
