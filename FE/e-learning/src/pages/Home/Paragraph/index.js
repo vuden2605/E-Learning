@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect,useRef } from 'react';
 import './style.scss';
 import tailieu from '../../../assets/images/icon-tailieu.png';
 import lich from '../../../assets/images/icon-lich.png';
@@ -59,6 +59,32 @@ function Paragraph() {
         });
     }, []);
 
+    // tự chạy video khi chạy tới 
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+            // video.currentTime = 0;
+          }
+        });
+      },
+      { threshold: 0.5 } // 50% video nằm trong màn hình mới chạy
+    );
+
+    if (video) observer.observe(video);
+
+    return () => {
+      if (video) observer.unobserve(video);
+    };
+  }, []);
 
 
     return (
@@ -132,7 +158,7 @@ function Paragraph() {
                         </div>
                     </div>
                 </div>
-                <div className='define-www tab' data-aos="fade-up" data-aos-delay="200" >
+                <div className='define-www tab' data-aos="fade-up" data-aos-delay="100" >
                     <div className='define-www-header tab-header'>
                         <h1 className='define-www-header-1 tab-header-1'>What is </h1>
                         <h1 className='define-www-header-2 tab-header-2'>WWW?</h1>
@@ -196,7 +222,7 @@ function Paragraph() {
                         </div>
                         <div className='www-can-do-sub'>
                             <p>
-                                TOTC’s school management software helps traditional
+                                WWW’s school management software helps traditional
                                 <br />and online schools manage scheduling, attendance,
                                 <br />payments and virtual classrooms all in one secure
                                 <br />cloud-based system.
@@ -208,7 +234,7 @@ function Paragraph() {
                     </div>
 
                     <div className='www-can-do-video' data-aos="fade-left">
-                        <video width="640" height="360" controls>
+                        <video ref={videoRef} width="640" height="360" controls muted >
                             <source src={video} type="video/mp4" />
                         </video>
 

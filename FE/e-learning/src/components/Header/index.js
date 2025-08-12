@@ -3,7 +3,7 @@ import './style.scss';
 import { RiHome9Line } from "react-icons/ri";
 import { TbRoad } from "react-icons/tb";
 import { BsFillPostcardHeartFill } from "react-icons/bs";
-import logo from '../../images/logo.png';
+import logo from '../../assets/images/logo.png';
 // import logo from '../../images/triple_v_logo.jpg';
 import { Button } from 'antd';
 function Navigation() {
