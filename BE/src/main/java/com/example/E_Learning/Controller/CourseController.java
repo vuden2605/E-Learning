@@ -2,17 +2,22 @@ package com.example.E_Learning.Controller;
 
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
+import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
+import com.example.E_Learning.DTO.Response.PageResponse;
+import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,4 +33,34 @@ public class CourseController {
 				.result(courseService.createCourse(courseCreationRequest, instructorId))
 				.build();
 	}
+	@GetMapping("/getAll")
+	public ApiResponse<List<CourseResponse>> getAllCourses() {
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(courseService.getAllCourses())
+				.build();
+	}
+	@GetMapping("/detail/{id}")
+	public ApiResponse<CourseDetailResponse> getCourseDetailById(@PathVariable Long id) {
+		return ApiResponse.<CourseDetailResponse>builder()
+				.result(courseService.getCourseDetailById(id))
+				.build();
+	}
+//	@GetMapping("/category/{categoryId}")
+//	public ApiResponse<List<Course>> getCourseByCategory(@PathVariable Long categoryId) {
+//		return ApiResponse.<List<Course>>builder()
+//				.result(courseService.getCourseByCategory(categoryId))
+//				.build();
+//	}
+	@GetMapping("/filter")
+	public ApiResponse<PageResponse<CourseResponse>> getCourses (@RequestParam(required = false) Long categoryId,
+	                                                     @RequestParam(required = false) Long minPrice,
+	                                                     @RequestParam(required = false) Long maxPrice,
+	                                                     @RequestParam (defaultValue = "0") int page,
+	                                                     @RequestParam (defaultValue = "2") int pageSize) {
+		Pageable pageable = PageRequest.of(page,pageSize);
+		return ApiResponse.<PageResponse<CourseResponse>>builder()
+						.result(courseService.findCoursesByFilter(categoryId,minPrice,maxPrice,pageable))
+				.build();
+	}
+
 }
