@@ -27,7 +27,8 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 	private final CourseService courseService;
-	@PostMapping("/create")
+
+	@PostMapping
 	@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 	public ApiResponse<CourseResponse> createCourse(@RequestBody @Valid CourseCreationRequest courseCreationRequest) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -61,10 +62,7 @@ public class CourseController {
 				                           Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(courseFilterRequest.getCategoryId(),
-								                                  courseFilterRequest.getMinPrice(),
-								                                  courseFilterRequest.getMaxPrice()
-																  ,pageable))
+						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
 						.build();
 	}
 

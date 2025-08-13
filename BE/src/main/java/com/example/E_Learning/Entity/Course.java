@@ -20,7 +20,7 @@ public class Course {
 	private Long id;
 	private String title;
 	private String description;
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	private String thumbnailUrl;
@@ -28,12 +28,13 @@ public class Course {
 	private Long price;
 	@Builder.Default
 	private LocalDateTime createdAt = LocalDateTime.now();
-	private LocalDateTime updatedAt;
+	@Builder.Default
+	private LocalDateTime updatedAt = LocalDateTime.now();
 	@Builder.Default
 	private Boolean isActive = true;
 	@Builder.Default
 	private Boolean isApproved = false;
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor_id")
 	private Instructor instructor;
 }

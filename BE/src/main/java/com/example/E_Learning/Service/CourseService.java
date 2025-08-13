@@ -1,6 +1,7 @@
 package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
+import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.DTO.Response.PageResponse;
@@ -73,8 +74,11 @@ public class CourseService {
 //		return courseRepository.findByCategoryId(categoryId)
 //				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
 //	}
-	public PageResponse<CourseResponse> findCoursesByFilter (Long categoryId, Long minPrice, Long maxPrice, Pageable pageable) {
-		Page<Course> coursePage = courseRepository.findCoursesByFilter(categoryId, minPrice, maxPrice, pageable);
+	public PageResponse<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Pageable pageable) {
+		Page<Course> coursePage = courseRepository.findCoursesByFilter(courseFilterRequest.getCategoryId(),
+				                                               courseFilterRequest.getMinPrice(),
+				                                               courseFilterRequest.getMaxPrice(),
+				                                               pageable);
 		List<CourseResponse> courseResponses = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
 		return PageResponse.<CourseResponse>builder()
 				.content(courseResponses)

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class InstructorController {
 	private final InstructorService instructorService;
-	@PostMapping("/create")
+	@PostMapping
 	public ApiResponse<InstructorResponse> createInstructor(@RequestBody InstructorCreationRequest instructorCreationRequest) {
 		return ApiResponse.<InstructorResponse>builder()
 				.result(instructorService.createInstructor(instructorCreationRequest))

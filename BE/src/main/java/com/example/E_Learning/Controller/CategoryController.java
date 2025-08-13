@@ -17,7 +17,7 @@ import java.util.List;
 public class CategoryController {
 	private final CategoryService categoryService;
 	@PreAuthorize("hasRole('ADMIN')")
-	@PostMapping("/create")
+	@PostMapping
 	public ApiResponse<CategoryResponse> createCategory(@RequestBody @Valid CategoryCreationRequest categoryCreationRequest) {
 		return ApiResponse.<CategoryResponse>builder()
 				.result(categoryService.createCategory(categoryCreationRequest))

@@ -13,7 +13,15 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Long> {
-	Optional<List<Course>> findByCategoryId(Long categoryId);
+	List<Course> findByCategoryId(Long categoryId);
+	@Query(value = """
+			       SELECT c
+			       FROM Course c
+			       LEFT JOIN FETCH c.category
+			       LEFT JOIN FETCH c.instructor i
+			       LEFT JOIN FETCH i.user
+			       WHERE c.id = :id
+			""")
 	Optional<Course> getDetailById(Long id);
 	@Query("""
     SELECT c FROM Course c

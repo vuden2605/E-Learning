@@ -39,9 +39,16 @@ public enum ErrorCode {
 	CATEGORY_ALREADY_EXISTS(3002, "Category already exists", HttpStatus.CONFLICT),
 	// Category Validation
 	REQUIRED_CATEGORY_NAME(3003, "Category name is required", HttpStatus.BAD_REQUEST),
-	REQUIRED_CATEGORY_DESCRIPTION(3004, "Category description is required", HttpStatus.BAD_REQUEST);
+	REQUIRED_CATEGORY_DESCRIPTION(3004, "Category description is required", HttpStatus.BAD_REQUEST),
 	//----------------------------------------------------------------------------------------//
-	//Course
+	//Lesson
+	// Lesson
+	LESSON_NOT_FOUND(4001, "Lesson not found", HttpStatus.NOT_FOUND),
+	LESSON_ALREADY_EXISTS(4002, "Lesson already exists", HttpStatus.CONFLICT),
+	// Lesson Validation
+	REQUIRED_LESSON_TITLE(4003, "Lesson title is required", HttpStatus.BAD_REQUEST),
+	REQUIRED_LESSON_NUMBER(4004, "Lesson number is required", HttpStatus.BAD_REQUEST);
+
 
 	private final int code;
 	private final String message;

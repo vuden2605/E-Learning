@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 	private final UserService userService;
-	@PostMapping("/create")
+	@PostMapping
 	public ApiResponse<UserResponse> createStudent (@RequestBody @Valid UserCreationRequest user) {
 		return ApiResponse.<UserResponse>builder()
 				.result(userService.createUser(user))

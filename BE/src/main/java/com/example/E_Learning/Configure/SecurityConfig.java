@@ -26,12 +26,13 @@ public class SecurityConfig {
 	private final String[] authEndpoints = {
 			"/auth/login",
 			"/auth/refresh-token",
-			"/user/create",
-			"/instructor/create"
+			"/user",
+			"/instructor"
 	};
 	private final String [] publicEndpoints = {
 			"/category/**",
-			"/course/**"
+			"/course/**",
+			"/lesson/**"
 	};
 	private final CustomJwtDecoder customJwtDecoder;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
