@@ -3,12 +3,11 @@ package com.example.E_Learning.Controller;
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
-import com.example.E_Learning.DTO.Response.ApiResponse;
-import com.example.E_Learning.DTO.Response.CourseDetailResponse;
-import com.example.E_Learning.DTO.Response.CourseResponse;
-import com.example.E_Learning.DTO.Response.PageResponse;
+import com.example.E_Learning.DTO.Response.*;
 import com.example.E_Learning.Entity.Course;
+import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Service.CourseService;
+import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,7 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 	private final CourseService courseService;
-
+	private final LessonService lessonService;
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 	public ApiResponse<CourseResponse> createCourse(@RequestBody @Valid CourseCreationRequest courseCreationRequest) {
@@ -64,6 +63,12 @@ public class CourseController {
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
 						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
 						.build();
+	}
+	@GetMapping("{courseId}/lessons")
+	public ApiResponse<List<LessonResponse>> getCourseLessons (@PathVariable Long courseId) {
+		return ApiResponse.<List<LessonResponse>>builder()
+				.result(lessonService.getLessonByCourseId(courseId))
+				.build();
 	}
 
 }
