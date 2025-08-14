@@ -4,31 +4,30 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.sql.results.graph.Fetch;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "lessons")
-public class Lesson {
+@AllArgsConstructor
+@Table (name = "materials")
+public class Material {
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
-	private Integer lessonNumber;
+	private String description;
+	private String type;
+	private String url;
+	private Integer orderIndex;
+	private Integer durationInSeconds;
+	@ManyToOne
+	@JoinColumn(name = "lesson_id", nullable = false)
+	private Lesson lesson;
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-	@Builder.Default
-	private Boolean isActive = false;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "course_id")
-	private Course course;
 }

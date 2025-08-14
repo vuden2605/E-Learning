@@ -1,6 +1,6 @@
 package com.example.E_Learning.Controller;
 
-import com.example.E_Learning.DTO.Request.InstructorCreationRequest;
+
 import com.example.E_Learning.DTO.Request.UserCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.UserResponse;
@@ -20,8 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 	private final UserService userService;
-	@PostMapping("/create")
-	public ApiResponse<UserResponse> createStudent (@RequestBody @Valid UserCreationRequest user) {
+	@PostMapping
+	public ApiResponse<UserResponse> createUser (@RequestBody @Valid UserCreationRequest user) {
 		return ApiResponse.<UserResponse>builder()
 				.result(userService.createUser(user))
 				.build();

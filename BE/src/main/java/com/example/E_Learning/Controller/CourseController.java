@@ -3,12 +3,11 @@ package com.example.E_Learning.Controller;
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
-import com.example.E_Learning.DTO.Response.ApiResponse;
-import com.example.E_Learning.DTO.Response.CourseDetailResponse;
-import com.example.E_Learning.DTO.Response.CourseResponse;
-import com.example.E_Learning.DTO.Response.PageResponse;
+import com.example.E_Learning.DTO.Response.*;
 import com.example.E_Learning.Entity.Course;
+import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Service.CourseService;
+import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +26,7 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 	private final CourseService courseService;
-	@PostMapping("/create")
+	@PostMapping
 	@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 	public ApiResponse<CourseResponse> createCourse(@RequestBody @Valid CourseCreationRequest courseCreationRequest) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,7 +35,7 @@ public class CourseController {
 				.result(courseService.createCourse(courseCreationRequest, instructorId))
 				.build();
 	}
-	@GetMapping("/getAll")
+	@GetMapping
 	public ApiResponse<List<CourseResponse>> getAllCourses() {
 		return ApiResponse.<List<CourseResponse>>builder()
 				.result(courseService.getAllCourses())
@@ -61,11 +60,16 @@ public class CourseController {
 				                           Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(courseFilterRequest.getCategoryId(),
-								                                  courseFilterRequest.getMinPrice(),
-								                                  courseFilterRequest.getMaxPrice()
-																  ,pageable))
+						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
 						.build();
 	}
-
+	@GetMapping("/me")
+	@PreAuthorize("hasRole('INSTRUCTOR')")
+	public ApiResponse<List<CourseResponse>> getMyInstructorCourse () {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long instructorId = Long.parseLong(authentication.getName());
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(courseService.myInstructorCourse(instructorId))
+				.build();
+	}
 }

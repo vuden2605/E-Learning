@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Long> {
-	Optional<List<Course>> findByCategoryId(Long categoryId);
 	Optional<Course> getDetailById(Long id);
 	@Query("""
     SELECT c FROM Course c
@@ -26,5 +25,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 			@Param("maxPrice") Long maxPrice,
 			Pageable pageable
 	);
+	List<Course> findByInstructorId (Long instructorId);
 
 }
