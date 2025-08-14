@@ -2,6 +2,8 @@ package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,10 +28,10 @@ public class Course {
 	private String thumbnailUrl;
 	private Integer studentCount;
 	private Long price;
-	@Builder.Default
-	private LocalDateTime createdAt = LocalDateTime.now();
-	@Builder.Default
-	private LocalDateTime updatedAt = LocalDateTime.now();
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 	@Builder.Default
 	private Boolean isActive = true;
 	@Builder.Default

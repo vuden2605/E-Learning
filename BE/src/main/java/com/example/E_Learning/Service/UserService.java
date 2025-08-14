@@ -1,19 +1,12 @@
 package com.example.E_Learning.Service;
-
-import com.example.E_Learning.DTO.Request.InstructorCreationRequest;
-import com.example.E_Learning.DTO.Request.LoginRequest;
 import com.example.E_Learning.DTO.Request.UserCreationRequest;
-import com.example.E_Learning.DTO.Response.AuthenticationResponse;
 import com.example.E_Learning.DTO.Response.UserResponse;
-import com.example.E_Learning.Entity.Instructor;
 import com.example.E_Learning.Entity.User;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.UserRepository;
-import com.example.E_Learning.mapper.InstructorMapper;
 import com.example.E_Learning.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

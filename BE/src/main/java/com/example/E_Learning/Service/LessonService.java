@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,12 +22,6 @@ public class LessonService {
 		Lesson lesson = lessonMapper.toLesson(lessonCreationRequest);
 		lesson.setCourse (courseRepository.getReferenceById(courseId));
 		return lessonMapper.toLessonResponse(lessonRepository.save(lesson));
-	}
-	public List<LessonResponse> getAllLesson () {
-		List<Lesson> lessons = lessonRepository.findAll();
-		return lessons.stream()
-				.map(lessonMapper::toLessonResponse)
-				.toList();
 	}
 	public List<LessonResponse> getLessonByCourseId (Long courseId) {
 		List<Lesson> lessons = lessonRepository.findByCourseId(courseId);

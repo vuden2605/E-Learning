@@ -1,7 +1,6 @@
 package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.InstructorCreationRequest;
-import com.example.E_Learning.DTO.Request.UserCreationRequest;
 import com.example.E_Learning.DTO.Response.InstructorResponse;
 import com.example.E_Learning.DTO.Response.UserResponse;
 import com.example.E_Learning.Entity.Instructor;
@@ -24,9 +23,6 @@ public class InstructorService {
 	private final InstructorMapper instructorMapper;
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	public void createInstructor(Instructor instructor) {
-		instructorRepository.save(instructor);
-	}
 	public Instructor getInstructorById(Long id) {
 		return instructorRepository.findById(id).orElse(null);
 	}

@@ -5,9 +5,7 @@ import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.DTO.Response.PageResponse;
-import com.example.E_Learning.Entity.Category;
 import com.example.E_Learning.Entity.Course;
-import com.example.E_Learning.Entity.Instructor;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.CategoryRepository;
@@ -19,7 +17,6 @@ import com.example.E_Learning.mapper.InstructorMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -70,10 +67,6 @@ public class CourseService {
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
 				.build();
 	}
-//	public List<Course> getCourseByCategory(Long categoryId) {
-//		return courseRepository.findByCategoryId(categoryId)
-//				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
-//	}
 	public PageResponse<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Pageable pageable) {
 		Page<Course> coursePage = courseRepository.findCoursesByFilter(courseFilterRequest.getCategoryId(),
 				                                               courseFilterRequest.getMinPrice(),
@@ -88,6 +81,12 @@ public class CourseService {
 				.totalPages(coursePage.getTotalPages())
 				.last(coursePage.isLast())
 				.build();
+	}
+	public List<CourseResponse> myInstructorCourse (Long instructorId) {
+		List<Course> courses = courseRepository.findByInstructorId(instructorId);
+		return courses.stream()
+				.map(courseMapper::toCourseResponse)
+				.toList();
 	}
 
 }

@@ -26,7 +26,6 @@ import java.util.List;
 @RequestMapping("/course")
 public class CourseController {
 	private final CourseService courseService;
-	private final LessonService lessonService;
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN') or hasRole('INSTRUCTOR')")
 	public ApiResponse<CourseResponse> createCourse(@RequestBody @Valid CourseCreationRequest courseCreationRequest) {
@@ -36,7 +35,7 @@ public class CourseController {
 				.result(courseService.createCourse(courseCreationRequest, instructorId))
 				.build();
 	}
-	@GetMapping("/getAll")
+	@GetMapping
 	public ApiResponse<List<CourseResponse>> getAllCourses() {
 		return ApiResponse.<List<CourseResponse>>builder()
 				.result(courseService.getAllCourses())
@@ -64,11 +63,13 @@ public class CourseController {
 						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
 						.build();
 	}
-	@GetMapping("{courseId}/lessons")
-	public ApiResponse<List<LessonResponse>> getCourseLessons (@PathVariable Long courseId) {
-		return ApiResponse.<List<LessonResponse>>builder()
-				.result(lessonService.getLessonByCourseId(courseId))
+	@GetMapping("/me")
+	@PreAuthorize("hasRole('INSTRUCTOR')")
+	public ApiResponse<List<CourseResponse>> getMyInstructorCourse () {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long instructorId = Long.parseLong(authentication.getName());
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(courseService.myInstructorCourse(instructorId))
 				.build();
 	}
-
 }

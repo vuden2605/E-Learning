@@ -14,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/lesson")
+@RequestMapping("/course/{courseId}/lesson")
 public class LessonController {
 	private final LessonService lessonService;
-	@PostMapping("/course/{courseId}")
+	@PostMapping
 	@PreAuthorize("hasRole('INSTRUCTOR') or hasRole('ADMIN')")
 	public ApiResponse<LessonResponse> createLesson(@RequestBody @Valid LessonCreationRequest lessonCreationRequest,
 													@PathVariable Long courseId) {
@@ -25,13 +25,7 @@ public class LessonController {
 				.result(lessonService.createLesson(lessonCreationRequest, courseId))
 				.build();
 	}
-	@GetMapping("/all")
-	public ApiResponse<List<LessonResponse>> getAllLessons () {
-		return ApiResponse.<List<LessonResponse>>builder()
-				.result(lessonService.getAllLesson())
-				.build();
-	}
-	@GetMapping("/course/{courseId}")
+	@GetMapping
 	public ApiResponse<List<LessonResponse>> getLessonsByCourseId (@PathVariable Long courseId) {
 		return ApiResponse.<List<LessonResponse>>builder()
 				.result(lessonService.getLessonByCourseId(courseId))

@@ -2,6 +2,8 @@ package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.sql.results.graph.Fetch;
 
 import java.time.LocalDateTime;
@@ -20,10 +22,10 @@ public class Lesson {
 	private Long id;
 	private String title;
 	private Integer lessonNumber;
-	@Builder.Default
-	private LocalDateTime createdAt = LocalDateTime.now();
-	@Builder.Default
-	private LocalDateTime updatedAt =  LocalDateTime.now();
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 	@Builder.Default
 	private Boolean isActive = false;
 	@ManyToOne(fetch = FetchType.LAZY)

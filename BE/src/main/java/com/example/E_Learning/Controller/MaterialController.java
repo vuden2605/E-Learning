@@ -9,22 +9,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/material")
+@RequestMapping("/lesson/{lessonId}/material")
 public class MaterialController {
 	private final MaterialService materialService;
-	@PostMapping("/lesson/{lessonId}")
-	@PreAuthorize("hasRole('INSTRUCTOR")
-	public ApiResponse<MaterialResponse> createMaterial (MaterialCreationRequest materialCreationRequest, Long lessonId) {
+	@PostMapping
+	@PreAuthorize("hasRole('INSTRUCTOR')")
+	public ApiResponse<MaterialResponse> createMaterial (@RequestBody MaterialCreationRequest materialCreationRequest, @PathVariable Long lessonId) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Long instructorId = Long.parseLong(authentication.getName());
 		return ApiResponse.<MaterialResponse>builder()
 				.result(materialService.createMaterial(materialCreationRequest, lessonId, instructorId))
+				.build();
+	}
+	@GetMapping
+	public ApiResponse<List<MaterialResponse>> getMaterialByLessonId (@PathVariable Long lessonId) {
+		return ApiResponse.<List<MaterialResponse>>builder()
+				.result(materialService.getMaterialByLessonId(lessonId))
 				.build();
 	}
 }

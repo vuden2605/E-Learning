@@ -2,6 +2,7 @@ package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,6 @@ public class User {
 	private String role = "USER";
 	@Builder.Default
 	private Boolean active = true;
-	@Builder.Default
-	private LocalDateTime createdAt = LocalDateTime.now();
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 }

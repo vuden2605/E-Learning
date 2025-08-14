@@ -7,28 +7,27 @@ import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Entity.Material;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
-import com.example.E_Learning.Repository.CourseRepository;
 import com.example.E_Learning.Repository.LessonRepository;
 import com.example.E_Learning.Repository.MaterialRepository;
 import com.example.E_Learning.mapper.MaterialMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MaterialService {
 	private final MaterialRepository materialRepository;
 	private final MaterialMapper materialMapper;
 	private final LessonRepository lessonRepository;
-	private final CourseRepository courseRepository;
 	public MaterialResponse createMaterial (MaterialCreationRequest materialCreationRequest, Long lessonId, Long instructorId) {
 		Material material = materialMapper.toMaterial(materialCreationRequest);
 		Lesson lesson = lessonRepository.findById(lessonId)
 				.orElseThrow(() -> new AppException(ErrorCode.LESSON_NOT_FOUND));
 		Course course = lesson.getCourse();
+		log.info("course :{}",course);
 		if (!course.getInstructor().getId().equals(instructorId)) {
 			throw new AppException(ErrorCode.ACCESS_DENIED);
 		}
