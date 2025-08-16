@@ -30,7 +30,7 @@ public class S3Controller {
 			}
 			String folder = file.getContentType() == null ? "others"
 							: file.getContentType().startsWith("image/") ? "images"
-							: file.getContentType().startsWith("/video") ? "videos"
+							: file.getContentType().startsWith("video/") ? "videos"
 							: "others";
 			String fileUrl = s3Service.uploadFile(file, folder);
 			return ApiResponse.<String>builder()
