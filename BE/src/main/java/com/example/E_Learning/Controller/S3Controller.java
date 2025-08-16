@@ -22,39 +22,20 @@ public class S3Controller {
 	private final S3Service s3Service;
 	@PostMapping("/upload")
 	public ApiResponse<String> uploadFile(@RequestParam("file") MultipartFile file) {
-		try {
-			if (file.isEmpty()) {
-				return ApiResponse.<String>builder()
-						.message("File must required")
-						.build();
-			}
-			String folder = file.getContentType() == null ? "others"
-							: file.getContentType().startsWith("image/") ? "images"
-							: file.getContentType().startsWith("video/") ? "videos"
-							: "others";
-			String fileUrl = s3Service.uploadFile(file, folder);
+		if (file.isEmpty()) {
 			return ApiResponse.<String>builder()
-					.message("Upload success")
-					.result(fileUrl)
-					.build();
-
-		} catch (software.amazon.awssdk.services.s3.model.S3Exception e) {
-			return ApiResponse.<String>builder()
-					.message("S3 fail: " + e.awsErrorDetails().errorMessage())
-					.build();
-
-		} catch (IOException e) {
-
-			return ApiResponse.<String>builder()
-					.message("Read file fail: " + e.getMessage())
-					.build();
-
-		} catch (Exception e) {
-
-			return ApiResponse.<String>builder()
-					.message("Upload fail: " + e.getMessage())
+					.message("File must required")
 					.build();
 		}
+		String folder = file.getContentType() == null ? "others"
+						: file.getContentType().startsWith("image/") ? "images"
+						: file.getContentType().startsWith("video/") ? "videos"
+						: "others";
+		String fileUrl = s3Service.uploadFile(file, folder);
+		return ApiResponse.<String>builder()
+				.message("Upload success")
+				.result(fileUrl)
+				.build();
 	}
 	@GetMapping("/download")
 	public ResponseEntity<InputStreamResource> download(@RequestParam String key) {

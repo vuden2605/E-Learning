@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequ
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.time.Duration;
 import java.util.UUID;
 
@@ -45,6 +46,9 @@ public class S3Service {
 			return key;
 		} catch (S3Exception e) {
 			throw new RuntimeException("S3 upload failed: " + e.awsErrorDetails().errorMessage());
+		}
+		catch (IOException e) {
+			throw new RuntimeException("IOExeption:"+e.getMessage());
 		}
 	}
 	public ResponseInputStream<GetObjectResponse> downloadFile(String key) {
