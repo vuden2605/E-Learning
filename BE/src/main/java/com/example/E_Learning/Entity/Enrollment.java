@@ -2,6 +2,7 @@ package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -16,10 +17,11 @@ public class Enrollment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@CreationTimestamp
 	private LocalDateTime enrolledAt;
 	@ManyToOne
-	@JoinColumn(name = "student_id")
-	private User student;
+	@JoinColumn(name = "user_id")
+	private User user;
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;

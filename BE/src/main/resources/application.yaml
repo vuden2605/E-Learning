@@ -13,7 +13,21 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.SQLServerDialect
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+
 jwt:
   secret-key: your-super-secret-key-12345678901234567890123456789012
   access-time: 300000
   refresh-time: 604800000
+aws:
+  accessKey: AKIAQH3T6CWXGPQPYXPN
+  secretKey: rgXaUnOZTweKuoU7tkdD3aE0UvL2O5fzauyg4rDF
+  region: ap-southeast-2
+  s3:
+    bucketName: vvv-elearning
+logging:
+  level:
+    com.example.E_Learning: INFO
