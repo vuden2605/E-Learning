@@ -31,10 +31,10 @@ public class S3Controller {
 						: file.getContentType().startsWith("image/") ? "images"
 						: file.getContentType().startsWith("video/") ? "videos"
 						: "others";
-		String fileUrl = s3Service.uploadFile(file, folder);
+		String key = s3Service.uploadFile(file, folder);
 		return ApiResponse.<String>builder()
 				.message("Upload success")
-				.result(fileUrl)
+				.result(key)
 				.build();
 	}
 	@GetMapping("/download")

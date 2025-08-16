@@ -33,7 +33,7 @@ public class S3Service {
 	@Value("${aws.s3.bucketName}")
 	private String bucketName;
 
-	public String uploadFile(MultipartFile file, String folder) throws IOException {
+	public String uploadFile(MultipartFile file, String folder) {
 		try {
 			String key = folder + "/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
 			String contentType = file.getContentType() != null ? file.getContentType() : "application/octet-stream";
