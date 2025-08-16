@@ -32,7 +32,8 @@ public class SecurityConfig {
 	private final String [] publicEndpoints = {
 			"/category/**",
 			"/course/**",
-			"/lesson/**"
+			"/lesson/**",
+			"/s3/download"
 	};
 	private final CustomJwtDecoder customJwtDecoder;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

@@ -1,6 +1,7 @@
 package com.example.E_Learning.Exception;
 
 import com.example.E_Learning.DTO.Response.ApiResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
