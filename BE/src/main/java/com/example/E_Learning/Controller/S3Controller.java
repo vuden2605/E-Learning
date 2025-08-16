@@ -28,18 +28,10 @@ public class S3Controller {
 						.message("File must required")
 						.build();
 			}
-			String folder = "";
-			if (file.getContentType() != null ) {
-				if (file.getContentType().startsWith("image/")) {
-					folder = "images";
-				}
-				else if (file.getContentType().startsWith("video")) {
-					folder = "videos";
-				}
-				else {
-					folder = "Others";
-				}
-			}
+			String folder = file.getContentType() == null ? "others"
+							: file.getContentType().startsWith("image/") ? "images"
+							: file.getContentType().startsWith("/video") ? "videos"
+							: "others";
 			String fileUrl = s3Service.uploadFile(file, folder);
 			return ApiResponse.<String>builder()
 					.message("Upload success")
