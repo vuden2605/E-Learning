@@ -47,8 +47,10 @@ public enum ErrorCode {
 	LESSON_ALREADY_EXISTS(4002, "Lesson already exists", HttpStatus.CONFLICT),
 	// Lesson Validation
 	REQUIRED_LESSON_TITLE(4003, "Lesson title is required", HttpStatus.BAD_REQUEST),
-	REQUIRED_LESSON_NUMBER(4004, "Lesson number is required", HttpStatus.BAD_REQUEST);
-
+	REQUIRED_LESSON_NUMBER(4004, "Lesson number is required", HttpStatus.BAD_REQUEST),
+	//S3
+	FILE_REQUIRED(5001,"File must required", HttpStatus.BAD_REQUEST),
+	GENERATE_URL_FAIL(5002,"Generate url fail",HttpStatus.BAD_REQUEST);
 
 	private final int code;
 	private final String message;

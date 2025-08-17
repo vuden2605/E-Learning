@@ -13,6 +13,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
@@ -37,30 +39,53 @@ public class S3Service {
 		try {
 			String key = folder + "/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
 			String contentType = file.getContentType() != null ? file.getContentType() : "application/octet-stream";
-				PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-						.bucket(bucketName)
-						.key(key)
-						.contentType(contentType)
-						.build();
-			s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
-			return key;
-		} catch (S3Exception e) {
-			throw new RuntimeException("S3 upload failed: " + e.awsErrorDetails().errorMessage());
-		}
-		catch (IOException e) {
-			throw new RuntimeException("IOExeption:"+e.getMessage());
-		}
-	}
-	public ResponseInputStream<GetObjectResponse> downloadFile(String key) {
-		try {
-			GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+			PutObjectRequest.Builder builder = PutObjectRequest.builder()
 					.bucket(bucketName)
 					.key(key)
-					.build();
-			return s3Client.getObject(getObjectRequest);
+					.contentType(contentType);
 
+			if ("images".equals(folder)) {
+				builder.acl(ObjectCannedACL.PUBLIC_READ);
+			}
+			PutObjectRequest putObjectRequest = builder.build();
+			s3Client.putObject(putObjectRequest,
+					RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+			if ("images".equals(folder)) {
+				return "https://" + bucketName + ".s3." + region + ".amazonaws.com/" + key;
+			} else {
+				return key;
+			}
 		} catch (S3Exception e) {
-			throw new RuntimeException("S3 download failed: " + e.awsErrorDetails().errorMessage());
+			throw new RuntimeException("S3 upload failed: " + e.awsErrorDetails().errorMessage(), e);
+		} catch (IOException e) {
+			throw new RuntimeException("IOException: " + e.getMessage(), e);
 		}
+	}
+
+//	public ResponseInputStream<GetObjectResponse> downloadFile(String key) {
+//		try {
+//			GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+//					.bucket(bucketName)
+//					.key(key)
+//					.build();
+//			return s3Client.getObject(getObjectRequest);
+//
+//		} catch (S3Exception e) {
+//			throw new RuntimeException("S3 download failed: " + e.awsErrorDetails().errorMessage());
+//		}
+//	}
+	public String generatePresignedUrl(String key) {
+		GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+				.bucket(bucketName)
+				.key(key)
+				.build();
+
+		GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+				.signatureDuration(Duration.ofHours(2))
+				.getObjectRequest(getObjectRequest)
+				.build();
+		PresignedGetObjectRequest presignedRequest = s3Presigner.presignGetObject(presignRequest);
+
+		return presignedRequest.url().toString();
 	}
 }

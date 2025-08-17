@@ -3,6 +3,7 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.Entity.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -56,6 +57,5 @@ public class JwtService {
 		catch (JwtException e) {
 			throw new JwtException("Invalid JWT token", e);
 		}
-
 	}
 }
