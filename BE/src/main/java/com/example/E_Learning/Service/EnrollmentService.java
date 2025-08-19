@@ -9,5 +9,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EnrollmentService {
 	private final EnrollmentRepository enrollmentRepository;
+	public Enrollment createEnrollment (Enrollment enrollment) {
+		return enrollmentRepository.save(enrollment);
+	}
 
 }
