@@ -1,0 +1,73 @@
+.course {
+  width: 100%;
+  background-color: #f5f5f5;
+
+  // height: 100vh;
+  overflow: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .tab {
+    position: relative;
+    border-radius: 10px;
+    background-color: #ffff;
+    margin-top: 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding-bottom: 60px;
+    width: 1280px;
+    .square-outlined {
+      color: #000;
+      position: absolute;
+      bottom: 10px;
+      right: 60px;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+    }
+  }
+  .course-search {
+    padding-top: 40px;
+    position: relative;
+    .btnSearch {
+      width: 600px;
+      position: absolute;
+      top: 120px;
+      right: 300px;
+    }
+  }
+  .list-course {
+    width: 1150px;
+    margin-top: 40px;
+    display: flex;
+    gap: 57px;
+    .filter {
+      width: 270px;
+      background-color: #ffff;
+      color: #000;
+    }
+    .courses {
+      width: 880px;
+      background-color: #f5f5f5;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding-bottom: 10px;
+    }
+    .pagination {
+      padding-top: 10px;
+      background-color: #f5f5f5;
+    }
+  }
+  .top-course {
+    width: 100%;
+    background-color: #edf5fe;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
