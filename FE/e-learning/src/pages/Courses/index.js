@@ -78,7 +78,22 @@ function Courses() {
         />
       </div>
       <div className="list-course">
-        <div className="filter">FILTER</div>
+        <div className="filter">
+          <div
+            style={{
+              padding: "10px",
+              paddingLeft: "80px",
+              borderBottom: "2px solid #fff",
+              background: "linear-gradient(45deg, #1772B5, #f06595)",
+              color: "#fff",
+              borderTopLeftRadius: "20px",
+              borderTopRightRadius: "20px",
+              fontWeight:"600"
+            }}
+          >
+            LỌC KHÓA HỌC
+          </div>
+        </div>
         <div
           style={{
             width: "800px",
