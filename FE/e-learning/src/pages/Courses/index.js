@@ -2,8 +2,12 @@ import Mycourse from "../../components/MyCourseCard";
 import CourseCard from "../../components/CourseCard";
 import "./style.scss";
 import searchimg from "../../assets/images/search.png";
-import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
-import { Input, Button } from "antd";
+import {
+  LeftSquareOutlined,
+  RightSquareOutlined,
+  FunnelPlotOutlined,
+} from "@ant-design/icons";
+import { Input, Button, Space, Radio, Slider } from "antd";
 import { Pagination } from "antd";
 
 function Courses() {
@@ -82,16 +86,99 @@ function Courses() {
           <div
             style={{
               padding: "10px",
-              paddingLeft: "80px",
+              paddingLeft: "20px",
               borderBottom: "2px solid #fff",
               background: "linear-gradient(45deg, #1772B5, #f06595)",
               color: "#fff",
               borderTopLeftRadius: "20px",
               borderTopRightRadius: "20px",
-              fontWeight:"600"
+              fontWeight: "600",
+              display: "flex",
+              gap: "10px",
             }}
           >
-            LỌC KHÓA HỌC
+            <FunnelPlotOutlined />
+            <span style={{ marginTop: "5px" }}>LỌC KHÓA HỌC</span>
+            <Button className="btn-reset">
+              <span
+                style={{
+                  background: "linear-gradient(45deg, #1772B5, #f06595)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  fontWeight: "bold",
+                }}
+              >
+                RESET
+              </span>
+            </Button>
+          </div>
+          <div className="category child-filter">
+            <span className="filter-name">Kỹ năng</span>
+            {/* render */}
+            <li>Phát triển/Lập trình</li>
+            <li>Thiết kế</li>
+            <li>Kinh doanh</li>
+          </div>
+          <div className="discount child-filter">
+            <span className="filter-name">Mức giảm giá</span>
+            <Radio.Group
+              // value={filters.discount}
+              // onChange={(e) => handleFilterChange("discount", e.target.value)}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+                marginLeft: "10px",
+                color: "#e4dfdf",
+              }}
+            >
+              <Radio value={5}>Từ 5% trở lên</Radio>
+              <Radio value={10}>Từ 10% trở lên</Radio>
+              <Radio value={15}>Từ 15% trở lên</Radio>
+            </Radio.Group>
+          </div>
+          <div className="price child-filter">
+            <span className="filter-name">Khoảng giá</span>
+            <Slider
+              min={0}
+              max={1000000}
+              step={50000}
+              defaultValue={1000000}
+              style={{ width: "225px" }}
+            />
+            <div
+              style={{
+                display: "flex",
+                gap: "100px",
+                marginLeft: "4px",
+                fontWeight: "500",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#EDEDED",
+                  color:"#373737ff",
+                  width: "30px",
+                  height: "25px",
+                  display: "flex",
+                  borderRadius:"5px",
+                  justifyContent: "center", // căn giữa ngang
+                  alignItems: "center", // căn giữa dọc
+                }}
+              >
+                0đ
+              </div>
+              <div style={{
+                  backgroundColor: "#EDEDED",
+                  color:"#373737ff",
+                  width: "100px",
+                  height: "25px",
+                  display: "flex",
+                  borderRadius:"5px",
+                  justifyContent: "center", // căn giữa ngang
+                  alignItems: "center", // căn giữa dọc
+                }}>1 000 000đ</div>
+            </div>
           </div>
         </div>
         <div
