@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center; /* căn giữa ngang */
   align-items: center; /* căn giữa dọc */
+  color: #000;
   .img-course {
     position: relative;
     margin: 0 auto; /* tự đẩy ra giữa ngang */
@@ -39,6 +40,12 @@
       //   background-color: #e691de;
       display: flex;
       flex-direction: column;
+      .name-course {
+        color: #000;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
 
       .price {
         display: flex;
@@ -108,10 +115,93 @@
       }
     }
   }
-  .raiting {
-    background-color: #e5effd;
+  .rating {
+    // background-color: #e5effd;
     margin-top: 40px;
     width: 1150px;
-    height: 100px;
+    height: 500px;
+    .rating-summary {
+      margin-top: 20px;
+
+      display: flex;
+      gap: 30px;
+      .rating-score {
+        font-size: 70px;
+        font-weight: 600;
+      }
+      .rating-stars {
+      }
+      .rating-count {
+        color: #606367;
+        margin-top: 7px;
+
+        font-size: 15px;
+      }
+      .rating-distribute {
+        margin-top: 15px;
+        color: #606367;
+        font-size: 15px;
+        li {
+          width: 500px;
+          display: flex;
+        }
+        .rating_bar {
+          margin-top: 5px;
+          margin-left: 10px;
+          width: 100%;
+          height: 11px;
+          background: #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+
+          .rating_bar_child {
+            height: 100%;
+            width: 30%; // giá trị % tiến trình
+            background: #3b8562;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    .review-card {
+      color: #363636;
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #a2aab3;
+      .review-header {
+        display: flex;
+        gap: 15px;
+
+        img {
+          width: 40px;
+          height: 40px;
+
+          border-radius: 20px;
+          object-fit: cover;
+        }
+        .name {
+          margin-top: 10px;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+      .review-rating {
+        display: flex;
+        margin-top: 15px;
+        .custom-rate .ant-rate-star {
+          margin-right: 2px;
+        }
+        .date {
+          margin-top: 3px;
+          margin-left: 5px;
+          font-size: 13px;
+        }
+      }
+      .review-content {
+        color: #606367;
+      }
+    }
   }
 }

@@ -1,5 +1,6 @@
 import "./style.scss";
 import imgcourse from "../../assets/images/imcourse2.png";
+import cmtavt from "../../assets/images/cmt_avt.jpg";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -7,9 +8,8 @@ import {
   ShoppingCartOutlined,
   TwitterOutlined,
   YoutubeOutlined,
-  
 } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Rate } from "antd";
 
 function CourseDetail() {
   return (
@@ -68,6 +68,7 @@ function CourseDetail() {
           </div>
         </div>
         <div className="detail-price">
+          <div className="name-course">Lập Trình JavaScript Cơ Bản</div>
           <div className="price">
             <div className="new-price">$80</div>
 
@@ -119,7 +120,85 @@ function CourseDetail() {
           </div>
         </div>
       </div>
-      <div className="raiting"></div>
+      <div className="rating">
+        <span
+          style={{
+            fontWeight: "600",
+            fontSize: "30px",
+            color: "#000",
+          }}
+        >
+          Xếp hạng và đánh giá
+        </span>
+        <div className="rating-summary">
+          <div>
+            <div className="rating-score">4.6</div>
+            <div className="rating-stars">
+              <Rate
+                disabled
+                defaultValue={4.6}
+                style={{ fontSize: "14px", color: "#3B8562" }}
+              />
+            </div>
+            <div className="rating-count">138 N bài đánh giá</div>
+          </div>
+          <div className="rating-distribute">
+            <li>
+              {/* render truyền tỉ lệ vô style */}
+              <span>5</span>
+              <div className="rating_bar">
+                <div className="rating_bar_child"></div>
+              </div>
+            </li>
+            <li>
+              <span>4</span>
+              <div className="rating_bar">
+                <div className="rating_bar_child"></div>
+              </div>
+            </li>
+            <li>
+              <span>3</span>
+              <div className="rating_bar">
+                <div className="rating_bar_child"></div>
+              </div>
+            </li>
+            <li>
+              <span>2</span>
+              <div className="rating_bar">
+                <div className="rating_bar_child"></div>
+              </div>
+            </li>
+            <li>
+              <span>1</span>
+              <div className="rating_bar">
+                <div className="rating_bar_child"></div>
+              </div>
+            </li>
+          </div>
+        </div>
+        <div className="review-card">
+          <div className="review-header">
+            <img src={cmtavt}></img>
+            <span className="name">J97</span>
+          </div>
+          <div className="review-rating">
+            <div className="rate-start">
+              <Rate
+                disabled
+                defaultValue={4.6}
+                className="custom-rate"
+                style={{ fontSize: "9px", color: "#3B8562" }}
+              />
+            </div>
+            <div className="date">13 tháng 8, 2025</div>
+          </div>
+          <div className="review-content">
+            Nhồng nhần nhên nhôi nhánh nhay nhọa nhời nhem nhong nhút nhây nhừ
+            nhày nhơ nhấy nhòn nhủ nhơ nhến nhi nhem nhờ nhơ nhòng nhười nhanh
+            nhâu nhó nhay nhột nhày nhi nhỗ nhánh nhay
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
