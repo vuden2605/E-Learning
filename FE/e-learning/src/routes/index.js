@@ -6,6 +6,7 @@ import Courses from '../pages/Courses';
 import Careers from '../pages/Careers';
 import Login from '../pages/Login';
 import Register from '../pages/Register'
+import CourseDetail from '../pages/CourseDetail'
 export const routes =[
     {
         path: '/',
@@ -30,6 +31,10 @@ export const routes =[
             {
                 path: '/about',
                 element: <About />
+            },
+            {
+                path: '/coursedetail',
+                element: <CourseDetail />
             }
         ]
     },

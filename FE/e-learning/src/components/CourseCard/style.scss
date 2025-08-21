@@ -1,0 +1,58 @@
+.coursecard {
+  width: 260px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .img-course {
+    width: 240px;
+    img {
+      width: 240px;
+      margin: 10px;
+    }
+  }
+  .title {
+    margin: 10px;
+    margin-top: 0px;
+  }
+  .description {
+    margin: 10px;
+    margin-top: 0px;
+    font-weight: 400;
+    color: #000;
+  }
+  .price-tag {
+    display: flex;
+    gap: 30px;
+    margin: 10px;
+    margin-bottom: 20px;
+    .btn-addcart {
+      background-color: #fff;
+      border: 1px solid #68B5B8;
+      color: #68B5B8;
+      &:hover{
+        color:#fff;
+        background-color: #68B5B8;
+      }
+
+    }
+    .old-price {
+      margin-top: 5px;
+      color: #000;
+      font-weight: 200;
+    }
+    .new-price {
+      margin-top: 5px;
+      color: #68B5B8;
+      font-weight: 700;
+    }
+  }
+}

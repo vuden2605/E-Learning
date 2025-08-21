@@ -1,0 +1,207 @@
+.course-detail {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* căn giữa ngang */
+  align-items: center; /* căn giữa dọc */
+  color: #000;
+  .img-course {
+    position: relative;
+    margin: 0 auto; /* tự đẩy ra giữa ngang */
+    text-align: center;
+    .img-cover {
+      width: 1150px;
+    }
+    .img-main {
+      position: absolute;
+      height: 200px;
+      width: 300px;
+      object-fit: cover;
+      bottom: 0px;
+      right: 100px;
+      border: 10px solid #fff;
+    }
+  }
+  .detail {
+    // background-color: #d65555;
+    width: 1150px;
+    display: flex;
+    gap: 10px;
+    .detail-content {
+      width: 730px;
+      height: 500px;
+      //   background-color: #73b271;
+      .content {
+        color: #000;
+      }
+    }
+    .detail-price {
+      width: 300px;
+      //   background-color: #e691de;
+      display: flex;
+      flex-direction: column;
+      .name-course {
+        color: #000;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+
+      .price {
+        display: flex;
+        justify-content: space-between;
+        .new-price {
+          color: #000;
+          font-size: 30px;
+          font-weight: 700;
+        }
+        .old-price {
+          margin-top: 8px;
+          color: #808080;
+          font-weight: 500;
+          font-size: 20px;
+        }
+        .discount {
+          margin-top: 8px;
+          color: #808080;
+          font-weight: 500;
+          font-size: 20px;
+        }
+      }
+      .btn {
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+
+        padding-top: 10px;
+        .btn-addcart {
+          background-color: #fff;
+          border: 1px solid #68b5b8;
+          color: #68b5b8;
+          font-size: 20px;
+          height: 40px;
+          font-weight: 500;
+
+          &:hover {
+            color: #fff;
+            background-color: #68b5b8;
+          }
+        }
+        .btn-buy {
+          font-size: 20px;
+          height: 40px;
+          color: #fff;
+          background-color: #68b5b8;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+
+          /* hiệu ứng mượt */
+          transition: all 0.2s ease-in-out;
+        }
+
+        /* khi hover */
+        .btn-buy:hover {
+          background-color: #5aa0a3; /* tối hơn một chút */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          transform: translateY(-2px); /* nổi lên */
+        }
+
+        /* khi click */
+        .btn-buy:active {
+          transform: translateY(0); /* ấn xuống */
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      }
+    }
+  }
+  .rating {
+    // background-color: #e5effd;
+    margin-top: 40px;
+    width: 1150px;
+    height: 500px;
+    .rating-summary {
+      margin-top: 20px;
+
+      display: flex;
+      gap: 30px;
+      .rating-score {
+        font-size: 70px;
+        font-weight: 600;
+      }
+      .rating-stars {
+      }
+      .rating-count {
+        color: #606367;
+        margin-top: 7px;
+
+        font-size: 15px;
+      }
+      .rating-distribute {
+        margin-top: 15px;
+        color: #606367;
+        font-size: 15px;
+        li {
+          width: 500px;
+          display: flex;
+        }
+        .rating_bar {
+          margin-top: 5px;
+          margin-left: 10px;
+          width: 100%;
+          height: 11px;
+          background: #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+
+          .rating_bar_child {
+            height: 100%;
+            width: 30%; // giá trị % tiến trình
+            background: #3b8562;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+    .review-card {
+      color: #363636;
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #a2aab3;
+      .review-header {
+        display: flex;
+        gap: 15px;
+
+        img {
+          width: 40px;
+          height: 40px;
+
+          border-radius: 20px;
+          object-fit: cover;
+        }
+        .name {
+          margin-top: 10px;
+          font-size: 13px;
+          font-weight: 500;
+        }
+      }
+      .review-rating {
+        display: flex;
+        margin-top: 15px;
+        .custom-rate .ant-rate-star {
+          margin-right: 2px;
+        }
+        .date {
+          margin-top: 3px;
+          margin-left: 5px;
+          font-size: 13px;
+        }
+      }
+      .review-content {
+        color: #606367;
+      }
+    }
+  }
+}

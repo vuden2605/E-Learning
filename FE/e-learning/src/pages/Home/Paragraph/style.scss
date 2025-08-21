@@ -362,6 +362,8 @@
             // padding-left: 30px;
             // padding-right: 30px;
             // width: 80%;
+                position: relative;
+
 
             .www-can-do-content {
                 flex: 1;
@@ -369,6 +371,7 @@
                 color: #696984;
                 font-size: 1.2rem;;
                 margin-left: 40px;
+                z-index: 1;
                 .www-can-do-header {
                     justify-content: left;
                     font-size: 1.5rem;
@@ -388,13 +391,121 @@
                         justify-content: center;
                     }
                 }
+                
             }
-
+            .decoration-1{
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                background-color: #33EFA0;
+                border-radius: 50%;
+                top: 35px;
+                left: 20px;
+            }
+            .decoration-2{
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                background-color: #33EFA0;
+                border-radius: 50%;
+                bottom: 55%;
+                left: 33%;
+            }
+            .decoration-3{
+                width: 80px;
+                height: 80px;
+                position: absolute;
+                background-color: #21B0DD;
+                border-radius: 15px;
+                top: 38px;
+                right: 602px;
+            }
+            .decoration-4{
+                width: 150px;
+                height: 150px;
+                position: absolute;
+                background-color: #33EFA0;
+                border-radius: 15px;
+                bottom: 55px;
+                right: 15px;
+            }
             .www-can-do-video {
                 flex: 1;
                 margin-right: 30px;
                 video{
                 border-radius:20px 20px 10px 10px;
+                }
+            }
+        }
+        .features-www{
+            background-color: #fff !important;
+            // background-color: #f6efef !important;
+            .features-www-content{
+                margin-bottom: 80px;
+            }
+            .features-list{
+                .feature-item{
+                display: flex;
+
+                    .feature-item-content{
+                        flex: 2;
+                        color:#696984;
+                        margin-top: 60px;
+                        .feature-item-content-header{
+                            font-size: 14px;
+                            justify-content: left;
+                            margin-bottom: 40px;
+                        }
+                        .feature-item-content-sub-list{
+                            .feature-item-content-sub-item{
+                                padding-bottom: 40px;
+                                display: flex;
+                                line-height: 30px;
+                                .feature-icon{
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    height: 50px;
+                                    width: 50px;
+                                    margin-top:10px;
+                                    margin-right: 10px;
+                                    border-radius: 100%;
+                                    background-color: #fff;
+                                    box-shadow:0 4px 8px rgba(0, 0, 0, 0.2); 
+                                }
+
+                            }
+                        }
+
+                    }
+                    .feature-item-img{
+                        flex: 3;
+                        color: #fff;
+                        position: relative;
+                        .layer1{
+                            .decoration-1{
+                            position: absolute;
+                            width: 100px;
+                            height: 100px;
+                            border-radius: 100%;
+                            top: 0;
+                            left: 90px;
+                            background-color: #33EFA0;
+                        }
+                            z-index: 1;
+
+                        }
+                        .layer2{
+                            z-index: 2 !important;
+                            position: relative;
+
+                            img{
+                        }
+                        }
+                        
+                        
+
+                    }
                 }
             }
         }

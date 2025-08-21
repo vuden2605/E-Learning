@@ -1,9 +1,14 @@
-import { useEffect,useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './style.scss';
 import tailieu from '../../../assets/images/icon-tailieu.png';
 import lich from '../../../assets/images/icon-lich.png';
 import nhom from '../../../assets/images/icon-nhom.png';
-import video from '../../../assets/videos/video.mp4'
+import video from '../../../assets/videos/video.mp4';
+import featureicon1 from '../../../assets/images/icon-feature1.png';
+import featureicon2 from '../../../assets/images/icon-feature2.png';
+import featureicon3 from '../../../assets/images/icon-feature3.png';
+import table from '../../../assets/images/table.png';
+
 import { Link } from 'react-router-dom';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -60,31 +65,31 @@ function Paragraph() {
     }, []);
 
     // tự chạy video khi chạy tới 
-  const videoRef = useRef(null);
+    const videoRef = useRef(null);
 
-  useEffect(() => {
-    const video = videoRef.current;
+    useEffect(() => {
+        const video = videoRef.current;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play();
-          } else {
-            video.pause();
-            // video.currentTime = 0;
-          }
-        });
-      },
-      { threshold: 0.5 } // 50% video nằm trong màn hình mới chạy
-    );
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        video.play();
+                    } else {
+                        video.pause();
+                        // video.currentTime = 0;
+                    }
+                });
+            },
+            { threshold: 0.5 } // 50% video nằm trong màn hình mới chạy
+        );
 
-    if (video) observer.observe(video);
+        if (video) observer.observe(video);
 
-    return () => {
-      if (video) observer.unobserve(video);
-    };
-  }, []);
+        return () => {
+            if (video) observer.unobserve(video);
+        };
+    }, []);
 
 
     return (
@@ -232,6 +237,10 @@ function Paragraph() {
                             <Link to='/about'>Learn more</Link>
                         </div>
                     </div>
+                    <div className='decoration-1'></div>
+                    <div className='decoration-2'></div>
+                    <div className='decoration-3'></div>
+                    <div className='decoration-4'></div>
 
                     <div className='www-can-do-video' data-aos="fade-left">
                         <video ref={videoRef} width="640" height="360" controls muted >
@@ -240,6 +249,76 @@ function Paragraph() {
 
 
 
+                    </div>
+                </div>
+                <div className='features-www tab'>
+                    <div className='features-www-header tab-header'>
+                        <h1 className='features-www-header-1 tab-header-1'>Our </h1>
+                        <h1 className='features-www-header-2 tab-header-2'>Features</h1>
+                    </div>
+                    <div className='features-www-content tab-sub'>
+                        <p>This very extraordinary feature, can make learning activities more efficient</p>
+                    </div>
+                    <div className='features-list'>
+                        <div className='feature-item'>
+                            <div className='feature-item-img'>
+                                <div className='layer1'>
+                                    <div className='decoration-1'></div>
+                                    <div className='decoration-2'></div>
+                                    <div className='decoration-3'></div>
+                                    <div className='decoration-4'></div>
+                                </div>
+                                <div className='layer2'>
+                                <img src={table} alt='table' style={{ marginTop: "50px",marginLeft: "40px", width: "80%", height: "80%" }} />
+                                </div>
+
+                            </div>
+                            <div className='feature-item-content'>
+                                <div className='feature-item-content-header tab-header'>
+                                    <h1 className='feature-item-content-header-1 tab-header-1'>A
+                                        <span className='feature-item-content-2 tab-header-2'> user interface </span>
+                                        designed
+                                        <br />for the classroom
+                                    </h1>
+                                </div>
+                                <div className='feature-item-content-sub-list'>
+                                    <div className='feature-item-content-sub-item'>
+                                        <div className='feature-icon'>
+                                            <img src={featureicon1} alt='feature-icon1' />
+                                        </div>
+                                        <span className='feature-item-content-sub-item-content'>
+                                            Teachers don’t get lost in the grid view
+                                            <br />and have a dedicated Podium space.
+
+                                        </span>
+                                    </div>
+                                    <div className='feature-item-content-sub-item'>
+                                        <div className='feature-icon'>
+                                            <img src={featureicon2} alt='feature-icon1' />
+                                        </div>
+                                        <span className='feature-item-content-sub-item-content'>
+                                            Teachers don’t get lost in the grid view
+                                            <br />and have a dedicated Podium space.
+
+                                        </span>
+                                    </div>
+                                    <div className='feature-item-content-sub-item'>
+                                        <div className='feature-icon'>
+                                            <img src={featureicon3} alt='feature-icon1' />
+                                        </div>
+                                        <span className='feature-item-content-sub-item-content'>
+                                            Teachers don’t get lost in the grid view
+                                            <br />and have a dedicated Podium space.
+
+                                        </span>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
