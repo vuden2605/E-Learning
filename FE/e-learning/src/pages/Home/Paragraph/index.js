@@ -8,6 +8,15 @@ import featureicon1 from '../../../assets/images/icon-feature1.png';
 import featureicon2 from '../../../assets/images/icon-feature2.png';
 import featureicon3 from '../../../assets/images/icon-feature3.png';
 import table from '../../../assets/images/table.png';
+import faceid from '../../../assets/images/faceid.png';
+import faceid1 from '../../../assets/images/faceid1.png';
+import faceid2 from '../../../assets/images/faceid2.png';
+import faceid3 from '../../../assets/images/faceid3.png';
+import faceid4 from '../../../assets/images/faceid4.png';
+import btnPresent from '../../../assets/images/btn-present.png';
+import btnCall from '../../../assets/images/btn-call.png';
+
+
 
 import { Link } from 'react-router-dom';
 import AOS from "aos";
@@ -269,9 +278,36 @@ function Paragraph() {
                                     <div className='decoration-4'></div>
                                 </div>
                                 <div className='layer2'>
-                                <img src={table} alt='table' style={{ marginTop: "50px",marginLeft: "40px", width: "80%", height: "80%" }} />
+                                    <img src={table} alt='table' style={{ marginTop: "50px", marginLeft: "40px", width: "80%", height: "80%" }} />
                                 </div>
-
+                                <div className='layer3'>
+                                    <div className='item-1'>
+                                        <img src={faceid} alt='faceid' className='faceid' />
+                                        <div className='btn'>
+                                            <img src={btnPresent} alt='btnPresent' className='btnPresent' />
+                                        <img src={btnCall} alt='btnCall' className='btnCall' />
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <div className='circle-1'>
+                                        
+                                    </div>
+                                    <div className='circle-2'>
+                                            
+                                        </div>
+                                    <div className='item-2'>
+                                        <img src={faceid1} alt='faceid1' className='faceid1' />
+                                        <img src={faceid2} alt='faceid1' className='faceid2' />
+                                        
+                                        
+                                    </div>
+                                    <div className='item-3'>
+                                        <img src={faceid3} alt='faceid3' className='faceid3' />
+                                        <img src={faceid4} alt='faceid4' className='faceid4' />
+                                        
+                                    </div>
+                                </div>
                             </div>
                             <div className='feature-item-content'>
                                 <div className='feature-item-content-header tab-header'>
