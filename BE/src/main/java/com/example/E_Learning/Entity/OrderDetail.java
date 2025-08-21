@@ -2,8 +2,6 @@ package com.example.E_Learning.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "order_details")
 @Data

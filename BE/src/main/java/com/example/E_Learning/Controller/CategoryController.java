@@ -23,7 +23,7 @@ public class CategoryController {
 				.result(categoryService.createCategory(categoryCreationRequest))
 				.build();
 	}
-	@GetMapping("/getAll")
+	@GetMapping
 	public ApiResponse<List<CategoryResponse>> getAllCategories() {
 		return ApiResponse.<List<CategoryResponse>>builder()
 				.result(categoryService.getAllCategories())
