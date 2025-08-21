@@ -5,6 +5,7 @@ import About from '../pages/About';
 import Courses from '../pages/Courses';
 import Careers from '../pages/Careers';
 import Login from '../pages/Login';
+import Register from '../pages/Register'
 export const routes =[
     {
         path: '/',
@@ -35,5 +36,9 @@ export const routes =[
     {
         path: '/login',
         element: <Login/>
+    },
+    {
+        path: '/register',
+        element:<Register/>
     }
 ]
