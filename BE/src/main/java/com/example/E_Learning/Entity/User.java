@@ -3,6 +3,7 @@ package com.example.E_Learning.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.type.descriptor.jdbc.NVarcharJdbcType;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +18,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Column (columnDefinition = "NVARCHAR(100)")
+    private String fullName;
 	private String email;
 	private String password;
 	@Builder.Default

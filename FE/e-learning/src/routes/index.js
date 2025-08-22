@@ -46,9 +46,5 @@ export const routes =[
     {
         path: '/register',
         element:<Register/>
-    },
-    {
-        path: '/testapi',
-        element: <TestApi />
     }
 ]
