@@ -20,8 +20,7 @@ public enum ErrorCode {
 	MISSING_REQUIRED_FIELD(1201, "Missing required field", HttpStatus.BAD_REQUEST),
 	INVALID_EMAIL(1202, "Invalid email format", HttpStatus.BAD_REQUEST),
 	INVALID_PASSWORD(1203, "Invalid password format", HttpStatus.BAD_REQUEST),
-	REQUIRED_FIRST_NAME(1204, "First name is required", HttpStatus.BAD_REQUEST),
-	REQUIRED_LAST_NAME(1205, "Last name is required", HttpStatus.BAD_REQUEST),
+	REQUIRED_FULL_NAME(1204, "Full name is required", HttpStatus.BAD_REQUEST),
 	//----------------------------------------------------------------------------------------//
 	// Course
 	COURSE_NOT_FOUND(2001, "Course not found", HttpStatus.NOT_FOUND),
@@ -50,8 +49,10 @@ public enum ErrorCode {
 	REQUIRED_LESSON_NUMBER(4004, "Lesson number is required", HttpStatus.BAD_REQUEST),
 	//S3
 	FILE_REQUIRED(5001,"File must required", HttpStatus.BAD_REQUEST),
-	GENERATE_URL_FAIL(5002,"Generate url fail",HttpStatus.BAD_REQUEST);
-
+	GENERATE_URL_FAIL(5002,"Generate url fail",HttpStatus.BAD_REQUEST),
+	// Google Login
+	INVALID_GOOGLE_TOKEN(6001, "Invalid Google token", HttpStatus.UNAUTHORIZED),
+	GOOGLE_LOGIN_FAILED(6002, "Google login failed", HttpStatus.INTERNAL_SERVER_ERROR);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

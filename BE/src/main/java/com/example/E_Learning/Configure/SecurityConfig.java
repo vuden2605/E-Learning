@@ -30,7 +30,8 @@ public class SecurityConfig {
 			"/auth/login",
 			"/auth/refresh-token",
 			"/user",
-			"/instructor"
+			"/instructor",
+			"/auth/google"
 	};
 	private final String [] publicEndpoints = {
 			"/category/**",
@@ -49,6 +50,7 @@ public class SecurityConfig {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 		httpSecurity.authorizeHttpRequests(request -> request
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
 				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
 				.anyRequest().authenticated()

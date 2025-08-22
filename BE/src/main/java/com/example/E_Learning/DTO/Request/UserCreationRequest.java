@@ -14,10 +14,8 @@ import lombok.Builder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCreationRequest {
-	@NotBlank(message = "REQUIRED_FIRST_NAME")
-	private String firstName;
-	@NotBlank(message = "REQUIRED_LAST_NAME")
-	private String lastName;
+	@NotBlank(message = "REQUIRED_FULL_NAME")
+	private String fullName;
 	@Email (message = "INVALID_EMAIL")
 	private String email;
 	@Size (min = 6, message = "INVALID_PASSWORD")

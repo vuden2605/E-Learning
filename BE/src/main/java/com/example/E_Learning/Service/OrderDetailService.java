@@ -3,7 +3,9 @@ package com.example.E_Learning.Service;
 import com.example.E_Learning.Entity.OrderDetail;
 import com.example.E_Learning.Repository.OrderDetailRepository;
 import com.example.E_Learning.Repository.OrderRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

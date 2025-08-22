@@ -33,3 +33,4 @@ logging:
     com.example.E_Learning: INFO
 google:
   clientId: 830106511321-8kbg5cjn0ahglb7m9sh9i1av02v8jj56.apps.googleusercontent.com
+  clientSecret: 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
