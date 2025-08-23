@@ -34,7 +34,7 @@ public class UserController {
 				.build();
 	}
 	@PreAuthorize("hasRole('ADMIN')")
-	@GetMapping("/getAll")
+	@GetMapping
 	public ApiResponse<List<UserResponse>> getAllUsers() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		log.info("Principal: {}", authentication.getDetails());

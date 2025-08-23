@@ -52,7 +52,9 @@ public enum ErrorCode {
 	GENERATE_URL_FAIL(5002,"Generate url fail",HttpStatus.BAD_REQUEST),
 	// Google Login
 	INVALID_GOOGLE_TOKEN(6001, "Invalid Google token", HttpStatus.UNAUTHORIZED),
-	GOOGLE_LOGIN_FAILED(6002, "Google login failed", HttpStatus.INTERNAL_SERVER_ERROR);
+	GOOGLE_LOGIN_FAILED(6002, "Google login failed", HttpStatus.INTERNAL_SERVER_ERROR),
+	// JWT
+	MISSING_REFRESH_TOKEN(7001, "Missing refresh token", HttpStatus.BAD_REQUEST);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;
