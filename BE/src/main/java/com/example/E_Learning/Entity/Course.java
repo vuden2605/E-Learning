@@ -28,6 +28,7 @@ public class Course {
 	private String thumbnailUrl;
 	private Integer studentCount;
 	private Long price;
+	private Integer rating;
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
