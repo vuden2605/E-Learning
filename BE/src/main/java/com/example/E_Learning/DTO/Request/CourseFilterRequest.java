@@ -13,5 +13,4 @@ public class CourseFilterRequest {
 	private Long categoryId;
 	private Long minPrice;
 	private Long maxPrice;
-
 }

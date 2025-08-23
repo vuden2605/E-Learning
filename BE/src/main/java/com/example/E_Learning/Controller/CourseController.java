@@ -63,7 +63,7 @@ public class CourseController {
 						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
 						.build();
 	}
-	@GetMapping("/me")
+	@GetMapping("/instructor/me")
 	@PreAuthorize("hasRole('INSTRUCTOR')")
 	public ApiResponse<List<CourseResponse>> getMyInstructorCourse () {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
