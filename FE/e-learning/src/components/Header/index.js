@@ -40,23 +40,27 @@ function Navigation() {
             </div>
 
             <div className='sign-in-up'>
-                <Link to="/login">
+                {/* <Link to="/login">
                     <Button type="primary" shape="round" size='large'>
                         Đăng nhập
                     </Button>
-                </Link>
+                </Link> */}
                 {/* <Link to="/register">
                     <Button type='text' shape="round" size='large' className='register-btn'>
                         Đăng ký
                     </Button>
                 </Link> */}
                 <Link to="/register">
-                <div class="button-wrapper">
-                    {/* <span class="button-label">Ocean Waves</span> */}
-                    <button class="shine-button button-ocean">Đăng ký</button>
-                </div>
+                    <div class="button-wrapper">
+                        {/* <span class="button-label">Ocean Waves</span> */}
+                        <button class="shine-button button-ocean" style={{
+                            width: "fit-content",
+                            padding: "10px 15px",
+                            marginLeft:"-20px"
+                        }}>Bắt đầu ngay!</button>
+                    </div>
                 </Link>
-                
+
             </div>
 
         </ul>
