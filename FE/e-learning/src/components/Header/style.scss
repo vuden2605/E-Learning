@@ -190,12 +190,15 @@
         }
 
         & .register-btn {
+            
             background-color: #7ECCCD;
             color: #fff;
             font-weight: 600;
             width: 100px;
             height: 40px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                width: fit-content;
+    padding: 10px 20px;
         }
 
     }
