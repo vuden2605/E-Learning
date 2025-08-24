@@ -1,9 +1,107 @@
-function Blog() {
+import { Row, Col, Typography, Button } from "antd";
+import BlogCard from "../../components/BlogCard";
+import "./style.scss"; // import SCSS
+import ReadingBlogList from "../../components/BlogCategory"; 
+const { Title, Text, Link } = Typography;
+
+export default function BlogPage() {
+  const readingCategories = ["UX/UI", "React", "PHP", "JavaScript"];
+  const relatedBlogs = [
+    {
+      id: 1,
+      title:
+        "Class adds $30 million to its balance sheet for a Zoom-friendly edtech solution",
+      description:
+        "Class, launched less than a year ago by Blackboard co-founder Michael Chasen...",
+      author: "Lina",
+      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      views: "251,232",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+      readMoreLink: "/blog/1",
+    },
+    {
+      id: 2,
+      title:
+        "Another blog title example for responsive layout and testing",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+      author: "Lina",
+      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      views: "123,456",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+      readMoreLink: "/blog/2",
+    },
+    {
+      id: 3,
+      title:
+        "Another blog title example for responsive layout and testing",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+      author: "Lina",
+      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      views: "123,456",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+      readMoreLink: "/blog/2",
+    },
+    {
+      id: 4,
+      title:
+        "Another blog title example for responsive layout and testing",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+      author: "Lina",
+      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
+      views: "123,456",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+      readMoreLink: "/blog/2",
+    }
+  ];
+
   return (
-    <div>
-      <h1>Blog</h1>
-      {/* Nội dung của trang Bài viết */}
+    <div className="blog-page">
+      {/* Featured Blog */}
+      <Row gutter={40} align="middle" className="featured-blog">
+        <Col xs={24} md={12}>
+          <Text>
+            By <b>Themadrains</b> in <Text type="success">Inspiration</Text>
+          </Text>
+          <Title level={2}>Why Swift UI Should Be on the Radar of Every Mobile Developer</Title>
+          <Text type="secondary">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+            Lorem ipsum dolor sitamet, consectetur adipiscing elit, sed do eiusmod tempor
+          </Text>
+          <div className="btn-wrapper">
+            <Button type="primary" shape="round" size="large">
+              Start learning now
+            </Button>
+          </div>
+        </Col>
+        <Col xs={24} md={12}>
+          <img
+            src="https://images.unsplash.com/photo-1607746882042-944635dfe10e"
+            alt="Featured blog"
+            className="featured-image"
+          />
+        </Col>
+      </Row>
+
+      <ReadingBlogList categories={readingCategories} />
+
+      {/* Related Blog */}
+      <div className="related-blog">
+        <Row justify="space-between" align="middle" className="related-header">
+          <Title level={4}>Related Blog</Title>
+          <Link href="#">See all</Link>
+        </Row>
+
+        <Row gutter={[24, 24]}>
+          {relatedBlogs.map((blog) => (
+            <Col xs={24} sm={12} md={8} key={blog.id}>
+              <BlogCard {...blog} />
+            </Col>
+          ))}
+        </Row>
+      </div>
     </div>
   );
 }
-export default Blog;

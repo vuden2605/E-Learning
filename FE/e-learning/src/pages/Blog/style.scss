@@ -1,0 +1,47 @@
+.blog-page {
+    padding: 40px;
+  
+    .featured-blog {
+      margin-bottom: 60px;
+  
+      .btn-wrapper {
+        margin-top: 24px;
+      }
+  
+      .featured-image {
+        width: 100%;
+        border-radius: 12px;
+        object-fit: cover;
+      }
+    }
+  
+    .related-blog {
+      background: #f0f7ff;
+      padding: 40px;
+      border-radius: 12px;
+  
+      .related-header {
+        margin-bottom: 24px;
+      }
+    }
+  }
+  
+  /* Optional: responsive tweaks */
+  @media (max-width: 768px) {
+    .blog-page {
+      padding: 20px;
+  
+      .featured-blog {
+        margin-bottom: 40px;
+      }
+  
+      .reading-list {
+        margin-bottom: 40px;
+      }
+  
+      .related-blog {
+        padding: 20px;
+      }
+    }
+  }
+  
