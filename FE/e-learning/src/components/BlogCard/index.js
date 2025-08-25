@@ -14,35 +14,39 @@ export default function BlogCard({
   readMoreLink,
 }) {
   return (
-    <Card
-      hoverable
-      className="blog-card"
-      cover={
-        <img alt={title} src={image} className="cover" />
-      }
-    >
-      <Title level={5} className="title">
-        {title}
-      </Title>
+    <Link href={`/blog/detail`} style={{ textDecoration: "none" }}>
+      <Card
+        hoverable
+        className="blog-card"
+        cover={
+          <img alt={title} src={image} className="cover" />
+        }
+      >
+        <Title level={5} className="title">
+          {title}
+        </Title>
 
-      {author && (
-        <Space align="center" className="author">
-          <Avatar src={authorAvatar} />
-          <Text strong>{author}</Text>
-        </Space>
-      )}
-
-      {description && <Text type="secondary">{description}</Text>}
-
-      <div className="footer-blog-card">
-        {readMoreLink && <Link href={readMoreLink}>Read more</Link>}
-        {views && (
-          <Space>
-            <EyeOutlined />
-            <Text type="secondary">{views}</Text>
+        {author && (
+          <Space align="center" className="author">
+            <Avatar src={authorAvatar} />
+            <Text strong>{author}</Text>
           </Space>
         )}
-      </div>
-    </Card>
+
+        {description && <Text type="secondary">{description}</Text>}
+
+        <div className="footer-blog-card">
+        <span style={{ color: "lightblue", fontWeight: "bold" }}>
+          Xem thêm...
+        </span>
+          {views && (
+            <Space>
+              <EyeOutlined />
+              <Text type="secondary">{views}</Text>
+            </Space>
+          )}
+        </div>
+      </Card>
+    </Link>
   );
 }
