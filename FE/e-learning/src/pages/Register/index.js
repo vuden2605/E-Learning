@@ -7,6 +7,7 @@ const Register = () => {
     const handleGoogleLoginSuccess = async (credentialResponse) => {
         try {
           const token = credentialResponse.credential;
+          console.log("Google token:", token);
           const res = await fetch("http://localhost:8080/elearning/api/auth/google", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -14,9 +15,8 @@ const Register = () => {
           });
     
           const data = await res.json();
-          console.log("JWT từ backend:", data);
-          // window.location.href = "/"; 
-    
+          console.log("JWT từ backend:", data.result);
+          //window.location.href = "/"; 
         } catch (error) {
           console.error("Google login failed:", error);
         }
