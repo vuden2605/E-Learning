@@ -34,7 +34,7 @@ export default function BlogCard({
 
       {description && <Text type="secondary">{description}</Text>}
 
-      <div className="footer">
+      <div className="footer-blog-card">
         {readMoreLink && <Link href={readMoreLink}>Read more</Link>}
         {views && (
           <Space>
