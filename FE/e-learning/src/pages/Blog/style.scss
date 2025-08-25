@@ -1,6 +1,14 @@
 .blog-page {
     padding: 40px;
-  
+    .square-outlined {
+      color: #000;
+      position: absolute;
+      bottom: -270px;
+      right: 60px;
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+    }
     .featured-blog {
       margin-bottom: 60px;
   

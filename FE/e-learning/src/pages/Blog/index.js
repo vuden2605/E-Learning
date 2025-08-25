@@ -3,6 +3,7 @@ import BlogCard from "../../components/BlogCard";
 import "./style.scss"; // import SCSS
 import ReadingBlogList from "../../components/BlogCategory"; 
 import { useRef } from "react";
+import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
 const { Title, Text, Link } = Typography;
 
 export default function BlogPage() {
@@ -87,7 +88,24 @@ export default function BlogPage() {
       </Row>
 
       <ReadingBlogList categories={readingCategories} onCategoryClick={handleCategoryClick} />
-
+      <div className="square-outlined">
+          <LeftSquareOutlined
+            style={{
+              fontSize: "30px",
+              color: "#fff",
+              backgroundColor: "#6AB9BC",
+              borderRadius: "5px",
+            }}
+          />
+          <RightSquareOutlined
+            style={{
+              fontSize: "30px",
+              color: "#fff",
+              backgroundColor: "#6AB9BC",
+              borderRadius: "5px",
+            }}
+          />
+        </div>
       {/* Related Blog */}
       <div className="related-blog " ref={relatedRef}>
         <Row justify="space-between" align="middle" className="related-header">
