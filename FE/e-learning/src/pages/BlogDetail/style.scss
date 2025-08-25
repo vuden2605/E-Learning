@@ -1,0 +1,140 @@
+.blog-detail {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 16px;
+  }
+  
+  /* Card chi tiết blog */
+  .blog-detail-card {
+    border-radius: 16px;
+    margin-bottom: 40px;
+  
+    .ant-card-body {
+      padding: 32px;
+    }
+  }
+  
+  .blog-cover {
+    border-radius: 16px 16px 0 0;
+    object-fit: cover;
+  }
+  
+  .blog-title {
+    margin-bottom: 24px;
+  }
+  
+  .blog-content {
+    margin-bottom: 24px;
+  
+    p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #444;
+    }
+  }
+  
+  .tags {
+    margin-bottom: 24px;
+  
+    .ant-tag {
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+  }
+  
+  /* Author */
+  .author-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+  
+      span {
+        font-size: 14px;
+      }
+    }
+  
+    .ant-btn {
+      border-radius: 6px;
+      padding: 0 20px;
+    }
+  }
+  
+  /* Related Blog */
+  .related-blog {
+    background: #f0f7ff;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: -10px;
+  
+    .related-header {
+      margin-bottom: 24px;
+  
+      h4 {
+        margin: 0;
+      }
+  
+      a {
+        font-size: 14px;
+        color: #1890ff;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;   
+    padding: 20px 0;           
+    background: transparent;   
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .blog-detail {
+      padding: 24px 12px;
+    }
+  
+    .blog-detail-card {
+      .ant-card-body {
+        padding: 20px;
+      }
+    }
+  
+    .related-blog {
+      padding: 24px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .blog-detail {
+      padding: 16px 10px;
+    }
+  
+    .blog-title {
+      font-size: 20px;
+    }
+  
+    .blog-content p {
+      font-size: 14px;
+    }
+  
+    .author-box {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  
+    .related-blog {
+      padding: 16px;
+    }
+  }
+  
