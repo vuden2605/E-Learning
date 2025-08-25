@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 import Navigation from "../components/Header";
 import './style.scss';
+import Footer from "../components/Footer";
 function LayoutDefault() {
   return (
     <>
@@ -11,7 +12,7 @@ function LayoutDefault() {
           <Outlet />
         </div>
       </div>
-
+      <Footer/>
     </>
   );
 }

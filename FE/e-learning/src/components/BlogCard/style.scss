@@ -1,33 +1,38 @@
 .blog-card {
-    width: 400px; 
-    border-radius: 16px;
-    &:hover {
-        transform: translateY(-7px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        cursor: pointer;
-    }
-    
-    .ant-card-body {
-      padding: 16px;
-    }
-    
-    .cover {
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-    }
-  
-    .title {
-      min-height: 56px;
-    }
-  
-    .author {
-      margin-bottom: 8px;
-    }
-  
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 12px;
-    }
+
+  width: 400px;
+  height: 510px;
+  border-radius: 16px;
+
+  &:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+
+  .ant-card-body {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .cover {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  .title {
+    min-height: 56px;
+  }
+
+  .author {
+    margin-bottom: 8px;
+  }
+
+  .footer-blog-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
 }

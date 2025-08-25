@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './style.scss';
+import { FaArrowRightLong } from "react-icons/fa6";
 import tailieu from '../../../assets/images/icon-tailieu.png';
 import lich from '../../../assets/images/icon-lich.png';
 import nhom from '../../../assets/images/icon-nhom.png';
@@ -8,6 +9,26 @@ import featureicon1 from '../../../assets/images/icon-feature1.png';
 import featureicon2 from '../../../assets/images/icon-feature2.png';
 import featureicon3 from '../../../assets/images/icon-feature3.png';
 import table from '../../../assets/images/table.png';
+import faceid from '../../../assets/images/faceid.png';
+import faceid1 from '../../../assets/images/faceid1.png';
+import faceid2 from '../../../assets/images/faceid2.png';
+import faceid3 from '../../../assets/images/faceid3.png';
+import faceid4 from '../../../assets/images/faceid4.png';
+import btnPresent from '../../../assets/images/btn-present.png';
+import btnCall from '../../../assets/images/btn-call.png';
+import home1 from '../../../assets/images/home1.png';
+import home2 from '../../../assets/images/home2.png';
+import home3 from '../../../assets/images/home3.png';
+import home4 from '../../../assets/images/home4.png';
+import sv from '../../../assets/images/sv.png';
+import rate from '../../../assets/images/rate.png';
+import blog from '../../../assets/images/blog.png';
+import blog1 from '../../../assets/images/blog1.png';
+import blog2 from '../../../assets/images/blog2.png';
+import blog3 from '../../../assets/images/blog3.png';
+
+import CourseCard from '../../../components/CourseCard';
+
 
 import { Link } from 'react-router-dom';
 import AOS from "aos";
@@ -252,15 +273,15 @@ function Paragraph() {
                     </div>
                 </div>
                 <div className='features-www tab'>
-                    <div className='features-www-header tab-header'>
+                    <div className='features-www-header tab-header' data-aos="fade-up">
                         <h1 className='features-www-header-1 tab-header-1'>Our </h1>
                         <h1 className='features-www-header-2 tab-header-2'>Features</h1>
                     </div>
-                    <div className='features-www-content tab-sub'>
+                    <div className='features-www-content tab-sub' data-aos="fade-right">
                         <p>This very extraordinary feature, can make learning activities more efficient</p>
                     </div>
                     <div className='features-list'>
-                        <div className='feature-item'>
+                        <div className='feature-item' data-aos="zoom-in">
                             <div className='feature-item-img'>
                                 <div className='layer1'>
                                     <div className='decoration-1'></div>
@@ -269,9 +290,36 @@ function Paragraph() {
                                     <div className='decoration-4'></div>
                                 </div>
                                 <div className='layer2'>
-                                <img src={table} alt='table' style={{ marginTop: "50px",marginLeft: "40px", width: "80%", height: "80%" }} />
+                                    <img src={table} alt='table' style={{ marginTop: "50px", marginLeft: "40px", width: "80%", height: "80%" }} />
                                 </div>
+                                <div className='layer3'>
+                                    <div className='item-1'>
+                                        <img src={faceid} alt='faceid' className='faceid' />
+                                        <div className='btn'>
+                                            <img src={btnPresent} alt='btnPresent' className='btnPresent' />
+                                            <img src={btnCall} alt='btnCall' className='btnCall' />
+                                        </div>
 
+
+                                    </div>
+                                    <div className='circle-1'>
+
+                                    </div>
+                                    <div className='circle-2'>
+
+                                    </div>
+                                    <div className='item-2'>
+                                        <img src={faceid1} alt='faceid1' className='faceid1' />
+                                        <img src={faceid2} alt='faceid1' className='faceid2' />
+
+
+                                    </div>
+                                    <div className='item-3'>
+                                        <img src={faceid3} alt='faceid3' className='faceid3' />
+                                        <img src={faceid4} alt='faceid4' className='faceid4' />
+
+                                    </div>
+                                </div>
                             </div>
                             <div className='feature-item-content'>
                                 <div className='feature-item-content-header tab-header'>
@@ -318,6 +366,262 @@ function Paragraph() {
 
                             </div>
 
+                        </div>
+                        <div className='feature-item' data-aos="fade-left">
+
+                            <div className='feature-item-content'>
+                                <div className='feature-item-content-header tab-header margin-bottom-20px'>
+                                    <h1 className='feature-item-content-header-1 tab-header-1'>
+                                        <span className='feature-item-content-2 tab-header-2'> Tools </span>
+                                        For Teachers
+                                        <br />And Learners
+                                    </h1>
+                                </div>
+                                <div className='feature-item-content-sub-list'>
+                                    <div className='feature-item-content-sub-item'>
+                                        Class has a dynamic set of teaching tools built to
+                                        <br />be deployed and used during class.Teachers can
+                                        <br />handout assignments in real-time for students to
+                                        <br />complete and submit.
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            <div className='feature-item-img'>
+                                <img src={home1} alt='home1' style={{ width: '500px' }} />
+                            </div>
+                        </div>
+                        <div className='feature-item' data-aos="fade-right">
+                            <div className='feature-item-img'>
+                                <img src={home2} alt='home2' style={{ width: '550px', marginLeft: '100px' }} />
+                            </div>
+                            <div className='feature-item-content'>
+                                <div className='feature-item-content-header tab-header margin-bottom-20px'>
+                                    <h1 className='feature-item-content-header-1 tab-header-1'>
+                                        Assessments,
+                                        <br /><span className='feature-item-content-2 tab-header-2'> Quizzes </span>
+                                        , Tests
+                                    </h1>
+                                </div>
+                                <div className='feature-item-content-sub-list'>
+                                    <div className='feature-item-content-sub-item'>
+                                        Easily launch live assignments, quizzes, and
+                                        <br />tests. Student results are automatically entered in
+                                        <br />the online gradebook.
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className='feature-item' data-aos="fade-up">
+
+                            <div className='feature-item-content'>
+                                <div className='feature-item-content-header tab-header margin-bottom-20px'>
+                                    <h1 className='feature-item-content-header-1 tab-header-1'>
+                                        <span className='feature-item-content-2 tab-header-2'> Class Management </span>
+                                        <br />Tools for Educators
+                                    </h1>
+                                </div>
+                                <div className='feature-item-content-sub-list'>
+                                    <div className='feature-item-content-sub-item'>
+                                        Class provides tools to help run and manage the class
+                                        <br />such as Class Roster, Attendance, and more. With the
+                                        <br />Gradebook, teachers can review and grade tests and
+                                        <br />quizzes in real-time.
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div className='feature-item-img'>
+                                <img src={home3} alt='home3' style={{ width: '700px' }} />
+                            </div>
+                        </div>
+                        <div className='feature-item' data-aos="fade-down">
+                            <div className='feature-item-img'>
+                                <img src={home4} alt='home4' style={{ width: '550px', marginLeft: '100px' }} />
+                            </div>
+                            <div className='feature-item-content'>
+                                <div className='feature-item-content-header tab-header margin-bottom-20px'>
+                                    <h1 className='feature-item-content-header-1 tab-header-1'>
+                                        One-on-One
+                                        <br /><span className='feature-item-content-2 tab-header-2'> Discussions </span>
+                                    </h1>
+                                </div>
+                                <div className='feature-item-content-sub-list'>
+                                    <div className='feature-item-content-sub-item'>
+                                        Teachers and teacher assistants can talk with
+                                        <br />students privately without leaving the Zoom
+                                        <br />environment.
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <Link to='/about' data-aos="fade-up">
+                            <button id="bottone1"><strong className='content'>See more features</strong><span className='icon'> <FaArrowRightLong /></span></button>
+                        </Link>
+                    </div>
+                </div>
+                <div className='www-top-course tab' data-aos="fade-up">
+                    <div className="top-course">
+                        <div className='header-course'>
+                            <div
+                                style={{
+                                    width: "400px",
+                                    fontSize: "2rem",
+                                    fontWeight: "700",
+                                    marginBottom: "20px",
+                                    paddingTop: "50px",
+                                    background: "linear-gradient(45deg, #1772B5, #f06595)",
+                                    WebkitBackgroundClip: "text",
+                                    WebkitTextFillColor: "transparent",
+
+                                }}
+                            >
+                                KHÓA HỌC BÁN CHẠY
+                            </div>
+                            <Link to='/courses'>
+                                <button class="learn-more">
+                                    <span class="circle" aria-hidden="true">
+                                        <span class="icon arrow"></span>
+                                    </span>
+                                    <span class="button-text">Xem thêm</span>
+                                </button>
+                            </Link>
+
+                        </div>
+
+                        <div style={{ display: "flex", width: "1150px", gap: "40px" }} data-aos="fade-right">
+                            <CourseCard />
+                            <CourseCard />
+                            <CourseCard />
+                            <CourseCard />
+                        </div>
+                    </div>
+                </div>
+                <div className='www-can-do tab' style={{ backgroundColor: "#F6EFEF" }} >
+                    <div className='www-can-do-content' data-aos="fade-right">
+                        <div style={{ width: "80%", display: "flex", marginBottom: "30px" }} ><hr style={{ border: "none", height: "1.5px", flex: "1", background: "#88889D", width: "70%", marginTop: "15px", marginRight: "10px" }} /><span style={{ flex: "3" }}>TESTIMONIAL</span> </div>
+
+                        <div className='www-can-do-header tab-header'>
+                            <h1 className='www-can-do-header-1 tab-header-1'>What They Say?
+                                {/* <span className='www-can-do-header-2 tab-header-2'> Say?</span> */}
+                            </h1>
+                        </div>
+                        <div className='www-can-do-sub'>
+                            <ul style={{
+                                paddingLeft: "0px", display: "flex",
+                                flexDirection: "column", gap: "10px",
+                                marginBottom: "50px"
+                            }}>
+                                <li>VVV has got more than 100k positive ratings
+                                    <br />from our users around the world. </li>
+                                <li>Some of the students and teachers were
+                                    <br />greatly helped by the Skilline.</li>
+                                <li>Are you too? Please give your assessment!</li>
+
+                            </ul>
+                        </div>
+                        <div className='www-can-do-learn-more'>
+                            <Link to='/about'>
+                                <button class="continue-application">
+                                    <div>
+                                        <div class="pencil"></div>
+                                        <div class="folder">
+                                            <div class="top">
+                                                <svg viewBox="0 0 24 27">
+                                                    <path d="M1,0 L23,0 C23.5522847,-1.01453063e-16 24,0.44771525 24,1 L24,8.17157288 C24,8.70200585 23.7892863,9.21071368 23.4142136,9.58578644 L20.5857864,12.4142136 C20.2107137,12.7892863 20,13.2979941 20,13.8284271 L20,26 C20,26.5522847 19.5522847,27 19,27 L1,27 C0.44771525,27 6.76353751e-17,26.5522847 0,26 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z"></path>
+                                                </svg>
+                                            </div>
+                                            <div class="paper"></div>
+                                        </div>
+                                    </div>
+                                    Viết đánh giá của bạn
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className='decoration-1'></div>
+                    <div className='decoration-2'></div>
+                    {/* <div className='decoration-3'></div>
+                    <div className='decoration-4'></div> */}
+
+                    <div className='www-can-do-video' data-aos="fade-left">
+                        <img src={sv} alt='sv' style={{ height: "500px" }} />
+
+                    </div>
+                    <div className='rate' style={{ position: "absolute", right: "60px", bottom: "20px", borderRadius: "20px" }}>
+                        <img src={rate} alt='rate' style={{ borderRadius: "20px" }} />
+                    </div>
+                    <div className='btn-more-arrow' style={{ position: "absolute", right: "60px", bottom: "60%" }}>
+                        <Link to='/about' style={{ textDecoration: "none" }}><button class="btn-cmt">
+                            Xem thêm
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15px" width="15px" class="icon">
+                                <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5" stroke="#292D32" d="M8.91016 19.9201L15.4302 13.4001C16.2002 12.6301 16.2002 11.3701 15.4302 10.6001L8.91016 4.08008"></path>
+                            </svg>
+                        </button></Link>
+
+                    </div>
+                </div>
+                <div className='blogs-www tab'>
+                    <div className='blogs-www-header tab-header' data-aos="fade-up">
+                        <h1 className='blogs-www-header-1 tab-header-1'>Lastest News and Resources</h1>
+                    </div>
+                    <div className='blogs-www-content tab-sub' data-aos="fade-right">
+                        <p>See the developments that have occurred to VVV in the world</p>
+                    </div>
+                    <div className='blogs-body'>
+                        <div className='blogs-body-left' data-aos="fade-up">
+                            <Link className='blog-top-1'>
+                                <img src={blog} alt='blog' style={{ width: "100%" }} />
+                                <span className='blog-type'>NEWS</span>
+                                <h2 className='blog-title'>Class adds $30 million to its balance sheet for a Zoom-friendly edtech solution</h2>
+                                <p className='blog-content'>Class, launched less than a year ago by Blackboard co-founder Michael Chasen, integrates exclusively...</p>
+                            </Link>
+                            <Link to='/blog' className='read-more'>Xem thêm</Link>
+                        </div>
+                        <div className='blogs-body-right'>
+                            <div className='blogs-top-list'>
+                                <Link className='blog-item' data-aos="fade-right">
+                                    <div className='blog-item-img'>
+                                        <img src={blog1} alt='blog1' style={{ width: "200px" }} />
+                                        <span className='blog-type absolute'>PRESS RELEASE</span>
+
+                                    </div>
+                                    <div className='blog-item-content'>
+                                    <h3 className='title'>Class Technologies Inc. Closes $30 Million Series A Financing to Meet High Demand</h3>
+                                    <p className='body'>Class Technologies Inc., the company that created Class,...</p>
+                                    </div>
+                                </Link>
+                                <Link className='blog-item' data-aos="fade-right">
+                                    <div className='blog-item-img'>
+                                        <img src={blog2} alt='blog1' style={{ width: "200px" }} />
+                                        <span className='blog-type absolute'>NEWS</span>
+
+                                    </div>
+                                    <div className='blog-item-content'>
+                                    <h3 className='title'>Class Technologies Inc. Closes $30 Million Series A Financing to Meet High Demand</h3>
+                                    <p className='body'>Class Technologies Inc., the company that created Class,...</p>
+                                    </div>
+                                </Link>
+                                <Link className='blog-item' data-aos="fade-right">
+                                    <div className='blog-item-img'>
+                                        <img src={blog3} alt='blog1' style={{ width: "200px" }} />
+                                        <span className='blog-type absolute'>PRESS RELEASE</span>
+
+                                    </div>
+                                    <div className='blog-item-content'>
+                                    <h3 className='title'>Class Technologies Inc. Closes $30 Million Series A Financing to Meet High Demand</h3>
+                                    <p className='body'>Class Technologies Inc., the company that created Class,...</p>
+                                    </div>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
