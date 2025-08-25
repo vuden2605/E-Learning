@@ -1,7 +1,8 @@
-import { Row, Col, Typography, Button } from "antd";
+import { Row, Col, Typography, Button, Pagination } from "antd";
 import BlogCard from "../../components/BlogCard";
 import "./style.scss"; // import SCSS
 import ReadingBlogList from "../../components/BlogCategory"; 
+import { useRef } from "react";
 const { Title, Text, Link } = Typography;
 
 export default function BlogPage() {
@@ -16,8 +17,7 @@ export default function BlogPage() {
       author: "Lina",
       authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
       views: "251,232",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-      readMoreLink: "/blog/1",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
     },
     {
       id: 2,
@@ -28,8 +28,7 @@ export default function BlogPage() {
       author: "Lina",
       authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
       views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-      readMoreLink: "/blog/2",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
     },
     {
       id: 3,
@@ -40,8 +39,7 @@ export default function BlogPage() {
       author: "Lina",
       authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
       views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-      readMoreLink: "/blog/2",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
     },
     {
       id: 4,
@@ -52,11 +50,14 @@ export default function BlogPage() {
       author: "Lina",
       authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
       views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
-      readMoreLink: "/blog/2",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
     }
   ];
+  const relatedRef = useRef(null);
 
+  const handleCategoryClick = () => {
+    relatedRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div className="blog-page">
       {/* Featured Blog */}
@@ -85,10 +86,10 @@ export default function BlogPage() {
         </Col>
       </Row>
 
-      <ReadingBlogList categories={readingCategories} />
+      <ReadingBlogList categories={readingCategories} onCategoryClick={handleCategoryClick} />
 
       {/* Related Blog */}
-      <div className="related-blog">
+      <div className="related-blog " ref={relatedRef}>
         <Row justify="space-between" align="middle" className="related-header">
           <Title level={4}>Related Blog</Title>
           <Link href="#">See all</Link>
@@ -101,7 +102,14 @@ export default function BlogPage() {
             </Col>
           ))}
         </Row>
+       
       </div>
+      <div className="pagination">
+            <Pagination
+              defaultCurrent={1}
+              total={50}
+            />
+        </div>
     </div>
   );
 }

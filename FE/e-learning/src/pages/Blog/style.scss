@@ -18,11 +18,25 @@
     .related-blog {
       background: #f0f7ff;
       padding: 40px;
+      padding-bottom: 24px;
       border-radius: 12px;
   
       .related-header {
         margin-bottom: 24px;
       }
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;   
+      padding: 20px 0;           
+      background: transparent;   
+    }
+    
+    .ant-pagination {
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: #fff;          // nền trắng nổi trên background
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1); // đổ bóng nhẹ
     }
   }
   
