@@ -1,0 +1,152 @@
+.checkout-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  color: #333; // màu chữ mặc định
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #222; // chữ đậm hơn để nổi bật
+  }
+
+  .checkout-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .checkout-courses {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    color: #333;
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #444;
+    }
+
+    .course-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .course-total {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 2px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      color: #e63946; // màu đỏ nổi bật
+    }
+  }
+
+  .checkout-payment {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    color: #333;
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: #444;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      color: #333;
+
+      input {
+        display: none;
+      }
+
+      img {
+        width: 40px;
+        margin-right: 12px;
+      }
+
+      &.active {
+        border-color: #2196f3;
+        background: #e3f2fd;
+      }
+
+      &:hover {
+        border-color: #2196f3;
+      }
+    }
+
+    .visa-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+
+      input {
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #333; // chữ đen
+        background: #fff;
+        transition: 0.3s;
+
+        &::placeholder {
+          color: #888; // placeholder xám nhạt
+        }
+
+        &:focus {
+          border-color: #2196f3;
+          outline: none;
+          box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+        }
+      }
+
+      .visa-row {
+        display: flex;
+        gap: 10px;
+
+        input {
+          flex: 1;
+        }
+      }
+    }
+
+    .pay-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      background: linear-gradient(135deg, #ff4081, #e040fb);
+      border: none;
+      border-radius: 12px;
+      color: #fff; // chữ trắng trên nền gradient
+      cursor: pointer;
+      transition: 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, #e91e63, #9c27b0);
+      }
+    }
+  }
+}
