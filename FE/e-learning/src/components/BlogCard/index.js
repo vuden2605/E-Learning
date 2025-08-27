@@ -9,9 +9,7 @@ export default function BlogCard({
   title,
   description,
   author,
-  authorAvatar,
-  views,
-  readMoreLink,
+  authorAvatar
 }) {
   return (
     <Link href={`/blog/detail`} style={{ textDecoration: "none" }}>
@@ -39,12 +37,6 @@ export default function BlogCard({
         <span style={{ color: "lightblue", fontWeight: "bold" }}>
           Xem thêm...
         </span>
-          {views && (
-            <Space>
-              <EyeOutlined />
-              <Text type="secondary">{views}</Text>
-            </Space>
-          )}
         </div>
       </Card>
     </Link>

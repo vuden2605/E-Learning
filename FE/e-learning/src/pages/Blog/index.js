@@ -2,58 +2,26 @@ import { Row, Col, Typography, Button, Pagination } from "antd";
 import BlogCard from "../../components/BlogCard";
 import "./style.scss"; // import SCSS
 import ReadingBlogList from "../../components/BlogCategory"; 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
+import { BlogService } from "../../services/BlogService.js";
 const { Title, Text, Link } = Typography;
 
 export default function BlogPage() {
   const readingCategories = ["UX/UI", "React", "PHP", "JavaScript"];
-  const relatedBlogs = [
-    {
-      id: 1,
-      title:
-        "Class adds $30 million to its balance sheet for a Zoom-friendly edtech solution",
-      description:
-        "Class, launched less than a year ago by Blackboard co-founder Michael Chasen...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "251,232",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 2,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 3,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 4,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    }
-  ];
+  const [blogs, setBlogs] = useState([]);
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const blogs = await BlogService.getAllBlogs();
+        setBlogs(blogs);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } 
+    };
+    fetchBlogs();
+  }, []);
+  
   const relatedRef = useRef(null);
 
   const handleCategoryClick = () => {
@@ -107,20 +75,24 @@ export default function BlogPage() {
           />
         </div>
       {/* Related Blog */}
-      <div className="related-blog " ref={relatedRef}>
-        <Row justify="space-between" align="middle" className="related-header">
+      <div className="related-blog" ref={relatedRef}>
+        <div className="related-header">
           <Title level={4}>Related Blog</Title>
           <Link href="#">See all</Link>
-        </Row>
+        </div>
 
-        <Row gutter={[24, 24]}>
-          {relatedBlogs.map((blog) => (
-            <Col xs={24} sm={12} md={8} key={blog.id}>
-              <BlogCard {...blog} />
-            </Col>
+        <div className="blog-grid">
+          {blogs.map((blog) => (
+            <BlogCard
+              key={blog.id}
+              image={blog.imageUrl}
+              title={blog.title}
+              description={blog.content}
+              author={blog.instructor.user.email}
+              authorAvatar={blog.instructor.user.avatarUrl}
+            />
           ))}
-        </Row>
-       
+        </div>
       </div>
       <div className="pagination">
             <Pagination
