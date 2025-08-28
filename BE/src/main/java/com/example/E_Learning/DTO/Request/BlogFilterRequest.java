@@ -7,11 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class PageCustomRequest {
-	private Integer page = 0;
-	private Integer pageSize = 2;
-	private String sortBy = "id";
-	private String direction = "ASC";
+@NoArgsConstructor
+public class BlogFilterRequest {
+	private Long categoryId;
 }

@@ -20,9 +20,9 @@ public class CustomJwtDecoder implements JwtDecoder {
 	@Override
 	public Jwt decode(String token) throws JwtException {
 		Claims claims = jwtService.verifyToken(token);
-		if( claims.get("type",String.class).equals("refresh_token") && !isRefreshEndpoint()) {
-			throw new JwtException("Refresh token cannot be used at endpoint");
-		}
+//		if( claims.get("type",String.class).equals("refresh_token") && !isRefreshEndpoint()) {
+//			throw new JwtException("Refresh token cannot be used at endpoint");
+//		}
 		return new Jwt(
 				token,
 				claims.getIssuedAt().toInstant(),
@@ -31,12 +31,12 @@ public class CustomJwtDecoder implements JwtDecoder {
 				claims
 		);
 	}
-	private boolean isRefreshEndpoint() {
-		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		if (attr != null) {
-			HttpServletRequest request = attr.getRequest();
-			return request.getRequestURI().equals("/auth/refresh-token");
-		}
-		return false;
-	}
+//	private boolean isRefreshEndpoint() {
+//		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//		if (attr != null) {
+//			HttpServletRequest request = attr.getRequest();
+//			return request.getRequestURI().equals("/auth/refresh-token");
+//		}
+//		return false;
+//	}
 }

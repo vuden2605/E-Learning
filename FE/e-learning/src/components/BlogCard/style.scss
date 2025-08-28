@@ -3,7 +3,7 @@
   width: 400px;
   height: 510px;
   border-radius: 16px;
-
+  
   &:hover {
     transform: translateY(-7px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
@@ -34,5 +34,13 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 12px;
+  }
+  .ant-typography {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;  
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
   }
 }

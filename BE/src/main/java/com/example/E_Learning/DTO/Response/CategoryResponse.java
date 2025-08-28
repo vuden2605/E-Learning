@@ -9,8 +9,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 public class CategoryResponse {
-	@NotBlank (message = "REQUIRED_NAME")
+	private Long id;
 	private String name;
-	@NotBlank (message = "REQUIRED_DESCRIPTION")
 	private String description;
 }

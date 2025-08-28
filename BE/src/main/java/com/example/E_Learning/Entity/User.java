@@ -22,6 +22,7 @@ public class User {
     private String fullName;
 	private String email;
 	private String password;
+	private String avatarUrl;
 	@Builder.Default
 	private String role = "USER";
 	@Builder.Default

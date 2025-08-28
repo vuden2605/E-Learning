@@ -2,63 +2,50 @@ import { Row, Col, Typography, Button, Pagination } from "antd";
 import BlogCard from "../../components/BlogCard";
 import "./style.scss"; // import SCSS
 import ReadingBlogList from "../../components/BlogCategory"; 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
+import { BlogService } from "../../services/BlogService.js";
+import { CategoryService } from "../../services/CategoryService.js";
 const { Title, Text, Link } = Typography;
 
 export default function BlogPage() {
-  const readingCategories = ["UX/UI", "React", "PHP", "JavaScript"];
-  const relatedBlogs = [
-    {
-      id: 1,
-      title:
-        "Class adds $30 million to its balance sheet for a Zoom-friendly edtech solution",
-      description:
-        "Class, launched less than a year ago by Blackboard co-founder Michael Chasen...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "251,232",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 2,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 3,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    },
-    {
-      id: 4,
-      title:
-        "Another blog title example for responsive layout and testing",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-      author: "Lina",
-      authorAvatar: "https://randomuser.me/api/portraits/women/68.jpg",
-      views: "123,456",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e"
-    }
-  ];
+  const [blogs, setBlogs] = useState({ content: [], totalElements: 0 });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const relatedRef = useRef(null);
-
-  const handleCategoryClick = () => {
+  const pageSize = 6;
+  useEffect(() => {
+    const fetchBlogs = async (page, pageSize, selectedCategory) => {
+      try {
+        const blogs = await BlogService.getAllBlogs(page, pageSize,selectedCategory);
+        setBlogs(blogs);
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      } 
+    };
+    fetchBlogs(currentPage, pageSize, selectedCategory);
+  }, [currentPage,selectedCategory]);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber - 1);
+  }
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await CategoryService.getAllCategories();
+        setCategories(data); 
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+  const handleCategoryClick = (category) => {
+    console.log("Selected category:", category);
+    setSelectedCategory(category.id); // hoặc category tùy bạn muốn lưu gì
+    setCurrentPage(0);
     relatedRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  };  
   return (
     <div className="blog-page">
       {/* Featured Blog */}
@@ -87,7 +74,7 @@ export default function BlogPage() {
         </Col>
       </Row>
 
-      <ReadingBlogList categories={readingCategories} onCategoryClick={handleCategoryClick} />
+      <ReadingBlogList categories={categories} onCategoryClick={handleCategoryClick} />
       <div className="square-outlined">
           <LeftSquareOutlined
             style={{
@@ -107,27 +94,33 @@ export default function BlogPage() {
           />
         </div>
       {/* Related Blog */}
-      <div className="related-blog " ref={relatedRef}>
-        <Row justify="space-between" align="middle" className="related-header">
+      <div className="related-blog" ref={relatedRef}>
+        <div className="related-header">
           <Title level={4}>Related Blog</Title>
           <Link href="#">See all</Link>
-        </Row>
+        </div>
 
-        <Row gutter={[24, 24]}>
-          {relatedBlogs.map((blog) => (
-            <Col xs={24} sm={12} md={8} key={blog.id}>
-              <BlogCard {...blog} />
-            </Col>
+        <div className="blog-grid">
+          {blogs.content.map((blog) => (
+            <BlogCard
+              key={blog.id}
+              image={blog.imageUrl}
+              title={blog.title}
+              description={blog.content}
+              author={blog.instructor.user.email}
+              authorAvatar={blog.instructor.user.avatarUrl}
+            />
           ))}
-        </Row>
-       
+        </div>
       </div>
       <div className="pagination">
-            <Pagination
-              defaultCurrent={1}
-              total={50}
-            />
-        </div>
+          <Pagination
+            current={currentPage + 1}
+            total={blogs.totalElements}
+            pageSize={pageSize}
+            onChange={handlePageChange}
+          />
+      </div>
     </div>
   );
 }

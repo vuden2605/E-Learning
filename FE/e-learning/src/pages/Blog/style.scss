@@ -1,69 +1,63 @@
 .blog-page {
-    padding: 40px;
-    .square-outlined {
-      color: #000;
-      position: absolute;
-      bottom: -270px;
-      right: 60px;
-      display: flex;
-      flex-direction: row;
-      gap: 30px;
+  padding: 40px;
+
+  /* Featured blog section */
+  .featured-blog {
+    margin-bottom: 60px;
+
+    .btn-wrapper {
+      margin-top: 24px;
     }
-    .featured-blog {
-      margin-bottom: 60px;
-  
-      .btn-wrapper {
-        margin-top: 24px;
-      }
-  
-      .featured-image {
-        width: 100%;
-        border-radius: 12px;
-        object-fit: cover;
-      }
-    }
-  
-    .related-blog {
-      background: #f0f7ff;
-      padding: 40px;
-      padding-bottom: 24px;
+
+    .featured-image {
+      width: 100%;
+      height: auto;
       border-radius: 12px;
-  
-      .related-header {
-        margin-bottom: 24px;
-      }
+      object-fit: cover;
     }
-    .pagination {
+  }
+
+  /* Category navigation arrows */
+  .square-outlined {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: flex-end; // đẩy ra phía bên phải
+    margin: 20px 0;            // thêm khoảng cách thay vì absolute
+  }
+
+  /* Related blog section */
+  .related-blog {
+    background: #f0f7ff;
+    padding: 40px;
+    border-radius: 12px;
+  
+    .related-header {
+      margin-bottom: 24px;
       display: flex;
-      justify-content: center;   
-      padding: 20px 0;           
-      background: transparent;   
+      justify-content: space-between;
+      align-items: center;
     }
-    
-    .ant-pagination {
-      padding: 10px 20px;
-      border-radius: 8px;
-      background: #fff;          // nền trắng nổi trên background
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); // đổ bóng nhẹ
-    }
-  }
   
-  /* Optional: responsive tweaks */
-  @media (max-width: 768px) {
-    .blog-page {
-      padding: 20px;
-  
-      .featured-blog {
-        margin-bottom: 40px;
-      }
-  
-      .reading-list {
-        margin-bottom: 40px;
-      }
-  
-      .related-blog {
-        padding: 20px;
-      }
+    /* Grid layout thay cho Row/Col */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 90px;
     }
   }
-  
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .ant-pagination {
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
