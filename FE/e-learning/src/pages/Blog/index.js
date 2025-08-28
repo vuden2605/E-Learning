@@ -6,7 +6,7 @@ import { useRef, useEffect, useState } from "react";
 import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
 import { BlogService } from "../../services/BlogService.js";
 import { CategoryService } from "../../services/CategoryService.js";
-const { Title, Text, Link } = Typography;
+const { Title, Text} = Typography;
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState({ content: [], totalElements: 0 });
@@ -114,16 +114,16 @@ export default function BlogPage() {
       <div className="related-blog" ref={relatedRef}>
         <div className="related-header">
           <Title level={4}>Related Blog</Title>
-          <Link href="#">See all</Link>
         </div>
 
         <div className="blog-grid">
           {blogs.content.map((blog) => (
             <BlogCard
               key={blog.id}
+              id={blog.id}
               image={blog.imageUrl}
               title={blog.title}
-              description={blog.content}
+              content={blog.content}
               author={blog.instructor.user.email}
               authorAvatar={blog.instructor.user.avatarUrl}
             />

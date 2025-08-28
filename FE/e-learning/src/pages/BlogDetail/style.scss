@@ -70,31 +70,27 @@
     background: #f0f7ff;
     padding: 40px;
     border-radius: 12px;
-    margin-bottom: -10px;
   
     .related-header {
       margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   
-      h4 {
-        margin: 0;
-      }
-  
-      a {
-        font-size: 14px;
-        color: #1890ff;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+    /* Grid layout thay cho Row/Col */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 90px;
     }
   }
   
   /* Pagination */
   .pagination {
     display: flex;
-    justify-content: center;   
-    padding: 20px 0;           
-    background: transparent;   
+    justify-content: center;
+    margin-top: 30px;
   }
   
   /* Responsive */
