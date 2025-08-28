@@ -12,7 +12,7 @@ export default function BlogCategory({ categories, onCategoryClick }) {
           <Col xs={12} md={6} key={i}>
             <div
               className="category-card"
-              onClick={() => onCategoryClick()} 
+              onClick={() => onCategoryClick(cat)} 
               style={{ cursor: "pointer" }}
             >
               <img
