@@ -39,4 +39,10 @@ public class BlogController {
 				.result(blogService.getAllBlogs(pageRequest, blogFilterRequest))
 				.build();
 	}
+	@GetMapping("/{blogId}")
+	public ApiResponse<BlogResponse> getBlogById(@PathVariable Long blogId) {
+		return ApiResponse.<BlogResponse>builder()
+				.result(blogService.getBlogById(blogId))
+				.build();
+	}
 }
