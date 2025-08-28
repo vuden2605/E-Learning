@@ -37,7 +37,8 @@ public class SecurityConfig {
 			"/category/**",
 			"/course/**",
 			"/lesson/**",
-			"/s3/download"
+			"/s3/download",
+			"/blog/**"
 	};
 	private final CustomJwtDecoder customJwtDecoder;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

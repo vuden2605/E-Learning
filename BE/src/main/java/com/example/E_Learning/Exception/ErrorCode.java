@@ -54,7 +54,15 @@ public enum ErrorCode {
 	INVALID_GOOGLE_TOKEN(6001, "Invalid Google token", HttpStatus.UNAUTHORIZED),
 	GOOGLE_LOGIN_FAILED(6002, "Google login failed", HttpStatus.INTERNAL_SERVER_ERROR),
 	// JWT
-	MISSING_REFRESH_TOKEN(7001, "Missing refresh token", HttpStatus.BAD_REQUEST);
+	MISSING_REFRESH_TOKEN(7001, "Missing refresh token", HttpStatus.BAD_REQUEST),
+	//Blog
+	BLOG_NOT_FOUND(8001, "Blog not found", HttpStatus.NOT_FOUND),
+	BLOG_ALREADY_EXISTS(8002, "Blog already exists", HttpStatus.CONFLICT),
+	// Blog Validation
+	REQUIRED_BLOG_TITLE(8003, "Blog title is required", HttpStatus.BAD_REQUEST),
+	REQUIRED_BLOG_CONTENT(8004, "Blog content is required", HttpStatus.BAD_REQUEST),
+	REQUIRED_BLOG_IMAGE_URL(8005, "Blog image URL is required", HttpStatus.BAD_REQUEST),
+	REQUIRED_BLOG_CATEGORY(8006, "Blog category is required", HttpStatus.BAD_REQUEST);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

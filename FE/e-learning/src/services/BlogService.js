@@ -1,8 +1,9 @@
 import axios from 'axios';
-const API_URL = process.env.API_URL;
-const getAllBlogs = async () => {
+const API_URL = process.env.REACT_APP_API_URL;
+const getAllBlogs = async ( page,pageSize,categoryId ) => {
     try {
-      const response = await axios.get("http://localhost:8080/elearning/api/blog");
+      console.log("Calling API:", `${API_URL}/blog?page=${page}&pageSize=${pageSize}&categoryId={categoryId}`);
+      const response = await axios.get(`${API_URL}/blog?page=${page}&pageSize=${pageSize}`);
       console.log("Data:", response.data.result);
       return response.data.result;
     } catch (error) {

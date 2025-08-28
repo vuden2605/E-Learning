@@ -5,28 +5,47 @@ import ReadingBlogList from "../../components/BlogCategory";
 import { useRef, useEffect, useState } from "react";
 import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
 import { BlogService } from "../../services/BlogService.js";
+import { CategoryService } from "../../services/CategoryService.js";
 const { Title, Text, Link } = Typography;
 
 export default function BlogPage() {
-  const readingCategories = ["UX/UI", "React", "PHP", "JavaScript"];
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState({ content: [], totalElements: 0 });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const relatedRef = useRef(null);
+  const pageSize = 6;
   useEffect(() => {
-    const fetchBlogs = async () => {
+    const fetchBlogs = async (page, pageSize, selectedCategory) => {
       try {
-        const blogs = await BlogService.getAllBlogs();
+        const blogs = await BlogService.getAllBlogs(page, pageSize,selectedCategory);
         setBlogs(blogs);
       } catch (error) {
         console.error("Error fetching blogs:", error);
       } 
     };
-    fetchBlogs();
+    fetchBlogs(currentPage, pageSize, selectedCategory);
+  }, [currentPage,selectedCategory]);
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber - 1);
+  }
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await CategoryService.getAllCategories();
+        setCategories(data); 
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
   }, []);
-  
-  const relatedRef = useRef(null);
-
-  const handleCategoryClick = () => {
+  const handleCategoryClick = (category) => {
+    console.log("Selected category:", category);
+    setSelectedCategory(category.id); // hoặc category tùy bạn muốn lưu gì
+    setCurrentPage(0);
     relatedRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  };  
   return (
     <div className="blog-page">
       {/* Featured Blog */}
@@ -55,7 +74,7 @@ export default function BlogPage() {
         </Col>
       </Row>
 
-      <ReadingBlogList categories={readingCategories} onCategoryClick={handleCategoryClick} />
+      <ReadingBlogList categories={categories} onCategoryClick={handleCategoryClick} />
       <div className="square-outlined">
           <LeftSquareOutlined
             style={{
@@ -82,7 +101,7 @@ export default function BlogPage() {
         </div>
 
         <div className="blog-grid">
-          {blogs.map((blog) => (
+          {blogs.content.map((blog) => (
             <BlogCard
               key={blog.id}
               image={blog.imageUrl}
@@ -95,11 +114,13 @@ export default function BlogPage() {
         </div>
       </div>
       <div className="pagination">
-            <Pagination
-              defaultCurrent={1}
-              total={50}
-            />
-        </div>
+          <Pagination
+            current={currentPage + 1}
+            total={blogs.totalElements}
+            pageSize={pageSize}
+            onChange={handlePageChange}
+          />
+      </div>
     </div>
   );
 }
