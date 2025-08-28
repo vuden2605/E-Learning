@@ -3,16 +3,20 @@ import "./style.scss";
 
 const { Title } = Typography;
 
-export default function BlogCategory({ categories, onCategoryClick }) {
+export default function BlogCategory({ categories, onCategoryClick, currentPage, pageSize }) {
+  const startIndex = currentPage * pageSize;
+  const endIndex = startIndex + pageSize;
+  const visibleCategories = categories?.slice(startIndex, endIndex) || [];
+
   return (
     <div className="reading-list">
       <Title level={4}>Reading blog list</Title>
       <Row gutter={[24, 24]}>
-        {categories?.map((cat, i) => (
+        {visibleCategories.map((cat, i) => (
           <Col xs={12} md={6} key={i}>
             <div
               className="category-card"
-              onClick={() => onCategoryClick()} 
+              onClick={() => onCategoryClick(cat)}
               style={{ cursor: "pointer" }}
             >
               <img

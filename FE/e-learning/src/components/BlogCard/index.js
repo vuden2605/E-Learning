@@ -1,18 +1,20 @@
 import { Card, Avatar, Typography, Space } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
 import "./style.scss"; // import SCSS
-
-const { Title, Text, Link } = Typography;
+import { Link } from "react-router-dom";
+const { Title, Text } = Typography;
 
 export default function BlogCard({
+  id,
   image,
   title,
-  description,
+  content,
   author,
   authorAvatar
 }) {
   return (
-    <Link href={`/blog/detail`} style={{ textDecoration: "none" }}>
+    <Link 
+      to={`/blog/${id}`} 
+      style={{ textDecoration: "none" }}>
       <Card
         hoverable
         className="blog-card"
@@ -31,7 +33,7 @@ export default function BlogCard({
           </Space>
         )}
 
-        {description && <Text type="secondary">{description}</Text>}
+        {content && <Text type="secondary">{content}</Text>}
 
         <div className="footer-blog-card">
         <span style={{ color: "lightblue", fontWeight: "bold" }}>
