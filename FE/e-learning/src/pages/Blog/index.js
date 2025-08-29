@@ -124,7 +124,7 @@ export default function BlogPage() {
               image={blog.imageUrl}
               title={blog.title}
               content={blog.content}
-              author={blog.instructor.user.email}
+              author={blog.instructor.user.fullName}
               authorAvatar={blog.instructor.user.avatarUrl}
             />
           ))}
