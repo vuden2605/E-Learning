@@ -23,7 +23,7 @@ function Navigation() {
                     {/* <RiHome9Line className="nav-icon" /> */}
                     Trang chủ
                 </NavLink>
-                <NavLink to="/courses" className="nav-item" >
+                <NavLink to="/course" className="nav-item" >
                     {/* <TbRoad className="nav-icon" /> */}
                     Khóa học
                 </NavLink>

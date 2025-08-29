@@ -1,59 +1,66 @@
-import LayoutDefault from '../LayoutDefault';
-import Blog from '../pages/Blog';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Courses from '../pages/Courses';
-import Careers from '../pages/Careers';
-import Login from '../pages/Login';
-import Register from '../pages/Register'
-import CourseDetail from '../pages/CourseDetail'
-import BlogDetail from '../pages/BlogDetail';
-import Checkout from '../pages/Checkout';
-export const routes =[
-    {
-        path: '/',
-        element: <LayoutDefault />,
+import LayoutDefault from "../LayoutDefault";
+import Blog from "../pages/Blog";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import AllCourses from "../pages/Course/AllCourses";
+import Courses from "../pages/Course"
+import Careers from "../pages/Careers";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import CourseDetail from "../pages/Course/CourseDetail";
+import BlogDetail from "../pages/BlogDetail";
+import Checkout from "../pages/Checkout";
+export const routes = [
+  {
+    path: "/",
+    element: <LayoutDefault />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/course",
+        element: <Courses/>,
         children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: '/courses',
-                element: <Courses/>
-            },
-            {
-                path: '/careers',
-                element: <Careers />
-            },
-            {
-                path: '/blog',
-                element: <Blog/>
-            },
-            {
-                path: '/blog/:id',
-                element: <BlogDetail/>
-            },
-            {
-                path: '/about',
-                element: <About />
-            },
-            {
-                path: '/coursedetail',
-                element: <CourseDetail />
-            },
-            {
-                path:'/checkout',
-                element:<Checkout/>
-            }
-        ]
-    },
-    {
-        path: '/login',
-        element: <Login/>
-    },
-    {
-        path: '/register',
-        element:<Register/>
-    }
-]
+          { element: <AllCourses />, index: true },
+          {
+            path: "detail/:id",
+            element: <CourseDetail />,
+
+          },
+        ],
+      },
+      {
+        path: "/careers",
+        element: <Careers />,
+      },
+      {
+        path: "/blog",
+        element: <Blog />,
+      },
+      {
+        path: "/blog/detail",
+        element: <BlogDetail />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+];
+

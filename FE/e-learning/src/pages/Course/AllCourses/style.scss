@@ -51,8 +51,8 @@ li {
     gap: 57px;
     .filter {
       width: 270px;
+      height: 600px;
       background-color: #ffff;
-      height: 530px;
       color: #000;
       display: flex;
       flex-direction: column;
@@ -100,15 +100,18 @@ li {
           cursor: pointer;
         }
         li:hover {
-          background-color: #f0f0f0;
-          color: #1890ff;
-          border-radius: 6px;
           transition: all 0.3s ease;
+          box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+        }
+        .ctg-active {
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.25);
         }
       }
       .discount {
       }
       .price {
+
       }
     }
     .courses {

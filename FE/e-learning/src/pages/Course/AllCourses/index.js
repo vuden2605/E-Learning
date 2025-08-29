@@ -1,17 +1,97 @@
-import Mycourse from "../../components/MyCourseCard";
-import CourseCard from "../../components/CourseCard";
+import Mycourse from "../../../components/MyCourseCard";
+import CourseCard from "../../../components/CourseCard";
 import "./style.scss";
-import searchimg from "../../assets/images/search.png";
+import searchimg from "../../../assets/images/search.png";
 import {
   LeftSquareOutlined,
   RightSquareOutlined,
   FunnelPlotOutlined,
+  ConsoleSqlOutlined,
 } from "@ant-design/icons";
 import { Input, Button, Space, Radio, Slider } from "antd";
 import { Pagination } from "antd";
+import { useEffect, useState } from "react";
+import { CourseService } from "../../../services/CourseService";
+import { CategoryService } from "../../../services/CategoryService";
 
-function Courses() {
+function AllCourses() {
   const { Search } = Input;
+  ///-------phân trang-----------------
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(12);
+  const [total, setTotal] = useState(0);
+  const handlePageChange = (pageNumber) => {
+    console.log("trang hiện tại:", pageNumber);
+    setPage(pageNumber - 1);
+  };
+  //fetch course & category
+  const [courses, setCourses] = useState([]);
+  const [filters, setFilters] = useState({});
+  const fetchCourses = async () => {
+    try {
+      const data = await CourseService.getCourses({
+        page,
+        pageSize: 6,
+        ...filters,
+      });
+      setCourses(data.content);
+      setTotal(data.totalElements);
+      console.log("số item:", data.totalElements);
+
+      console.log("số item/page:", data.pageSize);
+      console.log("số page:", data.totalPages);
+
+      setPageSize(data.pageSize);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourses();
+  }, [filters, page]); // mỗi lần filter, chọn page đổi thì call API
+  //Khi reset thì thanh khoảng giá cũng phải về như cữ:
+  const [range, setRange] = useState([0, 500]);
+
+  const handleReset = () => {
+    console.log("reset");
+    setRange([0, 500]); // reset về mặc định
+    console.log("range-reset", range);
+    setFilters({}); // xoá hết filter -> chỉ còn page, pageSize
+  };
+  // fetch category
+  const [categorys, setCategorys] = useState([]);
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const data = await CategoryService.getAllCategories();
+        setCategorys(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  //-------------------------------------FILTER------------------------------------
+
+  //category
+  const handleCategoryChange = (value) => {
+    setFilters((pre) => ({ ...pre, categoryId: value }));
+    setPage(0);
+  };
+  //discount
+  // const handleDiscountChange = (value) => {
+  // setPage(0);
+  //   setFilters((pre) => ({ ...pre, discount: value }));
+  // };
+  //price
+  const handlePriceChange = (value) => {
+    const [min, max] = value;
+    console.log("min:", min, "max:", max);
+    setPage(0);
+    setFilters((pre) => ({ ...pre, minPrice: min, maxPrice: max }));
+  };
 
   return (
     <div className="course">
@@ -99,7 +179,7 @@ function Courses() {
           >
             <FunnelPlotOutlined />
             <span style={{ marginTop: "5px" }}>LỌC KHÓA HỌC</span>
-            <Button className="btn-reset">
+            <Button className="btn-reset" onClick={handleReset}>
               <span
                 style={{
                   background: "linear-gradient(45deg, #1772B5, #f06595)",
@@ -114,10 +194,15 @@ function Courses() {
           </div>
           <div className="category child-filter">
             <span className="filter-name">Kỹ năng</span>
-            {/* render */}
-            <li>Phát triển/Lập trình</li>
-            <li>Thiết kế</li>
-            <li>Kinh doanh</li>
+            {categorys.map((ctg) => (
+              <li
+                key={ctg.id}
+                onClick={() => handleCategoryChange(ctg.id)}
+                className={filters.categoryId === ctg.id ? "ctg-active" : ""}
+              >
+                {ctg.name}
+              </li>
+            ))}
           </div>
           <div className="discount child-filter">
             <span className="filter-name">Mức giảm giá</span>
@@ -140,10 +225,15 @@ function Courses() {
           <div className="price child-filter">
             <span className="filter-name">Khoảng giá</span>
             <Slider
+              range
               min={0}
-              max={1000000}
-              step={50000}
-              defaultValue={1000000}
+              max={500}
+              step={20}
+              value={range}
+              onChange={(value) => {
+                setRange(value);
+                handlePriceChange(value);
+              }} // value = [min, max]
               style={{ width: "225px" }}
             />
             <div
@@ -157,27 +247,31 @@ function Courses() {
               <div
                 style={{
                   backgroundColor: "#EDEDED",
-                  color:"#373737ff",
+                  color: "#373737ff",
                   width: "30px",
                   height: "25px",
                   display: "flex",
-                  borderRadius:"5px",
+                  borderRadius: "5px",
                   justifyContent: "center", // căn giữa ngang
                   alignItems: "center", // căn giữa dọc
                 }}
               >
                 0đ
               </div>
-              <div style={{
+              <div
+                style={{
                   backgroundColor: "#EDEDED",
-                  color:"#373737ff",
+                  color: "#373737ff",
                   width: "100px",
                   height: "25px",
                   display: "flex",
-                  borderRadius:"5px",
+                  borderRadius: "5px",
                   justifyContent: "center", // căn giữa ngang
                   alignItems: "center", // căn giữa dọc
-                }}>1 000 000đ</div>
+                }}
+              >
+                1 000 000đ
+              </div>
             </div>
           </div>
         </div>
@@ -190,17 +284,25 @@ function Courses() {
           }}
         >
           <div className="courses">
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
+            {courses.map((val) => (
+              <CourseCard
+                key={val.id}
+                id={val.id}
+                title={val.title}
+                description={val.description}
+                price={val.price}
+                discount={0.5}
+                thumbnailUrl={val.thumbnailUrl}
+              />
+            ))}
           </div>
           <div className="pagination">
             <Pagination
-              defaultCurrent={1}
-              total={50}
+              current={page + 1}
+              pageSize={pageSize}
+              total={total}
+              onChange={handlePageChange}
+              // showSizeChanger
               style={{ paddingLeft: "250px", backgroundColor: "#f5f5f5" }}
             />
           </div>
@@ -220,14 +322,16 @@ function Courses() {
         >
           KHÓA HỌC BÁN CHẠY
         </div>
-        <div style={{ display: "flex", width: "1150px", gap: "40px" }}>
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-          <CourseCard />
-        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "1150px",
+            gap: "40px",
+            marginBottom: "40px",
+          }}
+        ></div>
       </div>
     </div>
   );
 }
-export default Courses;
+export default AllCourses;
