@@ -6,6 +6,7 @@ import {
   LeftSquareOutlined,
   RightSquareOutlined,
   FunnelPlotOutlined,
+  ConsoleSqlOutlined,
 } from "@ant-design/icons";
 import { Input, Button, Space, Radio, Slider } from "antd";
 import { Pagination } from "antd";
@@ -15,18 +16,32 @@ import { CategoryService } from "../../services/CategoryService";
 
 function Courses() {
   const { Search } = Input;
-
+  ///-------phân trang-----------------
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(12);
+  const [total, setTotal] = useState(0);
+  const handlePageChange = (pageNumber) => {
+    console.log("trang hiện tại:", pageNumber);
+    setPage(pageNumber - 1);
+  };
   //fetch course & category
   const [courses, setCourses] = useState([]);
   const [filters, setFilters] = useState({});
   const fetchCourses = async () => {
     try {
       const data = await CourseService.getCourses({
-        page: 0,
+        page,
         pageSize: 6,
         ...filters,
       });
-      setCourses(data);
+      setCourses(data.content);
+      setTotal(data.totalElements);
+      console.log("số item:", data.totalElements);
+
+      console.log("số item/page:", data.pageSize);
+      console.log("số page:", data.totalPages);
+
+      setPageSize(data.pageSize);
     } catch (err) {
       console.error(err);
     }
@@ -34,7 +49,7 @@ function Courses() {
 
   useEffect(() => {
     fetchCourses();
-  }, [filters]); // mỗi lần filter đổi thì call API
+  }, [filters, page]); // mỗi lần filter, chọn page đổi thì call API
   //Khi reset thì thanh khoảng giá cũng phải về như cữ:
   const [range, setRange] = useState([0, 500]);
 
@@ -63,17 +78,21 @@ function Courses() {
   //category
   const handleCategoryChange = (value) => {
     setFilters((pre) => ({ ...pre, categoryId: value }));
+    setPage(0);
   };
   //discount
   // const handleDiscountChange = (value) => {
+  // setPage(0);
   //   setFilters((pre) => ({ ...pre, discount: value }));
   // };
   //price
   const handlePriceChange = (value) => {
     const [min, max] = value;
     console.log("min:", min, "max:", max);
+    setPage(0);
     setFilters((pre) => ({ ...pre, minPrice: min, maxPrice: max }));
   };
+
   return (
     <div className="course">
       <div className="my-course tab">
@@ -278,8 +297,11 @@ function Courses() {
           </div>
           <div className="pagination">
             <Pagination
-              defaultCurrent={1}
-              total={50}
+              current={page + 1}
+              pageSize={pageSize}
+              total={total}
+              onChange={handlePageChange}
+              // showSizeChanger
               style={{ paddingLeft: "250px", backgroundColor: "#f5f5f5" }}
             />
           </div>
