@@ -16,6 +16,7 @@ import com.example.E_Learning.mapper.BlogMapper;
 import com.example.E_Learning.mapper.CategoryMapper;
 import com.example.E_Learning.mapper.InstructorMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BlogService {
@@ -44,6 +45,7 @@ public class BlogService {
 				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		Page<Blog> blogs = blogRepository.findBlogByFilter(pageable, blogFilterRequest);
+		log.info("Blogs content: {}", blogs.getContent());
 		return PageResponse.<BlogResponse>builder()
 				.content(blogs.stream().map(blogMapper::toBlogResponse).toList())
 				.pageNumber(blogs.getNumber())

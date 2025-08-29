@@ -20,5 +20,5 @@ public class UserCreationRequest {
 	private String email;
 	@Size (min = 6, message = "INVALID_PASSWORD")
 	private String password;
-
+	private String avatarUrl;
 }
