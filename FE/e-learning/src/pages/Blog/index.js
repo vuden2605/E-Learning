@@ -1,12 +1,12 @@
 import { Row, Col, Typography, Button, Pagination } from "antd";
 import BlogCard from "../../components/BlogCard";
 import "./style.scss"; // import SCSS
-import ReadingBlogList from "../../components/BlogCategory"; 
+import BlogCategory from "../../components/BlogCategory"; 
 import { useRef, useEffect, useState } from "react";
 import { LeftSquareOutlined, RightSquareOutlined } from "@ant-design/icons";
 import { BlogService } from "../../services/BlogService.js";
 import { CategoryService } from "../../services/CategoryService.js";
-const { Title, Text, Link } = Typography;
+const { Title, Text} = Typography;
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState({ content: [], totalElements: 0 });
@@ -15,6 +15,8 @@ export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const relatedRef = useRef(null);
   const pageSize = 6;
+  const [categoryPage, setCategoryPage] = useState(0);
+  const categoryPageSize = 4;
   useEffect(() => {
     const fetchBlogs = async (page, pageSize, selectedCategory) => {
       try {
@@ -41,11 +43,19 @@ export default function BlogPage() {
     fetchCategories();
   }, []);
   const handleCategoryClick = (category) => {
-    console.log("Selected category:", category);
-    setSelectedCategory(category.id); // hoặc category tùy bạn muốn lưu gì
+    setSelectedCategory(category.id); 
     setCurrentPage(0);
     relatedRef.current?.scrollIntoView({ behavior: "smooth" });
   };  
+  const handlePrevCategory = () => {
+    if (categoryPage > 0) setCategoryPage(categoryPage - 1);
+  };
+
+  const handleNextCategory = () => {
+    if ((categoryPage + 1) * categoryPageSize < categories.length) {
+      setCategoryPage(categoryPage + 1);
+    }
+  };
   return (
     <div className="blog-page">
       {/* Featured Blog */}
@@ -74,9 +84,15 @@ export default function BlogPage() {
         </Col>
       </Row>
 
-      <ReadingBlogList categories={categories} onCategoryClick={handleCategoryClick} />
+      <BlogCategory
+        categories={categories} 
+        onCategoryClick={handleCategoryClick}
+        currentPage={categoryPage}
+        pageSize={categoryPageSize}
+      />
       <div className="square-outlined">
           <LeftSquareOutlined
+            onClick={handlePrevCategory}
             style={{
               fontSize: "30px",
               color: "#fff",
@@ -85,6 +101,7 @@ export default function BlogPage() {
             }}
           />
           <RightSquareOutlined
+            onClick={handleNextCategory}
             style={{
               fontSize: "30px",
               color: "#fff",
@@ -92,21 +109,21 @@ export default function BlogPage() {
               borderRadius: "5px",
             }}
           />
-        </div>
+      </div>
       {/* Related Blog */}
       <div className="related-blog" ref={relatedRef}>
         <div className="related-header">
           <Title level={4}>Related Blog</Title>
-          <Link href="#">See all</Link>
         </div>
 
         <div className="blog-grid">
           {blogs.content.map((blog) => (
             <BlogCard
               key={blog.id}
+              id={blog.id}
               image={blog.imageUrl}
               title={blog.title}
-              description={blog.content}
+              content={blog.content}
               author={blog.instructor.user.email}
               authorAvatar={blog.instructor.user.avatarUrl}
             />

@@ -7,6 +7,8 @@ import com.example.E_Learning.DTO.Response.BlogResponse;
 import com.example.E_Learning.DTO.Response.PageResponse;
 import com.example.E_Learning.Entity.Blog;
 import com.example.E_Learning.Entity.Instructor;
+import com.example.E_Learning.Exception.AppException;
+import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.BlogRepository;
 import com.example.E_Learning.Repository.CategoryRepository;
 import com.example.E_Learning.Repository.InstructorRepository;
@@ -50,5 +52,9 @@ public class BlogService {
 				.totalPages(blogs.getTotalPages())
 				.last(blogs.isLast())
 				.build();
+	}
+	public BlogResponse getBlogById(Long blogId) {
+		Blog blog = blogRepository.findById(blogId).orElseThrow(() -> new AppException(ErrorCode.BLOG_NOT_FOUND));
+		return blogMapper.toBlogResponse(blog);
 	}
 }

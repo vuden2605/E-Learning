@@ -23,7 +23,8 @@
     flex-direction: row;
     gap: 20px;
     justify-content: flex-end; // đẩy ra phía bên phải
-    margin: 20px 0;            // thêm khoảng cách thay vì absolute
+    margin: 20px 0; 
+    margin-top: -80px;         
   }
 
   /* Related blog section */

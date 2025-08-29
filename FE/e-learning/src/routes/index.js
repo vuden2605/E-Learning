@@ -63,3 +63,4 @@ export const routes = [
     element: <Register />,
   },
 ];
+
