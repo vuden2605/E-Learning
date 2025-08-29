@@ -1,7 +1,7 @@
-import Mycourse from "../../components/MyCourseCard";
-import CourseCard from "../../components/CourseCard";
+import Mycourse from "../../../components/MyCourseCard";
+import CourseCard from "../../../components/CourseCard";
 import "./style.scss";
-import searchimg from "../../assets/images/search.png";
+import searchimg from "../../../assets/images/search.png";
 import {
   LeftSquareOutlined,
   RightSquareOutlined,
@@ -11,10 +11,10 @@ import {
 import { Input, Button, Space, Radio, Slider } from "antd";
 import { Pagination } from "antd";
 import { useEffect, useState } from "react";
-import { CourseService } from "../../services/CourseService";
-import { CategoryService } from "../../services/CategoryService";
+import { CourseService } from "../../../services/CourseService";
+import { CategoryService } from "../../../services/CategoryService";
 
-function Courses() {
+function AllCourses() {
   const { Search } = Input;
   ///-------phân trang-----------------
   const [page, setPage] = useState(0);
@@ -287,6 +287,7 @@ function Courses() {
             {courses.map((val) => (
               <CourseCard
                 key={val.id}
+                id={val.id}
                 title={val.title}
                 description={val.description}
                 price={val.price}
@@ -333,4 +334,4 @@ function Courses() {
     </div>
   );
 }
-export default Courses;
+export default AllCourses;

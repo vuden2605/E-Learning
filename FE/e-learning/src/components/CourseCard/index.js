@@ -3,11 +3,11 @@ import { Button } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-function CourseCard({title, description, price, discount, thumbnailUrl}) {
+function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
   return (
     // NHỚ XÓA THẺ LINK TRONG NÀY, ROUTER CỦA PAGE COURSEDETAIL
     <div className="coursecard">
-      <Link to="/coursedetail" style={{ textDecoration: "none" }}>
+      <Link to={`/course/detail/${id}`} style={{ textDecoration: "none" }}>
         <div className="img-course">
           <img src={thumbnailUrl}></img>
         </div>

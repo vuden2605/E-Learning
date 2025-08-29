@@ -51,8 +51,8 @@ li {
     gap: 57px;
     .filter {
       width: 270px;
+      height: 600px;
       background-color: #ffff;
-      height: 530px;
       color: #000;
       display: flex;
       flex-direction: column;
@@ -111,6 +111,7 @@ li {
       .discount {
       }
       .price {
+
       }
     }
     .courses {

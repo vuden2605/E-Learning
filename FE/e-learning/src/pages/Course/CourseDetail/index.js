@@ -1,6 +1,5 @@
 import "./style.scss";
-import imgcourse from "../../assets/images/imcourse2.png";
-import cmtavt from "../../assets/images/cmt_avt.jpg";
+import cmtavt from "../../../assets/images/cmt_avt.jpg";
 import {
   FacebookOutlined,
   InstagramOutlined,
@@ -10,13 +9,28 @@ import {
   YoutubeOutlined,
 } from "@ant-design/icons";
 import { Button, Rate } from "antd";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { CourseService } from "../../../services/CourseService";
 
 function CourseDetail() {
+  const { id } = useParams();
+  console.log("id-param:", id);
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    const fetchDetail = async () => {
+      const res = await CourseService.getDetailCourse(id);
+      console.log("data:", res);
+      setCourse(res);
+    };
+    fetchDetail();
+  }, [id]);
   return (
     <div className="course-detail">
       <div className="img-course">
-        <img className="img-cover" src={imgcourse}></img>
-        <img className="img-main" src={imgcourse}></img>
+        <img className="img-cover" src={course.thumbnailUrl}></img>
+        <img className="img-main" src={course.thumbnailUrl}></img>
       </div>
       <div className="detail">
         <div className="detail-content">
@@ -42,38 +56,16 @@ function CourseDetail() {
             </span>
           </div>
           <div className="content">
-            Class, launched less than a year agoClass, launched less than a year
-            ago by Blackboard co-founder Michael Chasen, integrates
-            exclusively...Class, launched less than a year ago by Blackboard
-            co-founder Michael Chasen, integrates exclusively...Class, launched
-            less than a year ago by Blackboard co-founder Michael Chasen,
-            integrates exclusively...Class, launched less than a year ago by
-            Blackboard co-founder Michael Chasen, integrates
-            exclusively...Class, launched less than a year ago by Blackboard
-            co-founder Michael Chasen, integrates exclusively...Class, launched
-            less than a year ago by Blackboard co-founder Michael Chasen,
-            integrates exclusively...Class, launched less than a year ago by
-            Blackboard co-founder Michael Chasen, integrates
-            exclusively...Class, launched less than a year ago by Blackboard
-            co-founder Michael Chasen, integrates exclusively... by Blackboard
-            co-founder Michael Chasen, integrates exclusively...Class, launched
-            less than a year ago by Blackboard co-founder Michael Chasen,
-            integrates exclusively...Class, launched less than a year ago by
-            Blackboard co-founder Michael Chasen, integrates
-            exclusively...Class, launched less than a year ago by Blackboard
-            co-founder Michael Chasen, integrates exclusively...Class, launched
-            less than a year ago by Blackboard co-founder Michael Chasen,
-            integrates exclusively...Class, launched less than a year ago by
-            Blackboard co-founder Michael Chasen, integrates exclusively...
+          {course.description}
           </div>
         </div>
         <div className="detail-price">
-          <div className="name-course">Lập Trình JavaScript Cơ Bản</div>
+          <div className="name-course">{course.title}</div>
           <div className="price">
-            <div className="new-price">$80</div>
+            <div className="new-price">${course.price*0.5}</div>
 
             <div className="old-price">
-              <del>$100</del>
+              <del>${course.price}</del>
             </div>
             <div className="discount">50% OFF</div>
           </div>
