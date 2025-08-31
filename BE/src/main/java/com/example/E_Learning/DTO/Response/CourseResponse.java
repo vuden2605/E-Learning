@@ -19,6 +19,7 @@ public class CourseResponse {
 	private String title;
 	private String description;
 	private String thumbnailUrl;
+	private Integer discountPercent;
 	private BigDecimal price;
 	private LocalDateTime createdAt;
 	private Integer studentCount;

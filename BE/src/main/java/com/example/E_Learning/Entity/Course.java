@@ -27,6 +27,7 @@ public class Course {
 	private Category category;
 	private String thumbnailUrl;
 	private Integer studentCount;
+	private Integer discountPercent;
 	private Long price;
 	private Integer rating;
 	@CreationTimestamp

@@ -17,12 +17,14 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 	@Query("""
     SELECT c FROM Course c
     WHERE (:categoryId IS NULL OR c.category.id = :categoryId)
-      AND (:minPrice IS NULL OR :maxPrice IS NULL OR (c.price BETWEEN :minPrice AND :maxPrice) )
+      AND (:minPrice IS NULL OR :maxPrice IS NULL OR (c.price BETWEEN :minPrice AND :maxPrice))
+      AND (:discountPercent IS NULL OR c.discountPercent >= :discountPercent)
     """)
 	Page<Course> findCoursesByFilter(
 			@Param("categoryId") Long categoryId,
 			@Param("minPrice") Long minPrice,
 			@Param("maxPrice") Long maxPrice,
+			@Param("discountPercent") Integer discountPercent,
 			Pageable pageable
 	);
 	List<Course> findByInstructorId (Long instructorId);

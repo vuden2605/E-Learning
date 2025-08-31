@@ -71,6 +71,7 @@ public class CourseService {
 		Page<Course> coursePage = courseRepository.findCoursesByFilter(courseFilterRequest.getCategoryId(),
 				                                               courseFilterRequest.getMinPrice(),
 				                                               courseFilterRequest.getMaxPrice(),
+				                                               courseFilterRequest.getDiscountPercent(),
 				                                               pageable);
 		List<CourseResponse> courseResponses = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
 		return PageResponse.<CourseResponse>builder()
@@ -88,8 +89,8 @@ public class CourseService {
 				.map(courseMapper::toCourseResponse)
 				.toList();
 	}
-	public List<CourseResponse> searchByName (String name) {
-		List<Course> courses = courseRepository.findByTitleContainingIgnoreCase(name);
+	public List<CourseResponse> searchByName (String title) {
+		List<Course> courses = courseRepository.findByTitleContainingIgnoreCase(title);
 		return courses.stream()
 				.map(courseMapper::toCourseResponse)
 				.toList();

@@ -24,4 +24,5 @@ public class CourseCreationRequest {
 	private String thumbnailUrl;
 	@NotNull (message = "REQUIRED_COURSE_PRICE")
 	private BigDecimal price;
+	private Integer discountPercent;
 }
