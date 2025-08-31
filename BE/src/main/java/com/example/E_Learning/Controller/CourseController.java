@@ -72,4 +72,10 @@ public class CourseController {
 				.result(courseService.myInstructorCourse(instructorId))
 				.build();
 	}
+	@GetMapping("/search")
+	public ApiResponse<List<CourseResponse>> searchCourses (@RequestParam String name) {
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(courseService.searchByName(name))
+				.build();
+	}
 }

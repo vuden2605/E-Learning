@@ -88,5 +88,11 @@ public class CourseService {
 				.map(courseMapper::toCourseResponse)
 				.toList();
 	}
+	public List<CourseResponse> searchByName (String name) {
+		List<Course> courses = courseRepository.findByTitleContainingIgnoreCase(name);
+		return courses.stream()
+				.map(courseMapper::toCourseResponse)
+				.toList();
+	}
 
 }

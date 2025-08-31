@@ -26,5 +26,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 			Pageable pageable
 	);
 	List<Course> findByInstructorId (Long instructorId);
+	List<Course> findByTitleContainingIgnoreCase (String title);
 
 }
