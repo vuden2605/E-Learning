@@ -19,10 +19,10 @@ public class Enrollment {
 	private Long id;
 	@CreationTimestamp
 	private LocalDateTime enrolledAt;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	private Course course;
 }
