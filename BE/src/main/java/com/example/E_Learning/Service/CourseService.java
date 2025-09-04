@@ -72,6 +72,7 @@ public class CourseService {
 				                                               courseFilterRequest.getMinPrice(),
 				                                               courseFilterRequest.getMaxPrice(),
 				                                               courseFilterRequest.getDiscountPercent(),
+				                                               courseFilterRequest.getTitle(),
 				                                               pageable);
 		List<CourseResponse> courseResponses = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
 		return PageResponse.<CourseResponse>builder()

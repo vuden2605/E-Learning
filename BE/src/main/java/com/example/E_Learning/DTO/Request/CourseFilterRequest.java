@@ -14,4 +14,5 @@ public class CourseFilterRequest {
 	private Long minPrice;
 	private Long maxPrice;
 	private Integer discountPercent;
+	private String title;
 }

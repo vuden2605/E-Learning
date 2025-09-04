@@ -29,7 +29,10 @@ public class Course {
 	private Integer studentCount;
 	private Integer discountPercent;
 	private Long price;
-	private Integer rating;
+	@Builder.Default
+	private Double averageRating = 0.0;
+	@Builder.Default
+	private Long totalRatings = 0L;
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
