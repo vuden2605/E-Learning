@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=E-LearningTest;encrypt=true;trustServerCertificate=true
     username: sa
-    password: 1
+    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,6 +30,7 @@ aws:
     bucketName: vvv-elearning
 logging:
   level:
-    com.example.E_Learning: INFO
+    root: INFO
+    com.example.E_Learning: DEBUG
 google:
   clientId: 830106511321-8kbg5cjn0ahglb7m9sh9i1av02v8jj56.apps.googleusercontent.com
