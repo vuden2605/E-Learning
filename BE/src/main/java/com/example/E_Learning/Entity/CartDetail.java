@@ -20,4 +20,5 @@ public class CartDetail {
 	@ManyToOne
 	@JoinColumn(name = "course_id")
 	private Course course;
+	private Integer currentPrice;
 }
