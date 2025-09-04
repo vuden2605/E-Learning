@@ -28,7 +28,7 @@ function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
                 <i>${price}</i>
               </del>
             </div>
-            <div className="new-price">${price * discount}</div>
+            <div className="new-price">${(price * discount) / 100}</div>
           </div>
         </div>
       </Link>

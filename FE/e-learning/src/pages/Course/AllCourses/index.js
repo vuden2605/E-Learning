@@ -35,6 +35,7 @@ function AllCourses() {
         ...filters,
       });
       setCourses(data.content);
+      console.log(data.content)
       setTotal(data.totalElements);
       console.log("số item:", data.totalElements);
 
@@ -81,16 +82,32 @@ function AllCourses() {
     setPage(0);
   };
   //discount
-  // const handleDiscountChange = (value) => {
-  // setPage(0);
-  //   setFilters((pre) => ({ ...pre, discount: value }));
-  // };
+  const handleDiscountChange = (value) => {
+    setPage(0);
+    setFilters((pre) => ({ ...pre, discountPercent: value }));
+    console.log("Giảm giá:", value);
+  };
   //price
   const handlePriceChange = (value) => {
     const [min, max] = value;
     console.log("min:", min, "max:", max);
     setPage(0);
     setFilters((pre) => ({ ...pre, minPrice: min, maxPrice: max }));
+  };
+  //--------------search---------------
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearch = async (value) => {
+    // console.log("search:", value);
+    try {
+      const data = await CourseService.searchCourse(value);
+      // console.log("kết quả:", data);
+
+      setCourses(data);
+      setSearchValue("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -142,6 +159,8 @@ function AllCourses() {
         <img src={searchimg} style={{ width: "1150px" }}></img>
         <Search
           placeholder="Search your favourite course"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           enterButton={
             <Button
               type="primary"
@@ -157,8 +176,8 @@ function AllCourses() {
             </Button>
           }
           size="large"
-          onSearch={(value) => console.log(value)}
           className="btnSearch"
+          onSearch={handleSearch}
         />
       </div>
       <div className="list-course">
@@ -207,8 +226,8 @@ function AllCourses() {
           <div className="discount child-filter">
             <span className="filter-name">Mức giảm giá</span>
             <Radio.Group
-              // value={filters.discount}
-              // onChange={(e) => handleFilterChange("discount", e.target.value)}
+              value={filters.discountPercent}
+              onChange={(e) => handleDiscountChange(e.target.value)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -291,7 +310,7 @@ function AllCourses() {
                 title={val.title}
                 description={val.description}
                 price={val.price}
-                discount={0.5}
+                discount={val.discountPercent}
                 thumbnailUrl={val.thumbnailUrl}
               />
             ))}
