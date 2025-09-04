@@ -62,7 +62,11 @@ public enum ErrorCode {
 	REQUIRED_BLOG_TITLE(8003, "Blog title is required", HttpStatus.BAD_REQUEST),
 	REQUIRED_BLOG_CONTENT(8004, "Blog content is required", HttpStatus.BAD_REQUEST),
 	REQUIRED_BLOG_IMAGE_URL(8005, "Blog image URL is required", HttpStatus.BAD_REQUEST),
-	REQUIRED_BLOG_CATEGORY(8006, "Blog category is required", HttpStatus.BAD_REQUEST);
+	REQUIRED_BLOG_CATEGORY(8006, "Blog category is required", HttpStatus.BAD_REQUEST),
+	//Cart
+	CART_NOT_FOUND(9001, "Cart not found", HttpStatus.NOT_FOUND),
+	CART_ALREADY_EXISTS(9002, "Cart already exists", HttpStatus.CONFLICT),
+	COURSE_ALREADY_IN_CART(9003, "Course already in cart", HttpStatus.CONFLICT);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;
