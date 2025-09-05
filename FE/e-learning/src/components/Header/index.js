@@ -6,7 +6,22 @@ import { BsFillPostcardHeartFill } from "react-icons/bs";
 import logo from '../../assets/images/logo.png';
 // import logo from '../../images/triple_v_logo.jpg';
 import { Button } from 'antd';
-function Navigation() {
+import { useSelector } from "react-redux";
+import { UserService } from '../../services/UserService';
+import { useEffect } from 'react';
+function Navigation({ onLoginClick, onRegisterClick }) {
+    const user = useSelector((state) => state.user.currentUser);
+    const handleGetInfo = async () => {
+        try {
+            const userInfo = await UserService.getCurrentUser();
+            console.log("User Info:", userInfo);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    // useEffect(() => {
+    //  localStorage.removeItem("usepersist:root");   
+    // },[]);
     return (
         <ul className="navigation">
             <div className='logo'>
@@ -38,8 +53,9 @@ function Navigation() {
                     About Us
                 </NavLink>
             </div>
-
-            <div className='sign-in-up'>
+            {user ? (
+                <button onClick={handleGetInfo}>Xin chào, {user.fullName} </button>
+            ) : (<div className='sign-in-up'>
                 {/* <Link to="/login">
                     <Button type="primary" shape="round" size='large'>
                         Đăng nhập
@@ -50,18 +66,17 @@ function Navigation() {
                         Đăng ký
                     </Button>
                 </Link> */}
-                <Link to="/register">
-                    <div class="button-wrapper">
-                        {/* <span class="button-label">Ocean Waves</span> */}
-                        <button class="shine-button button-ocean" style={{
-                            width: "fit-content",
-                            padding: "10px 15px",
-                            marginLeft:"-20px"
-                        }}>Bắt đầu ngay!</button>
-                    </div>
-                </Link>
 
-            </div>
+                <div class="button-wrapper">
+                    {/* <span class="button-label">Ocean Waves</span> */}
+                    <button onClick={onRegisterClick} class="shine-button button-ocean" style={{
+                        width: "fit-content",
+                        padding: "10px 15px",
+                        marginLeft: "-20px"
+                    }}>Bắt đầu ngay!</button>
+                </div>
+            </div>)}
+
 
         </ul>
     );
