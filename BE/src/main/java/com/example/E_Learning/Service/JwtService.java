@@ -36,7 +36,7 @@ public class JwtService {
 	}
 	public String generateRefreshToken(User user) {
 		return io.jsonwebtoken.Jwts.builder()
-				.setSubject(user.getEmail())
+				.setSubject(user.getId().toString())
 				.claim("scope", user.getRole())
 				.claim("email", user.getEmail())
 				.claim("type","refresh_token")

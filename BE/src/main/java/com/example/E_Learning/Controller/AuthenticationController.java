@@ -4,12 +4,16 @@ import com.example.E_Learning.DTO.Request.GoogleLoginRequest;
 import com.example.E_Learning.DTO.Request.LoginRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.AuthenticationResponse;
+import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Service.AuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@Slf4j
 public class AuthenticationController {
 	private final AuthenticationService authenticationService;
 
@@ -28,7 +33,7 @@ public class AuthenticationController {
 		ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
 				.httpOnly(true)
 				.secure(false)
-				.path("/auth/refresh-token")
+				.path("/")
 				.sameSite("Strict")
 				.maxAge(60 * 60 * 24 * 7) // 7 days
 				.build();
@@ -56,12 +61,21 @@ public class AuthenticationController {
 						.build();
 	}
 	@PostMapping("/refresh-token")
-	public ApiResponse<String> refreshToken(@CookieValue("refreshToken") String refreshToken , HttpServletResponse response) {
-		AuthenticationResponse authResponse = authenticationService.refreshAccessToken(refreshToken);
-		return ApiResponse.<String>builder()
-				.result(authResponse.getAccessToken())
-				.build();
+	public ApiResponse<String> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
+		log.info("Received refresh token: {}", refreshToken);
+		try {
+			AuthenticationResponse authResponse = authenticationService.refreshAccessToken(refreshToken);
+			return ApiResponse.<String>builder()
+							.result(authResponse.getAccessToken())
+							.build();
+		} catch (Exception e) {
+			return ApiResponse.<String>builder()
+							.code( 500)
+							.message(e.getMessage())
+							.build();
+		}
 	}
+
 	@PostMapping("/logout")
 	public ApiResponse<String> logout(HttpServletResponse response) {
 		ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")
