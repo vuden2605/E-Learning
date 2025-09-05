@@ -61,6 +61,7 @@ public class CourseService {
 				.title(course.getTitle())
 				.description(course.getDescription())
 				.studentCount(course.getStudentCount())
+				.discountPercent(course.getDiscountPercent())
 				.thumbnailUrl(course.getThumbnailUrl())
 				.price(course.getPrice())
 				.instructor(instructorMapper.toInstructorResponse(course.getInstructor()))

@@ -12,6 +12,7 @@ import { Button, Rate } from "antd";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CourseService } from "../../../services/CourseService";
+import { formatCurrencyVND } from "../../../utils/formatCurrency";
 
 function CourseDetail() {
   const { id } = useParams();
@@ -55,17 +56,17 @@ function CourseDetail() {
               THÔNG TIN KHÓA HỌC
             </span>
           </div>
-          <div className="content">
-          {course.description}
-          </div>
+          <div className="content">{course.description}</div>
         </div>
         <div className="detail-price">
           <div className="name-course">{course.title}</div>
           <div className="price">
-            <div className="new-price">${course.price*0.5}</div>
+            <div className="new-price">
+              {formatCurrencyVND(course.price * (100-course.discountPercent)/100)}
+            </div>
 
             <div className="old-price">
-              <del>${course.price}</del>
+              <del>{formatCurrencyVND(course.price)}</del>
             </div>
             <div className="discount">50% OFF</div>
           </div>

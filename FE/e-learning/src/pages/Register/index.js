@@ -17,6 +17,7 @@ const Register = () => {
           const data = await res.json();
           console.log("JWT từ backend:", data.result);
           //window.location.href = "/"; 
+          
         } catch (error) {
           console.error("Google login failed:", error);
         }

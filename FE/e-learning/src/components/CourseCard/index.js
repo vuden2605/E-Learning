@@ -2,6 +2,7 @@ import "./style.scss";
 import { Button } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import { formatCurrencyVND } from "../../utils/formatCurrency";
 
 function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
   return (
@@ -13,7 +14,7 @@ function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
         </div>
         <div className="title">
           <h1 style={{ fontSize: "16px", fontWeight: "500", color: "#000" }}>
-            {title}{" "}
+            {title}
           </h1>
         </div>
         <div className="description">{description}</div>
@@ -25,10 +26,12 @@ function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
           <div style={{ display: "flex", gap: "10px" }}>
             <div className="old-price">
               <del>
-                <i>${price}</i>
+                <i>{formatCurrencyVND(price)}</i>
               </del>
             </div>
-            <div className="new-price">${(price * discount) / 100}</div>
+            <div className="new-price">
+              {formatCurrencyVND((price * (100 - discount)) / 100)}
+            </div>
           </div>
         </div>
       </Link>
