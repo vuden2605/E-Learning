@@ -18,6 +18,7 @@ public class CourseDetailResponse {
 	private String description;
 	private String thumbnailUrl;
 	private Long price;
+	private Integer discountPercent;
 	private Integer studentCount;
 	private LocalDateTime createdAt;
 	private CategoryResponse category;

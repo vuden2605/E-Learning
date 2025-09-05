@@ -3,13 +3,15 @@ import Blog from "../pages/Blog";
 import Home from "../pages/Home";
 import About from "../pages/About";
 import AllCourses from "../pages/Course/AllCourses";
-import Courses from "../pages/Course"
+import Courses from "../pages/Course";
 import Careers from "../pages/Careers";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import CourseDetail from "../pages/Course/CourseDetail";
 import BlogDetail from "../pages/BlogDetail";
 import Checkout from "../pages/Checkout";
+import UserInfo from "../pages/UserInfo";
+import CartDetail from "../pages/CartDetail";
 export const routes = [
   {
     path: "/",
@@ -21,13 +23,12 @@ export const routes = [
       },
       {
         path: "/course",
-        element: <Courses/>,
+        element: <Courses />,
         children: [
           { element: <AllCourses />, index: true },
           {
             path: "detail/:id",
             element: <CourseDetail />,
-
           },
         ],
       },
@@ -52,6 +53,14 @@ export const routes = [
         path: "/checkout",
         element: <Checkout />,
       },
+      {
+        path: "/userinfo",
+        element: <UserInfo />,
+      },
+      {
+        path: "/cartdetail",
+        element: <CartDetail />,
+      },
     ],
   },
   {
@@ -63,4 +72,3 @@ export const routes = [
     element: <Register />,
   },
 ];
-
