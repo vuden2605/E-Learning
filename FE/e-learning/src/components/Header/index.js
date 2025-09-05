@@ -6,7 +6,7 @@ import { BsFillPostcardHeartFill } from "react-icons/bs";
 import logo from '../../assets/images/logo.png';
 // import logo from '../../images/triple_v_logo.jpg';
 import { Button } from 'antd';
-function Navigation() {
+function Navigation({ onLoginClick, onRegisterClick }) {
     return (
         <ul className="navigation">
             <div className='logo'>
@@ -50,17 +50,15 @@ function Navigation() {
                         Đăng ký
                     </Button>
                 </Link> */}
-                <Link to="/register">
+                
                     <div class="button-wrapper">
                         {/* <span class="button-label">Ocean Waves</span> */}
-                        <button class="shine-button button-ocean" style={{
+                        <button onClick={onRegisterClick} class="shine-button button-ocean" style={{
                             width: "fit-content",
                             padding: "10px 15px",
                             marginLeft:"-20px"
                         }}>Bắt đầu ngay!</button>
                     </div>
-                </Link>
-
             </div>
 
         </ul>
