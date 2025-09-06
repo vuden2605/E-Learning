@@ -19,7 +19,8 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 	@Query("""
     SELECT c FROM Course c
     WHERE (:categoryId IS NULL OR c.category.id = :categoryId)
-      AND (:minPrice IS NULL OR :maxPrice IS NULL OR (c.price * c.discountPercent BETWEEN :minPrice AND :maxPrice))
+      AND (:minPrice IS NULL OR (c.price * (1 - c.discountPercent/100.0)) >= :minPrice)
+      AND (:maxPrice IS NULL OR (c.price * (1 - c.discountPercent/100.0)) <= :maxPrice)
       AND (:discountPercent IS NULL OR c.discountPercent >= :discountPercent)
       AND (:title IS NULL OR LOWER(c.title) LIKE LOWER(CONCAT('%', :title, '%')))
     """)
