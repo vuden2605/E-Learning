@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import axios from "axios";
 const { Title } = Typography;
 
 const Register = ({ onClose }) => {
@@ -21,17 +22,14 @@ const Register = ({ onClose }) => {
       const token = credentialResponse.credential;
       console.log("Google token:", token);
 
-      const res = await fetch("http://localhost:8080/elearning/api/auth/google", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
+      const res = await axios.post(
+        "http://localhost:8080/elearning/api/auth/google",
+        { token },
+        { withCredentials: true } 
+      );
 
-      const data = await res.json();
-      const accessToken = data.result;
+      const accessToken = res.data.result;
       localStorage.setItem("accessToken", accessToken);
-
-
       // Lưu thông tin user vào localStorage hoặc state quản lý người dùng
       // localStorage.setItem("user", JSON.stringify(data.user));
       console.log("JWT từ backend:", accessToken);
