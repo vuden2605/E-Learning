@@ -3,6 +3,7 @@ package com.example.E_Learning.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ public class Order {
 	@Builder.Default
 	private Long totalAmount = 0L ;
 	private String paymentMethod;
+	@CreationTimestamp
 	private LocalDateTime createdAt;
+	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@Builder.Default
