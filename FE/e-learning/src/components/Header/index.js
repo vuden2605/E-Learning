@@ -9,6 +9,7 @@ import { Button } from 'antd';
 import { useSelector } from "react-redux";
 import { UserService } from '../../services/UserService';
 import { useEffect } from 'react';
+import UserMenu from '../UserMenu';
 function Navigation({ onLoginClick, onRegisterClick }) {
     const user = useSelector((state) => state.user.currentUser);
     const handleGetInfo = async () => {
@@ -19,6 +20,17 @@ function Navigation({ onLoginClick, onRegisterClick }) {
             console.error(error);
         }
     }
+    const handleLogout = async () => {
+        try {
+            await UserService.logout();
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("persist:root");
+            window.location.href = "/"; // 
+            // window.location.reload(); 
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
     // useEffect(() => {
     //  localStorage.removeItem("usepersist:root");   
     // },[]);
@@ -54,7 +66,7 @@ function Navigation({ onLoginClick, onRegisterClick }) {
                 </NavLink>
             </div>
             {user ? (
-                <button onClick={handleGetInfo}>Xin chào, {user.fullName} </button>
+                <UserMenu user={user} handleLogout={handleLogout} />
             ) : (<div className='sign-in-up'>
                 {/* <Link to="/login">
                     <Button type="primary" shape="round" size='large'>

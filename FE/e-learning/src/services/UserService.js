@@ -30,8 +30,18 @@ const updateUser = async (id, userData) => {
   }
 };
 
+const logout = async () => {
+  try {
+    const response = await api.post("/auth/logout");
+    console.log("Logout successful:", response.data.message);
+    return response.data.message;
+  } catch (error) {
+    console.error("Error during logout:", error.message);
+  }
+};
 export  const UserService = {
   getCurrentUser,
   getUserById,
   updateUser,
+  logout
 };
