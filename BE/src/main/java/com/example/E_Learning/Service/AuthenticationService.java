@@ -79,6 +79,7 @@ public class AuthenticationService {
 				.email(payload.getEmail())
 				.fullName(payload.get("name").toString())
 				.password(passwordEncoder.encode(googleIdToken.getPayload().get("sub").toString()))
+				.avatarUrl(payload.get("picture").toString())
 				.build();
 		return userRepository.save(user);
 	}

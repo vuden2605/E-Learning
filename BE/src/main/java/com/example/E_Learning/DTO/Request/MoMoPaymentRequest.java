@@ -1,19 +1,16 @@
 package com.example.E_Learning.DTO.Request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-	@NotBlank(message = "REQUIRED_EMAIL")
-	private String email;
-	@NotBlank(message = "REQUIRED_PASSWORD")
-	private String password;
+public class MoMoPaymentRequest {
+	private List<Long> courseIds;
 }
-
