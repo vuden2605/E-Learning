@@ -69,7 +69,9 @@ public enum ErrorCode {
 	COURSE_ALREADY_IN_CART(9003, "Course already in cart", HttpStatus.CONFLICT),
 	//Rating
 	RATING_NOT_FOUND(10001, "Rating not found", HttpStatus.NOT_FOUND),
-	RATING_ALREADY_EXISTS(10002, "Rating already exists", HttpStatus.CONFLICT);
+	RATING_ALREADY_EXISTS(10002, "Rating already exists", HttpStatus.CONFLICT),
+	//Payment
+	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

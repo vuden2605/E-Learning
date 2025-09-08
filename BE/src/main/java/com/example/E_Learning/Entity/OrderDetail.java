@@ -19,6 +19,6 @@ public class OrderDetail {
 	@JoinColumn(name = "course_id")
 	private Course course;
 	private Long price;
-	private Long discountPercent;
+	private Long discount;
 	private Long finalPrice;
 }

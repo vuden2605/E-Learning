@@ -27,7 +27,7 @@ public class Course {
 	private Category category;
 	private String thumbnailUrl;
 	private Integer studentCount;
-	private Integer discountPercent;
+	private Long discountPercent;
 	private Long price;
 	@Builder.Default
 	private Double averageRating = 0.0;
