@@ -7,6 +7,7 @@ const getCourses = async ({
   minPrice,
   maxPrice,
   discountPercent,
+  title,
 }) => {
   try {
     const params = {
@@ -19,6 +20,7 @@ const getCourses = async ({
     if (minPrice != null) params.minPrice = minPrice;
     if (maxPrice) params.maxPrice = maxPrice;
     if (discountPercent) params.discountPercent = discountPercent;
+    if (title) params.title = title;
 
     const res = await axios.get(`${API_URL}/course/filter`, { params });
     console.log(
@@ -48,7 +50,7 @@ const searchCourse = async (value) => {
     //   " URL:",
     //   axios.getUri({ url: `${API_URL}/course/search?name=${value}` })
     // );
-    return res.data.result
+    return res.data.result;
   } catch (err) {
     console.log(err);
   }
