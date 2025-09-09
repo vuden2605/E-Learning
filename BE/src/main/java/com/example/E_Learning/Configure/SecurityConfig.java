@@ -27,11 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	private final String[] authEndpoints = {
-			"/auth/login",
-			"/auth/refresh-token",
-			"/user",
-			"/instructor",
-			"/auth/google"
+			"/auth/**",
+			"/user/**",
+			"/instructor/**"
 	};
 	private final String [] publicEndpoints = {
 			"/category/**",
@@ -54,6 +52,7 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
 				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
+				.requestMatchers("/momo/**").permitAll()
 				.anyRequest().authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2 -> oauth2

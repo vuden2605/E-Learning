@@ -71,7 +71,9 @@ public enum ErrorCode {
 	RATING_NOT_FOUND(10001, "Rating not found", HttpStatus.NOT_FOUND),
 	RATING_ALREADY_EXISTS(10002, "Rating already exists", HttpStatus.CONFLICT),
 	//Payment
-	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST);
+	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST),
+	//Order
+	ORDER_NOT_FOUND(12001,"Order not found",HttpStatus.BAD_REQUEST);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;
