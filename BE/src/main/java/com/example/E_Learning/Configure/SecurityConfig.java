@@ -49,10 +49,10 @@ public class SecurityConfig {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 		httpSecurity.authorizeHttpRequests(request -> request
-				.requestMatchers("/momo/notify").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
 				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
+				.requestMatchers("/momo/**").permitAll()
 				.anyRequest().authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2 -> oauth2

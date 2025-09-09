@@ -2,14 +2,12 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.MoMoPaymentRequest;
 import com.example.E_Learning.Entity.Course;
+import com.example.E_Learning.Entity.Invoice;
 import com.example.E_Learning.Entity.Order;
 import com.example.E_Learning.Entity.OrderDetail;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
-import com.example.E_Learning.Repository.CourseRepository;
-import com.example.E_Learning.Repository.OrderDetailRepository;
-import com.example.E_Learning.Repository.OrderRepository;
-import com.example.E_Learning.Repository.UserRepository;
+import com.example.E_Learning.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -30,12 +28,13 @@ public class MomoService {
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
 	private static final String returnUrl = "https://momo.vn/return";
-	private static final String notifyUrl = "https://68cc599970dc.ngrok-free.app /momo/notify";
+	private static final String notifyUrl = "https://68cc599970dc.ngrok-free.app/elearning/api/momo/notify";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final OrderDetailRepository orderDetailRepository;
 	private final CourseRepository courseRepository;
 	private final UserRepository userRepository;
+	private final InvoiceRepostiory invoiceRepostiory;
 	@Transactional
 	public String createPayment(MoMoPaymentRequest moMoPaymentRequest, Long userId) throws Exception {
 		// Create order
@@ -108,7 +107,33 @@ public class MomoService {
 		}
 		return (String) response.getBody().get("payUrl");
 	}
+	@Transactional
+	public String handleMomoNotify(Map<String,Object> payload) {
+		if (payload.containsKey("resultCode")) {
+			int resultCode = Integer.parseInt(payload.get("resultCode").toString());
+			if (resultCode != 0) {
+				return ErrorCode.PAYMENT_FAILED.getMessage();
+			}
+			else {
+				if (payload.containsKey("orderId")) {
+					long orderId = Integer.parseInt(payload.get("orderId").toString().split("-")[0]);
+					Order order = orderRepository.findById(orderId)
+							.orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+					order.setStatus("Success");
+					orderRepository.save(order);
+					Invoice invoice = Invoice.builder()
+							.order(order)
+							.amount(Long.parseLong(payload.get("amount").toString()))
+							.method("Momo")
+							.build();
+					invoiceRepostiory.save(invoice);
+					return "Pay success";
+				}
+			}
 
+		}
+		return ErrorCode.PAYMENT_FAILED.getMessage();
+	}
 	private String hmacSHA256(String data) throws Exception {
 		Mac hmac = Mac.getInstance("HmacSHA256");
 		SecretKeySpec secretKeySpec = new SecretKeySpec(MomoService.secretKey.getBytes(), "HmacSHA256");
