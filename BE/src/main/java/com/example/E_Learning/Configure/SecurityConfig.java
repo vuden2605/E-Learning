@@ -27,11 +27,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 	private final String[] authEndpoints = {
-			"/auth/login",
-			"/auth/refresh-token",
-			"/user",
-			"/instructor",
-			"/auth/google"
+			"/auth/**",
+			"/user/**",
+			"/instructor/**"
 	};
 	private final String [] publicEndpoints = {
 			"/category/**",
@@ -51,6 +49,7 @@ public class SecurityConfig {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 		httpSecurity.authorizeHttpRequests(request -> request
+				.requestMatchers("/momo/notify").permitAll()
 				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
 				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
