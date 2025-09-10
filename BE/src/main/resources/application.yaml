@@ -20,7 +20,9 @@ spring:
 
 jwt:
   secret-key: your-super-secret-key-12345678901234567890123456789012
-  access-time: 250000
+
+  access-time: 3000000
+
   refresh-time: 604800000
 aws:
   accessKey: AKIAQH3T6CWXGPQPYXPN

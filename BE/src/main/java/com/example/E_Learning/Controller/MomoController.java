@@ -35,8 +35,11 @@ public class MomoController {
 		}
 	}
 	@PostMapping("/notify")
-	public void handleMomoNotify(@RequestBody Map<String,Object> payload) {
+	public ApiResponse<String> handleMomoNotify(@RequestBody Map<String,Object> payload) {
 		log.info("payload");
 		payload.forEach((key,value)-> log.info("{}:{}",key,value));
+		return ApiResponse.<String>builder()
+				.result(momoService.handleMomoNotify(payload))
+				.build();
 	}
 }

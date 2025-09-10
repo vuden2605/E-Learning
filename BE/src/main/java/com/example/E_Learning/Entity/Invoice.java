@@ -8,15 +8,17 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
 @Table(name = "invoices")
 public class Invoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
 	private Long amount;
+	private String method;
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
