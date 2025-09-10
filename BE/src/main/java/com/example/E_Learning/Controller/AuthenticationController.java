@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class AuthenticationController {
 	private final AuthenticationService authenticationService;
-
 	@PostMapping("/login")
 	public ApiResponse<String> login(@RequestBody @Valid LoginRequest loginRequest,
 			HttpServletResponse response) {
@@ -34,7 +33,7 @@ public class AuthenticationController {
 				.httpOnly(true)
 				.secure(false)
 				.path("/")
-				.sameSite("Strict")
+				.sameSite("None")
 				.maxAge(60 * 60 * 24 * 7) // 7 days
 				.build();
 		response.setHeader("Set-Cookie", refreshTokenCookie.toString());
@@ -42,7 +41,6 @@ public class AuthenticationController {
 						.result(authResponse.getAccessToken())
 						.build();
 	}
-
 	@PostMapping("/google")
 	public ApiResponse<String> googleLogin(@RequestBody GoogleLoginRequest googleLoginRequest,
 			HttpServletResponse response) {
@@ -51,9 +49,9 @@ public class AuthenticationController {
 		ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
 				.httpOnly(true)
 				.secure(false) // Set to true if using HTTPS
-				.path("/auth/refresh-token")
+				.path("/")
 				.sameSite("Strict")
-				.maxAge(60 * 60 * 24 * 7) // 7 days
+				.maxAge(60 * 60 * 24 * 7)
 				.build();
 		response.setHeader("Set-Cookie", refreshTokenCookie.toString());
 		return ApiResponse.<String>builder()
@@ -75,7 +73,6 @@ public class AuthenticationController {
 							.build();
 		}
 	}
-
 	@PostMapping("/logout")
 	public ApiResponse<String> logout(HttpServletResponse response) {
 		ResponseCookie deleteCookie = ResponseCookie.from("refreshToken", "")

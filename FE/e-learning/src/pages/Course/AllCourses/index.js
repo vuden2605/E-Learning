@@ -35,7 +35,7 @@ function AllCourses() {
         ...filters,
       });
       setCourses(data.content);
-      console.log(data.content)
+      console.log(data.content);
       setTotal(data.totalElements);
       console.log("số item:", data.totalElements);
 
@@ -58,6 +58,7 @@ function AllCourses() {
     console.log("reset");
     setRange([0, 500]); // reset về mặc định
     console.log("range-reset", range);
+    setSearchValue("");
     setFilters({}); // xoá hết filter -> chỉ còn page, pageSize
   };
   // fetch category
@@ -100,10 +101,11 @@ function AllCourses() {
   const handleSearch = async (value) => {
     // console.log("search:", value);
     try {
-      const data = await CourseService.searchCourse(value);
+      // const data = await CourseService.searchCourse(value);
       // console.log("kết quả:", data);
 
-      setCourses(data);
+      setPage(0);
+      setFilters((pre) => ({ ...pre, title: value }));
       setSearchValue("");
     } catch (err) {
       console.error(err);

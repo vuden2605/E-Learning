@@ -12,6 +12,7 @@ import BlogDetail from "../pages/BlogDetail";
 import Checkout from "../pages/Checkout";
 import UserInfo from "../pages/UserInfo";
 import CartDetail from "../pages/CartDetail";
+import PrivateRoute from "../components/PrivateRoute";
 export const routes = [
   {
     path: "/",
@@ -41,7 +42,7 @@ export const routes = [
         element: <Blog />,
       },
       {
-        path: "/blog/detail",
+        path: "/blog/:id",
         element: <BlogDetail />,
       },
       {
@@ -55,7 +56,11 @@ export const routes = [
       },
       {
         path: "/userinfo",
-        element: <UserInfo />,
+        element: (
+          <PrivateRoute>
+            <UserInfo />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/cartdetail",
