@@ -1,6 +1,8 @@
 package com.example.E_Learning.Exception;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
