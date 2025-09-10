@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=E-LearningTest;encrypt=true;trustServerCertificate=true
     username: sa
-    password: 1
+    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,7 +20,7 @@ spring:
 
 jwt:
   secret-key: your-super-secret-key-12345678901234567890123456789012
-  access-time: 25000
+  access-time: 250000
   refresh-time: 604800000
 aws:
   accessKey: AKIAQH3T6CWXGPQPYXPN
