@@ -1,10 +1,7 @@
 package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.MoMoPaymentRequest;
-import com.example.E_Learning.Entity.Course;
-import com.example.E_Learning.Entity.Invoice;
-import com.example.E_Learning.Entity.Order;
-import com.example.E_Learning.Entity.OrderDetail;
+import com.example.E_Learning.Entity.*;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.*;
@@ -28,13 +25,13 @@ public class MomoService {
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
 	private static final String returnUrl = "https://momo.vn/return";
-	private static final String notifyUrl = "https://68cc599970dc.ngrok-free.app/elearning/api/momo/notify";
+	private static final String notifyUrl = "https://a3d2ecb4cc56.ngrok-free.app/elearning/api/momo/notify";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
-	private final OrderDetailRepository orderDetailRepository;
 	private final CourseRepository courseRepository;
 	private final UserRepository userRepository;
 	private final InvoiceRepostiory invoiceRepostiory;
+	private final EnrollmentRepository enrollmentRepository;
 	@Transactional
 	public String createPayment(MoMoPaymentRequest moMoPaymentRequest, Long userId) throws Exception {
 		// Create order
@@ -127,6 +124,15 @@ public class MomoService {
 							.method("Momo")
 							.build();
 					invoiceRepostiory.save(invoice);
+					List<Enrollment> enrollments = order.getOrderDetails()
+									.stream()
+									.map(OrderDetail::getCourse)
+									.map(course -> Enrollment.builder()
+											.course(course)
+											.user(order.getUser())
+											.build())
+									.toList();
+					enrollmentRepository.saveAll(enrollments);
 					return "Pay success";
 				}
 			}
