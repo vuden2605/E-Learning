@@ -76,7 +76,9 @@ public enum ErrorCode {
 	//Payment
 	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST),
 	//Order
-	ORDER_NOT_FOUND(12001,"Order not found",HttpStatus.BAD_REQUEST);
+	ORDER_NOT_FOUND(12001,"Order not found",HttpStatus.BAD_REQUEST),
+	//Material
+	MATERIAL_NOT_FOUND(13001,"Material not found",HttpStatus.NOT_FOUND);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

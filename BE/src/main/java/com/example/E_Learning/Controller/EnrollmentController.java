@@ -33,4 +33,12 @@ public class EnrollmentController {
 				.result(enrollmentService.getEnrollmentByUserId(userId))
 				.build();
 	}
+	@GetMapping("/course/{courseId}/material/{materialId}")
+	public ApiResponse<String> getCourseMaterial (@PathVariable Long courseId, @PathVariable Long materialId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long userId = Long.parseLong(authentication.getName());
+		return ApiResponse.<String>builder()
+				.result(enrollmentService.getCourseMaterial(materialId,userId,courseId))
+				.build();
+	}
 }

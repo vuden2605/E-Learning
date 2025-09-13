@@ -78,8 +78,6 @@ public class S3Controller {
 	public ApiResponse<String> getPresignedUrl(@RequestParam String key) {
 		try {
 			return ApiResponse.<String>builder()
-					.code(ErrorCode.SUCCESS.getCode())
-					.message(ErrorCode.SUCCESS.getMessage())
 					.result(s3Service.generatePresignedUrl(key))
 					.build();
 		} catch (Exception e) {
