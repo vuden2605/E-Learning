@@ -2,6 +2,7 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.EnrollmentCreationRequest;
 import com.example.E_Learning.DTO.Response.EnrollmentResponse;
+import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Entity.Enrollment;
 import com.example.E_Learning.Entity.Material;
 import com.example.E_Learning.Exception.AppException;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +52,9 @@ public class EnrollmentService {
 	public String getCourseMaterial (Long materialId, Long userId, Long courseId) {
 		Material material = materialRepository.findById(materialId)
 				.orElseThrow(() -> new AppException(ErrorCode.MATERIAL_NOT_FOUND));
-		if (existsByUserIdAndCourseId(userId,courseId)) {
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
+		if (existsByUserIdAndCourseId(userId,courseId) || course.getInstructor().getId().equals(userId)) {
 			String key = material.getUrl();
 			return s3Service.generatePresignedUrl(key);
 		}
