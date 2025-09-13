@@ -13,5 +13,5 @@ public class EnrollmentResponse {
 	private Long id;
 	private LocalDateTime enrolledAt;
 	private Long userId;
-	private Long courseId;
+	private CourseResponse courseResponse;
 }

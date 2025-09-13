@@ -17,14 +17,14 @@ import java.util.List;
 @RequestMapping("/enrollment")
 public class EnrollmentController {
 	private final EnrollmentService enrollmentService;
-	@PostMapping
-	public ApiResponse<EnrollmentResponse> createEnrollment (@RequestBody EnrollmentCreationRequest enrollmentCreationRequest) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Long userId = Long.parseLong(authentication.getName());
-		return ApiResponse.<EnrollmentResponse>builder()
-				.result(enrollmentService.createEnrollment(enrollmentCreationRequest, userId))
-				.build();
-	}
+//	@PostMapping
+//	public ApiResponse<EnrollmentResponse> createEnrollment (@RequestBody EnrollmentCreationRequest enrollmentCreationRequest) {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		Long userId = Long.parseLong(authentication.getName());
+//		return ApiResponse.<EnrollmentResponse>builder()
+//				.result(enrollmentService.createEnrollment(enrollmentCreationRequest, userId))
+//				.build();
+//	}
 	@GetMapping("/me")
 	public ApiResponse<List<EnrollmentResponse>> myEnrollmentCourse () {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
