@@ -25,7 +25,7 @@ public class MomoService {
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
 	private static final String returnUrl = "https://momo.vn/return";
-	private static final String notifyUrl = "https://a3d2ecb4cc56.ngrok-free.app/elearning/api/momo/notify";
+	private static final String notifyUrl = "https://23f99834ad23.ngrok-free.app/elearning/api/momo/notify";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final CourseRepository courseRepository;
@@ -124,6 +124,7 @@ public class MomoService {
 							.method("Momo")
 							.build();
 					invoiceRepostiory.save(invoice);
+					//kiểm tra user có khóa học chưa
 					List<Enrollment> enrollments = order.getOrderDetails()
 									.stream()
 									.map(OrderDetail::getCourse)
@@ -133,6 +134,7 @@ public class MomoService {
 											.build())
 									.toList();
 					enrollmentRepository.saveAll(enrollments);
+					//xoa cart
 					return "Pay success";
 				}
 			}
