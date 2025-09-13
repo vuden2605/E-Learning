@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @AllArgsConstructor
-@JsonInclude (JsonInclude.Include.NON_NULL)
+//@JsonInclude (JsonInclude.Include.NON_NULL)
 public class CourseResponse {
 	private Long id;
 	private String title;
@@ -23,4 +23,6 @@ public class CourseResponse {
 	private BigDecimal price;
 	private LocalDateTime createdAt;
 	private Integer studentCount;
+	private Double averageRating;
+	private Long totalRatings;
 }

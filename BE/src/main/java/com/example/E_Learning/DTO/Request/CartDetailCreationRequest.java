@@ -11,5 +11,4 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CartDetailCreationRequest {
 	private Long courseId;
-	private Integer currentPrice;
 }

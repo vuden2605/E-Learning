@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourseDetailResponse {
 	private Long id;
 	private String title;
@@ -23,4 +23,6 @@ public class CourseDetailResponse {
 	private LocalDateTime createdAt;
 	private CategoryResponse category;
 	private InstructorResponse instructor;
+	private Double averageRating;
+	private Long totalRatings;
 }

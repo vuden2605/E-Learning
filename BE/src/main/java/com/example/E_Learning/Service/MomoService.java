@@ -32,15 +32,36 @@ public class MomoService {
 	private final UserRepository userRepository;
 	private final InvoiceRepostiory invoiceRepostiory;
 	private final EnrollmentRepository enrollmentRepository;
+	private final CartRepository cartRepository;
+	private final CartDetailRepository cartDetailRepository;
 	@Transactional
 	public String createPayment(MoMoPaymentRequest moMoPaymentRequest, Long userId) throws Exception {
+		List<Long> courseIds = new ArrayList<>();
+		if (moMoPaymentRequest != null) {
+			courseIds = moMoPaymentRequest.getCourseIds();
+		}
+		else {
+			User currentUser = userRepository.findById(userId)
+					.orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+
+			Cart cart = cartRepository.findByUserId(currentUser.getId())
+					.orElseThrow(() -> new AppException(ErrorCode.CART_NOT_FOUND));
+
+			List<CartDetail> cartDetails = cartDetailRepository.findByCartId(cart.getId());
+			courseIds = cartDetails.stream()
+					.map(cartDetail -> cartDetail.getCourse().getId())
+					.toList();
+		}
+		if (courseIds.isEmpty()){
+			return "No item to pay";
+		}
 		// Create order
 		Order order = Order.builder()
 				.user(userRepository.getReferenceById(userId))
 				.paymentMethod("Momo")
 				.build();
 		long amount = 0;
-		for (long courseId : moMoPaymentRequest.getCourseIds()) {
+		for (long courseId : courseIds) {
 			Course course = courseRepository.findById(courseId)
 					.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
 			long price = course.getPrice();
@@ -125,14 +146,19 @@ public class MomoService {
 							.build();
 					invoiceRepostiory.save(invoice);
 					List<Enrollment> enrollments = order.getOrderDetails()
-									.stream()
-									.map(OrderDetail::getCourse)
-									.map(course -> Enrollment.builder()
-											.course(course)
-											.user(order.getUser())
-											.build())
-									.toList();
+							.stream()
+							.map(OrderDetail::getCourse)
+							.map(course -> Enrollment.builder()
+									.course(course)
+									.user(order.getUser())
+									.build())
+							.toList();
 					enrollmentRepository.saveAll(enrollments);
+					User user = order.getUser();
+					Cart cart = cartRepository.findByUserId(user.getId())
+							.orElseThrow(() -> new AppException(ErrorCode.CART_NOT_FOUND));
+					List<CartDetail> cartDetails = cartDetailRepository.findByCartId(cart.getId());
+					cartDetailRepository.deleteAll(cartDetails);
 					return "Pay success";
 				}
 			}
