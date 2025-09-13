@@ -22,6 +22,10 @@ public class CartService {
 		cartRepository.save(cart);
 		return "Cart created";
 	}
+	public String deleteCart(Long cartId) {
+		cartRepository.deleteById(cartId);
+		return "Delete cart success";
+	}
 
 
 }

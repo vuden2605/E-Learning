@@ -28,4 +28,7 @@ public class Cart {
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	@Builder.Default
+	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+	private List<CartDetail> cartDetails = new ArrayList<>();
 }
