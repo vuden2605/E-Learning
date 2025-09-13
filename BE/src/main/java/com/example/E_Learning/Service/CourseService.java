@@ -4,8 +4,10 @@ import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
+import com.example.E_Learning.DTO.Response.EnrollmentResponse;
 import com.example.E_Learning.DTO.Response.PageResponse;
 import com.example.E_Learning.Entity.Course;
+import com.example.E_Learning.Entity.Enrollment;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.CategoryRepository;
@@ -32,6 +34,7 @@ public class CourseService {
 	private final CategoryMapper categoryMapper;
 	private final InstructorRepository instructorRepository;
 	private final InstructorMapper instructorMapper;
+	private final EnrollmentService enrollmentService;
 	public CourseResponse createCourse(CourseCreationRequest courseCreationRequest, Long instructorId ) {
 		Course course = courseMapper.toCourse(courseCreationRequest);
 
@@ -68,16 +71,24 @@ public class CourseService {
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
 				.build();
 	}
-	public PageResponse<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Pageable pageable) {
+	public PageResponse<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, Pageable pageable) {
 		Page<Course> coursePage = courseRepository.findCoursesByFilter(courseFilterRequest.getCategoryId(),
 				                                               courseFilterRequest.getMinPrice(),
 				                                               courseFilterRequest.getMaxPrice(),
 				                                               courseFilterRequest.getDiscountPercent(),
 				                                               courseFilterRequest.getTitle(),
 				                                               pageable);
-		List<CourseResponse> courseResponses = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
+		List<CourseResponse> result = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
+		if (userId != null) {
+			List<CourseResponse> userCourses = enrollmentService.getEnrollmentByUserId(userId).stream()
+					.map(EnrollmentResponse::getCourseResponse)
+					.toList();
+			result= result.stream()
+					.filter(courseResponse -> !userCourses.contains(courseResponse))
+					.toList();
+		}
 		return PageResponse.<CourseResponse>builder()
-				.content(courseResponses)
+				.content(result)
 				.pageNumber(coursePage.getNumber())
 				.pageSize(coursePage.getSize())
 				.totalElements(coursePage.getTotalElements())

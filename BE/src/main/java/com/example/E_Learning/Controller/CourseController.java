@@ -55,12 +55,18 @@ public class CourseController {
 //	}
 	@GetMapping("/filter")
 	public ApiResponse<PageResponse<CourseResponse>> getCourses (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long userId = null;
+		if (authentication != null && authentication.isAuthenticated()
+				&& !"anonymousUser".equals(authentication.getName())) {
+			userId = Long.parseLong(authentication.getName());
+		}
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),
 				                           pageRequest.getPageSize(),
 				                           Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
+						.result(courseService.findCoursesByFilter(courseFilterRequest,userId,pageable))
 						.build();
 	}
 	@GetMapping("/instructor/me")
