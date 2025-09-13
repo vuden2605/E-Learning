@@ -23,6 +23,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.LongSummaryStatistics;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -79,12 +82,16 @@ public class CourseService {
 				                                               courseFilterRequest.getTitle(),
 				                                               pageable);
 		List<CourseResponse> result = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
+
 		if (userId != null) {
 			List<CourseResponse> userCourses = enrollmentService.getEnrollmentByUserId(userId).stream()
 					.map(EnrollmentResponse::getCourseResponse)
 					.toList();
+			Set<Long> userCourseIds = userCourses.stream()
+					.map(CourseResponse::getId)
+					.collect(Collectors.toSet());
 			result= result.stream()
-					.filter(courseResponse -> !userCourses.contains(courseResponse))
+					.filter(courseResponse -> !userCourseIds.contains(courseResponse.getId()))
 					.toList();
 		}
 		return PageResponse.<CourseResponse>builder()
