@@ -3,6 +3,9 @@ package com.example.E_Learning.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +24,5 @@ public class CartDetail {
 	@JoinColumn(name = "course_id")
 	private Course course;
 	private Integer currentPrice;
+
 }

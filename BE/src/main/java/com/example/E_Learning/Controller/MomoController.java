@@ -22,7 +22,7 @@ import java.util.Map;
 public class MomoController {
 	private final MomoService momoService;
 	@PostMapping("/checkout")
-	public ApiResponse<String> checkout(@RequestBody MoMoPaymentRequest moMoPaymentRequest) throws Exception {
+	public ApiResponse<String> checkout(@RequestBody(required = false) MoMoPaymentRequest moMoPaymentRequest) throws Exception {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			long userId = Long.parseLong(authentication.getName());

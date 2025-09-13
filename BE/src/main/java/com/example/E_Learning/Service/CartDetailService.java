@@ -13,6 +13,8 @@ import com.example.E_Learning.mapper.CartDetailMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CartDetailService {
@@ -31,5 +33,9 @@ public class CartDetailService {
 		}
 		cartDetailRepository.save(cartDetail);
 		return "Add to cart successfully";
+	}
+	public String deleteCartDetails (List<Long> ids) {
+		cartDetailRepository.deleteAllById(ids);
+		return "Delete cart detail success";
 	}
 }
