@@ -1,21 +1,59 @@
 import "./style.scss";
-import { AppstoreOutlined } from "@ant-design/icons";
 import { Form, Button, Input, Menu } from "antd";
 import { useState } from "react";
 import avt from "../../assets/images/cmt_avt.jpg";
+import { useSelector } from "react-redux";
+import React from "react";
 
+// ---- Component con
+const ProfileForm = React.memo(({ onFinish }) => {
+  return (
+    <Form
+      name="ho-so"
+      layout="vertical"
+      onFinish={onFinish}
+      requiredMark={false}
+    >
+      <Form.Item
+        label="Họ tên:"
+        name="name"
+        rules={[{ required: true, message: "Họ tên không được để trống" }]}
+      >
+        <Input placeholder="Nhập họ tên" />
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Lưu
+        </Button>
+      </Form.Item>
+    </Form>
+  );
+});
+
+const Photos = React.memo(() => {
+  return (
+    <div style={{ border: "1px solid #d2d4eb", width: "100%", height: "100%" }}>
+      Chưa có ảnh
+    </div>
+  );
+});
+
+// ---- Component chính
 function UserInfo() {
-  //---- menu
+  const user = useSelector((state) => state.user.currentUser);
+  console.log(user);
   const [selectedKey, setSelectedKey] = useState("1");
+
   const items = [
     { key: "1", label: "Hồ sơ" },
     { key: "2", label: "Ảnh" },
   ];
+
   const handleClick = (e) => {
-    console.log("key-menu:", e.key);
     setSelectedKey(e.key);
   };
-  //----HO SO
+
   const onFinish = (values) => {
     console.log("Ho so form:", values);
   };
@@ -25,12 +63,10 @@ function UserInfo() {
       <div className="profile">
         <div className="sidebar">
           <div className="avatar">
-            <img src={avt}></img>
+            <img src={avt} alt="avatar" />
           </div>
-          <div className="name">Quốc Việt</div>
+          <div className="name">{user.fullName}</div>
           <Menu
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
             mode="inline"
             theme="light"
             items={items}
@@ -50,10 +86,12 @@ function UserInfo() {
                     marginTop: "15px",
                   }}
                 >
-                  Hồ sơ công khai
-                </div>
+                  {" "}
+                  Hồ sơ công khai{" "}
+                </div>{" "}
                 <div style={{ textAlign: "center", marginBottom: "15px" }}>
-                  Thêm thông tin về bản thân bạn.
+                  {" "}
+                  Thêm thông tin về bản thân bạn.{" "}
                 </div>
               </>
             )}
@@ -67,52 +105,19 @@ function UserInfo() {
                     marginTop: "15px",
                   }}
                 >
-                  Ảnh
-                </div>
+                  {" "}
+                  Ảnh{" "}
+                </div>{" "}
                 <div style={{ textAlign: "center", marginBottom: "15px" }}>
+                  {" "}
                   Thêm một bức ảnh đẹp của bạn cho hồ sơ.{" "}
                 </div>
               </>
             )}
           </div>
           <div className="info-content">
-            {selectedKey === "1" && (
-              <>
-                <Form
-                  name="ho-so"
-                  layout="vertical"
-                  onFinish={onFinish}
-                  requiredMark={false}
-                >
-                  <Form.Item
-                    label="Họ tên:"
-                    name="name"
-                    rules={[
-                      { required: true, message: "Họ tên không được để trống" },
-                    ]}
-                  >
-                    <Input placeholder="Nhập họ tên" />
-                  </Form.Item>
-
-                  <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                      Lưu
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </>
-            )}
-            {selectedKey === "2" && (
-              <>
-                <div
-                  style={{
-                    border: "1px solid #d2d4eb",
-                    width: "100%",
-                    height: "100%",
-                  }}
-                ></div>
-              </>
-            )}
+            {selectedKey === "1" && <ProfileForm onFinish={onFinish} />}
+            {selectedKey === "2" && <Photos />}
           </div>
         </div>
       </div>

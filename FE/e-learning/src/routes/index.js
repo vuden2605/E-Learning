@@ -13,6 +13,7 @@ import Checkout from "../pages/Checkout";
 import UserInfo from "../pages/UserInfo";
 import CartDetail from "../pages/CartDetail";
 import PrivateRoute from "../components/PrivateRoute";
+import Mycourses from "../pages/MyCourse";
 export const routes = [
   {
     path: "/",
@@ -59,6 +60,14 @@ export const routes = [
         element: (
           <PrivateRoute>
             <UserInfo />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/mycourses",
+        element: (
+          <PrivateRoute>
+            <Mycourses />
           </PrivateRoute>
         ),
       },
