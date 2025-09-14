@@ -48,10 +48,12 @@ export default function BlogPage() {
     relatedRef.current?.scrollIntoView({ behavior: "smooth" });
   };  
   const handlePrevCategory = () => {
+    console.log("clickl");
     if (categoryPage > 0) setCategoryPage(categoryPage - 1);
   };
 
   const handleNextCategory = () => {
+    console.log("clickr");
     if ((categoryPage + 1) * categoryPageSize < categories.length) {
       setCategoryPage(categoryPage + 1);
     }
@@ -91,25 +93,14 @@ export default function BlogPage() {
         pageSize={categoryPageSize}
       />
       <div className="square-outlined">
-          <LeftSquareOutlined
-            onClick={handlePrevCategory}
-            style={{
-              fontSize: "30px",
-              color: "#fff",
-              backgroundColor: "#6AB9BC",
-              borderRadius: "5px",
-            }}
-          />
-          <RightSquareOutlined
-            onClick={handleNextCategory}
-            style={{
-              fontSize: "30px",
-              color: "#fff",
-              backgroundColor: "#6AB9BC",
-              borderRadius: "5px",
-            }}
-          />
+        <div className="arrow-btn" onClick={handlePrevCategory}>
+          <LeftSquareOutlined />
+        </div>
+        <div className="arrow-btn" onClick={handleNextCategory}>
+          <RightSquareOutlined />
+        </div>
       </div>
+
       {/* Related Blog */}
       <div className="related-blog" ref={relatedRef}>
         <div className="related-header">
