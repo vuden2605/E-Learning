@@ -10,6 +10,7 @@ import com.example.E_Learning.Service.CourseService;
 import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/course")
+@Slf4j
 public class CourseController {
 	private final CourseService courseService;
 	@PostMapping
@@ -55,12 +57,19 @@ public class CourseController {
 //	}
 	@GetMapping("/filter")
 	public ApiResponse<PageResponse<CourseResponse>> getCourses (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		log.info("Authentication: {}",authentication);
+		Long userId = null;
+		if (authentication != null && !"anonymousUser".equals(authentication.getName())) {
+			userId = Long.parseLong(authentication.getName());
+		}
+		log.info("user:{}",userId);
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),
 				                           pageRequest.getPageSize(),
 				                           Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		return ApiResponse.<PageResponse<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(courseFilterRequest,pageable))
+						.result(courseService.findCoursesByFilter(courseFilterRequest,userId,pageable))
 						.build();
 	}
 	@GetMapping("/instructor/me")

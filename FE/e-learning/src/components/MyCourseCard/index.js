@@ -1,16 +1,23 @@
 import "./style.scss";
-function Mycourse() {
+function Mycourse({ title, thumbnailUrl }) {
   return (
     <div className="card">
       <div className="card-img">
-        <img src="https://files.fullstack.edu.vn/f8-prod/courses/21/63e1bcbaed1dd.png"></img>
+        <img src={thumbnailUrl}></img>
+        {/* <img src="https://files.fullstack.edu.vn/f8-prod/courses/21/63e1bcbaed1dd.png"></img> */}
       </div>
       <div className="card-content">
-        <div style={{ padding: "16px" }}>
+        <div style={{ padding: "10px" }}>
           <div>
-            <h1 className="card-name">Lập Trình JavaScript Cơ Bản</h1>
+            <h1 className="card-name">{title}</h1>
           </div>
-          <div style={{ paddingTop: "10px", paddingBottom: "10px" }}>
+          <div
+            style={{
+              paddingTop: "5px",
+              paddingBottom: "5px",
+              fontSize: "14px",
+            }}
+          >
             Tiến độ
           </div>
           <div className="progress">

@@ -1,14 +1,17 @@
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
-const getCourses = async ({
-  page = 0,
-  pageSize = 6,
-  categoryId,
-  minPrice,
-  maxPrice,
-  discountPercent,
-  title,
-}) => {
+const getCourses = async (
+  {
+    page = 0,
+    pageSize = 6,
+    categoryId,
+    minPrice,
+    maxPrice,
+    discountPercent,
+    title,
+  },
+  token
+) => {
   try {
     const params = {
       page,
@@ -21,12 +24,18 @@ const getCourses = async ({
     if (maxPrice) params.maxPrice = maxPrice;
     if (discountPercent) params.discountPercent = discountPercent;
     if (title) params.title = title;
+    console.log("token:", token);
 
-    const res = await axios.get(`${API_URL}/course/filter`, { params });
-    console.log(
-      " URL:",
-      axios.getUri({ url: `${API_URL}/course/filter`, params })
-    );
+    const headers = {};
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
+    const res = await axios.get(`${API_URL}/course/filter`, {
+      params,
+      headers,
+    });
+    console.log(" URL:", headers);
     // console.log("res", res);
 
     return res.data.result;
@@ -55,7 +64,21 @@ const searchCourse = async (value) => {
     console.log(err);
   }
 };
+const getMycourse = async (token) => {
+  try {
+    const res = await axios.get(`${API_URL}/enrollment/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
+    // console.log("api request:",res);
+    return res.data; 
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const CourseService = {
+  getMycourse,
   getCourses,
   getDetailCourse,
   searchCourse,

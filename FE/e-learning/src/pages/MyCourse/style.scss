@@ -1,0 +1,18 @@
+.mycourse {
+  width: 100%;
+  color: #000;
+  overflow: hidden;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  .mycourse-container {
+    width: 1200px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    background-color: #f6aeae;
+  }
+}

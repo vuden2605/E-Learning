@@ -22,7 +22,7 @@ import java.util.Map;
 public class MomoController {
 	private final MomoService momoService;
 	@PostMapping("/checkout")
-	public ApiResponse<String> checkout(@RequestBody MoMoPaymentRequest moMoPaymentRequest) throws Exception {
+	public ApiResponse<String> checkout(@RequestBody(required = false) MoMoPaymentRequest moMoPaymentRequest) throws Exception {
 		try {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			long userId = Long.parseLong(authentication.getName());
@@ -35,8 +35,11 @@ public class MomoController {
 		}
 	}
 	@PostMapping("/notify")
-	public void handleMomoNotify(@RequestBody Map<String,Object> payload) {
+	public ApiResponse<String> handleMomoNotify(@RequestBody Map<String,Object> payload) {
 		log.info("payload");
 		payload.forEach((key,value)-> log.info("{}:{}",key,value));
+		return ApiResponse.<String>builder()
+				.result(momoService.handleMomoNotify(payload))
+				.build();
 	}
 }

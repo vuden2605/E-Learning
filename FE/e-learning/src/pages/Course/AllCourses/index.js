@@ -29,11 +29,15 @@ function AllCourses() {
   const [filters, setFilters] = useState({});
   const fetchCourses = async () => {
     try {
-      const data = await CourseService.getCourses({
-        page,
-        pageSize: 6,
-        ...filters,
-      });
+      const token = localStorage.getItem("accessToken");
+      const data = await CourseService.getCourses(
+        {
+          page,
+          pageSize: 6,
+          ...filters,
+        },
+        token
+      );
       setCourses(data.content);
       console.log(data.content);
       setTotal(data.totalElements);
@@ -131,9 +135,10 @@ function AllCourses() {
             paddingLeft: "70px",
             paddingRight: "20px",
             display: "flex",
-            gap: "50px",
+            gap: "20px",
           }}
         >
+          <Mycourse />
           <Mycourse />
           <Mycourse />
           <Mycourse />

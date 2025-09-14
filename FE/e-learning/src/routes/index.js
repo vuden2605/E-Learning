@@ -73,7 +73,10 @@ export const routes = [
       },
       {
         path: "/cartdetail",
-        element: <CartDetail />,
+        element: (
+          <CartDetail />
+
+        ),
       },
     ],
   },

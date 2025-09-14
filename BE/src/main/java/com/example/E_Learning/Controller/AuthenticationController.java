@@ -32,7 +32,7 @@ public class AuthenticationController {
 		ResponseCookie refreshTokenCookie = ResponseCookie.from("refreshToken", refreshToken)
 				.httpOnly(true)
 				.secure(false)
-				.path("/")
+				.path("/auth/refresh-token")
 				.sameSite("None")
 				.maxAge(60 * 60 * 24 * 7) // 7 days
 				.build();

@@ -23,4 +23,6 @@ public class CourseDetailResponse {
 	private LocalDateTime createdAt;
 	private CategoryResponse category;
 	private InstructorResponse instructor;
+	private Double averageRating;
+	private Long totalRatings;
 }

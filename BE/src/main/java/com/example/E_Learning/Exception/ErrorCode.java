@@ -1,10 +1,12 @@
 package com.example.E_Learning.Exception;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Getter
+@Getter 
 public enum ErrorCode {
 	//Success
 	SUCCESS(9999, "Success", HttpStatus.OK),
@@ -67,11 +69,14 @@ public enum ErrorCode {
 	CART_NOT_FOUND(9001, "Cart not found", HttpStatus.NOT_FOUND),
 	CART_ALREADY_EXISTS(9002, "Cart already exists", HttpStatus.CONFLICT),
 	COURSE_ALREADY_IN_CART(9003, "Course already in cart", HttpStatus.CONFLICT),
+	COURSE_NOT_FOUND_IN_CART(9004, "Course not found in cart", HttpStatus.NOT_FOUND),
 	//Rating
 	RATING_NOT_FOUND(10001, "Rating not found", HttpStatus.NOT_FOUND),
 	RATING_ALREADY_EXISTS(10002, "Rating already exists", HttpStatus.CONFLICT),
 	//Payment
-	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST);
+	PAYMENT_FAILED(11001,"Payment fail", HttpStatus.BAD_REQUEST),
+	//Order
+	ORDER_NOT_FOUND(12001,"Order not found",HttpStatus.BAD_REQUEST);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

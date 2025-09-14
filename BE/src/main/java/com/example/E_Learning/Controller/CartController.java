@@ -2,6 +2,7 @@ package com.example.E_Learning.Controller;
 
 import com.example.E_Learning.DTO.Request.CartDetailCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
+import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.Entity.Cart;
 import com.example.E_Learning.Entity.CartDetail;
 import com.example.E_Learning.Service.CartDetailService;
@@ -9,10 +10,9 @@ import com.example.E_Learning.Service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,6 +34,22 @@ public class CartController {
 		Long userId = Long.parseLong(authentication.getName());
 		return ApiResponse.<String>builder()
 				.result(cartDetailService.addToCart(userId, cartDetailCreationRequest))
+				.build();
+	}
+	@GetMapping("/myCart")
+	public ApiResponse<List<CourseResponse>> myCart() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		long userId = Long.parseLong(authentication.getName());
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(cartService.myCart(userId))
+				.build();
+	}
+	@DeleteMapping("/{courseId}")
+	public ApiResponse<String> removeCourseFromCart(@PathVariable Long courseId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		long userId = Long.parseLong(authentication.getName());
+		return ApiResponse.<String>builder()
+				.result(cartService.removeCourseFromCart(userId,courseId))
 				.build();
 	}
 }

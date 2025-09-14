@@ -6,6 +6,7 @@ import com.example.E_Learning.Entity.Enrollment;
 import com.example.E_Learning.Repository.CourseRepository;
 import com.example.E_Learning.Repository.EnrollmentRepository;
 import com.example.E_Learning.Repository.UserRepository;
+import com.example.E_Learning.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +18,21 @@ public class EnrollmentService {
 	private final EnrollmentRepository enrollmentRepository;
 	private final CourseRepository courseRepository;
 	private final UserRepository userRepository;
-	public EnrollmentResponse createEnrollment (EnrollmentCreationRequest enrollmentCreationRequest, Long userId) {
+	private final CourseMapper courseMapper;
+	public String createEnrollment (EnrollmentCreationRequest enrollmentCreationRequest, Long userId) {
 		Enrollment enrollment = Enrollment.builder()
 				.course(courseRepository.getReferenceById(enrollmentCreationRequest.getCourseId()))
 				.user(userRepository.getReferenceById(userId))
 				.build();
 
-		Enrollment savedEnrollment = enrollmentRepository.save(enrollment);
-		return EnrollmentResponse.builder()
-				.id(savedEnrollment.getId())
-				.courseId(savedEnrollment.getCourse().getId())
-				.userId(savedEnrollment.getUser().getId())
-				.enrolledAt(savedEnrollment.getEnrolledAt())
-				.build();
+		enrollmentRepository.save(enrollment);
+		return "create enrollment success";
 	}
 	public List<EnrollmentResponse> getEnrollmentByUserId (Long userId) {
 		List<Enrollment> enrollments = enrollmentRepository.findByUserId(userId);
 		return enrollments.stream().map(enrollment -> EnrollmentResponse.builder()
 						.id(enrollment.getId())
-						.courseId(enrollment.getCourse().getId())
+						.courseResponse(courseMapper.toCourseResponse(enrollment.getCourse()))
 						.userId(enrollment.getUser().getId())
 						.enrolledAt(enrollment.getEnrolledAt())
 						.build())
@@ -44,4 +41,5 @@ public class EnrollmentService {
 	public boolean existsByUserIdAndCourseId (Long userId, Long courseId) {
 		return enrollmentRepository.existsByUserIdAndCourseId(userId,courseId);
 	}
+
 }
