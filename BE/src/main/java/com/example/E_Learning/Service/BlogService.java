@@ -39,21 +39,13 @@ public class BlogService {
 		Blog blogSave = blogRepository.save(blog);
 		return blogMapper.toBlogResponse(blogSave);
 	}
-	public PageResponse<BlogResponse> getAllBlogs(PageCustomRequest pageRequest, BlogFilterRequest blogFilterRequest) {
+	public Page<BlogResponse> getAllBlogs(PageCustomRequest pageRequest, BlogFilterRequest blogFilterRequest) {
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),
 				pageRequest.getPageSize(),
 				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
 		);
 		Page<Blog> blogs = blogRepository.findBlogByFilter(pageable, blogFilterRequest);
-		log.info("Blogs content: {}", blogs.getContent());
-		return PageResponse.<BlogResponse>builder()
-				.content(blogs.stream().map(blogMapper::toBlogResponse).toList())
-				.pageNumber(blogs.getNumber())
-				.pageSize(blogs.getSize())
-				.totalElements(blogs.getTotalElements())
-				.totalPages(blogs.getTotalPages())
-				.last(blogs.isLast())
-				.build();
+		return blogs.map(blogMapper::toBlogResponse);
 	}
 	public BlogResponse getBlogById(Long blogId) {
 		Blog blog = blogRepository.findById(blogId).orElseThrow(() -> new AppException(ErrorCode.BLOG_NOT_FOUND));

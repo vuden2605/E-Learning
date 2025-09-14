@@ -1,7 +1,9 @@
 package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.EnrollmentCreationRequest;
+import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.EnrollmentResponse;
+import com.example.E_Learning.DTO.Response.PageResponse;
 import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Entity.Enrollment;
 import com.example.E_Learning.Entity.Material;
@@ -13,6 +15,10 @@ import com.example.E_Learning.Repository.MaterialRepository;
 import com.example.E_Learning.Repository.UserRepository;
 import com.example.E_Learning.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,15 +42,22 @@ public class EnrollmentService {
 		enrollmentRepository.save(enrollment);
 		return "create enrollment success";
 	}
-	public List<EnrollmentResponse> getEnrollmentByUserId (Long userId) {
-		List<Enrollment> enrollments = enrollmentRepository.findByUserId(userId);
-		return enrollments.stream().map(enrollment -> EnrollmentResponse.builder()
-						.id(enrollment.getId())
-						.courseResponse(courseMapper.toCourseResponse(enrollment.getCourse()))
-						.userId(enrollment.getUser().getId())
-						.enrolledAt(enrollment.getEnrolledAt())
-						.build())
-				.toList();
+	public Page<EnrollmentResponse> getEnrollmentByUserId(Long userId, PageCustomRequest pageRequest) {
+		Pageable pageable = PageRequest.of(
+				pageRequest.getPage(),
+				pageRequest.getPageSize(),
+				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()), pageRequest.getSortBy())
+		);
+
+		Page<Enrollment> enrollmentPage = enrollmentRepository.findByUserId(userId, pageable);
+
+		return enrollmentPage.map(enrollment -> EnrollmentResponse.builder()
+				.id(enrollment.getId())
+				.courseResponse(courseMapper.toCourseResponse(enrollment.getCourse()))
+				.userId(enrollment.getUser().getId())
+				.enrolledAt(enrollment.getEnrolledAt())
+				.build()
+		);
 	}
 	public boolean existsByUserIdAndCourseId (Long userId, Long courseId) {
 		return enrollmentRepository.existsByUserIdAndCourseId(userId,courseId);

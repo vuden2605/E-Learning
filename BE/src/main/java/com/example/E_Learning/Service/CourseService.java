@@ -2,6 +2,7 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
+import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.DTO.Response.EnrollmentResponse;
@@ -19,7 +20,9 @@ import com.example.E_Learning.mapper.InstructorMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,34 +77,19 @@ public class CourseService {
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
 				.build();
 	}
-	public PageResponse<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, Pageable pageable) {
+	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, PageCustomRequest pageRequest) {
+		Pageable pageable = PageRequest.of(pageRequest.getPage(),
+				pageRequest.getPageSize(),
+				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
+		);
 		Page<Course> coursePage = courseRepository.findCoursesByFilter(courseFilterRequest.getCategoryId(),
 				                                               courseFilterRequest.getMinPrice(),
 				                                               courseFilterRequest.getMaxPrice(),
 				                                               courseFilterRequest.getDiscountPercent(),
 				                                               courseFilterRequest.getTitle(),
+				                                               userId,
 				                                               pageable);
-		List<CourseResponse> result = coursePage.getContent().stream().map(courseMapper::toCourseResponse).toList();
-
-		if (userId != null) {
-			List<CourseResponse> userCourses = enrollmentService.getEnrollmentByUserId(userId).stream()
-					.map(EnrollmentResponse::getCourseResponse)
-					.toList();
-			Set<Long> userCourseIds = userCourses.stream()
-					.map(CourseResponse::getId)
-					.collect(Collectors.toSet());
-			result= result.stream()
-					.filter(courseResponse -> !userCourseIds.contains(courseResponse.getId()))
-					.toList();
-		}
-		return PageResponse.<CourseResponse>builder()
-				.content(result)
-				.pageNumber(coursePage.getNumber())
-				.pageSize(coursePage.getSize())
-				.totalElements(coursePage.getTotalElements())
-				.totalPages(coursePage.getTotalPages())
-				.last(coursePage.isLast())
-				.build();
+		return coursePage.map(courseMapper::toCourseResponse);
 	}
 	public List<CourseResponse> myInstructorCourse (Long instructorId) {
 		List<Course> courses = courseRepository.findByInstructorId(instructorId);

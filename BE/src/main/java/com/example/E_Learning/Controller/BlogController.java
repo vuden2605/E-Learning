@@ -34,8 +34,8 @@ public class BlogController {
 				.build();
 	}
 	@GetMapping
-	public ApiResponse<PageResponse<BlogResponse>> getAllBlogs(PageCustomRequest pageRequest, BlogFilterRequest blogFilterRequest) {
-		return ApiResponse.<PageResponse<BlogResponse>>builder()
+	public ApiResponse<Page<BlogResponse>> getAllBlogs(PageCustomRequest pageRequest, BlogFilterRequest blogFilterRequest) {
+		return ApiResponse.<Page<BlogResponse>>builder()
 				.result(blogService.getAllBlogs(pageRequest, blogFilterRequest))
 				.build();
 	}
