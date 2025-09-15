@@ -4,7 +4,6 @@ import com.example.E_Learning.DTO.Request.EnrollmentCreationRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.EnrollmentResponse;
-import com.example.E_Learning.DTO.Response.PageResponse;
 import com.example.E_Learning.Entity.Enrollment;
 import com.example.E_Learning.Service.EnrollmentService;
 import lombok.RequiredArgsConstructor;

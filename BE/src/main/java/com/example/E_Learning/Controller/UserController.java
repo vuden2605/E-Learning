@@ -1,6 +1,7 @@
 package com.example.E_Learning.Controller;
 
 
+import com.example.E_Learning.DTO.Request.UpdateProfileRequest;
 import com.example.E_Learning.DTO.Request.UserCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.UserResponse;
@@ -50,6 +51,14 @@ public class UserController {
 		log.info("User ID: {}", userId);
 		return ApiResponse.<UserResponse>builder()
 				.result(userService.getUserById(userId))
+				.build();
+	}
+	@PatchMapping
+	public ApiResponse<UserResponse> updateProfile(@RequestBody UpdateProfileRequest updateProfileRequest) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		long userId = Long.parseLong(authentication.getName());
+		return ApiResponse.<UserResponse>builder()
+				.result(userService.updateProfile(userId,updateProfileRequest))
 				.build();
 	}
 }
