@@ -8,6 +8,8 @@ import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +23,10 @@ public class LessonController {
 	@PreAuthorize("hasRole('INSTRUCTOR') or hasRole('ADMIN')")
 	public ApiResponse<LessonResponse> createLesson(@RequestBody @Valid LessonCreationRequest lessonCreationRequest,
 													@PathVariable Long courseId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		long userId = Long.parseLong(authentication.getName());
 		return ApiResponse.<LessonResponse>builder()
-				.result(lessonService.createLesson(lessonCreationRequest, courseId))
+				.result(lessonService.createLesson(lessonCreationRequest, courseId,userId))
 				.build();
 	}
 	@GetMapping

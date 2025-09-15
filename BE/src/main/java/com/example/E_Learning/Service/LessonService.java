@@ -2,7 +2,10 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.LessonCreationRequest;
 import com.example.E_Learning.DTO.Response.LessonResponse;
+import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Entity.Lesson;
+import com.example.E_Learning.Exception.AppException;
+import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.CourseRepository;
 import com.example.E_Learning.Repository.LessonRepository;
 import com.example.E_Learning.mapper.LessonMapper;
@@ -18,9 +21,14 @@ public class LessonService {
 	private final LessonRepository lessonRepository;
 	private final LessonMapper lessonMapper;
 	private final CourseRepository courseRepository;
-	public LessonResponse createLesson (LessonCreationRequest lessonCreationRequest, Long courseId) {
+	public LessonResponse createLesson (LessonCreationRequest lessonCreationRequest, Long courseId,Long userId) {
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
+		if (!course.getInstructor().getId().equals(userId)) {
+			throw new AppException(ErrorCode.ACCESS_DENIED);
+		}
 		Lesson lesson = lessonMapper.toLesson(lessonCreationRequest);
-		lesson.setCourse (courseRepository.getReferenceById(courseId));
+		lesson.setCourse (course);
 		return lessonMapper.toLessonResponse(lessonRepository.save(lesson));
 	}
 	public List<LessonResponse> getLessonByCourseId (Long courseId) {

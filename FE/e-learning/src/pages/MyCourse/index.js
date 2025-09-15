@@ -14,9 +14,9 @@ function Mycourses() {
       }
 
       try {
-        const data = await CourseService.getMycourse(token);
+        const data = await CourseService.getMycourse({ token, page: 0, pageSize: 1000});
         console.log("mycourse", data.result);
-        setCourses(data.result);
+        setCourses(data.result.content);
       } catch (err) {
         console.error("Lỗi khi fetch my courses:", err);
       }

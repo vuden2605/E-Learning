@@ -27,7 +27,6 @@ public class MaterialService {
 		Lesson lesson = lessonRepository.findById(lessonId)
 				.orElseThrow(() -> new AppException(ErrorCode.LESSON_NOT_FOUND));
 		Course course = lesson.getCourse();
-		log.info("course :{}",course);
 		if (!course.getInstructor().getId().equals(instructorId)) {
 			throw new AppException(ErrorCode.ACCESS_DENIED);
 		}
