@@ -65,7 +65,7 @@ function Navigation({ onLoginClick, onRegisterClick }) {
           About Us
         </NavLink>
       </div>
-      {user ? (
+      {localStorage.accessToken ? (
         <UserMenu user={user} handleLogout={handleLogout} />
       ) : (
         <div className="sign-in-up">
@@ -80,7 +80,7 @@ function Navigation({ onLoginClick, onRegisterClick }) {
                     </Button>
                 </Link> */}
 
-          <div class="button-wrapper">
+          <div className="button-wrapper">
             {/* <span class="button-label">Ocean Waves</span> */}
             <button
               onClick={onRegisterClick}
