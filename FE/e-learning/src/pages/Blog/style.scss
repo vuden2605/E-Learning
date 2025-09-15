@@ -20,11 +20,31 @@
   /* Category navigation arrows */
   .square-outlined {
     display: flex;
-    flex-direction: row;
     gap: 20px;
-    justify-content: flex-end; // đẩy ra phía bên phải
-    margin: 20px 0; 
-    margin-top: -80px;         
+    justify-content: flex-end;
+    margin: 20px 0;
+    margin-top: -80px;
+  
+    .arrow-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;   // tăng vùng click
+      height: 35px;
+      background-color: #6AB9BC;
+      border-radius: 5px;
+      cursor: pointer;  // hiện bàn tay khi hover
+      transition: all 0.2s ease;
+  
+      svg {
+        font-size: 30px;
+        color: #fff;
+      }
+  
+      &:hover {
+        background-color: #58a2a6;
+      }
+    }
   }
 
   /* Related blog section */
