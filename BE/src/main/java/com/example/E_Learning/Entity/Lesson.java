@@ -31,4 +31,6 @@ public class Lesson {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	private Course course;
+	@OneToMany(mappedBy = "lesson")
+	private List<Message> messages;
 }

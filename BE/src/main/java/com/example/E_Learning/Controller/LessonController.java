@@ -3,6 +3,7 @@ package com.example.E_Learning.Controller;
 import com.example.E_Learning.DTO.Request.LessonCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
 import com.example.E_Learning.DTO.Response.LessonResponse;
+import com.example.E_Learning.DTO.Response.MessageResponse;
 import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
@@ -35,5 +36,10 @@ public class LessonController {
 				.result(lessonService.getLessonByCourseId(courseId))
 				.build();
 	}
-
+	@GetMapping("/{lessonId}/messages")
+	public ApiResponse<List<MessageResponse>> getMessageByLesson(@PathVariable Long lessonId) {
+		return ApiResponse.<List<MessageResponse>>builder()
+				.result(lessonService.getMessageByLesson(lessonId))
+				.build();
+	}
 }
