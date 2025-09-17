@@ -8,11 +8,12 @@ import {
   TwitterOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import { Button, Rate } from "antd";
+import { Button, Rate, Collapse } from "antd";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CourseService } from "../../../services/CourseService";
 import { formatCurrencyVND } from "../../../utils/formatCurrency";
+import CourseContent from "../../../components/CourseContent";
 
 function CourseDetail() {
   const { id } = useParams();
@@ -56,13 +57,37 @@ function CourseDetail() {
               THÔNG TIN KHÓA HỌC
             </span>
           </div>
-          <div className="content">{course.description}</div>
+          <div className="content-text">
+            <div
+              style={{
+                marginBottom: "10px",
+                fontWeight: "600",
+                fontSize: "25px",
+              }}
+            >
+              Nội dung bài học
+            </div>
+            <div> {course.description}</div>
+          </div>
+          <div className="content-item">
+            <div
+              style={{
+                marginBottom: "10px",
+                fontWeight: "600",
+                fontSize: "25px",
+              }}
+            >
+              Nội dung khóa học
+            </div>
+          </div>
         </div>
         <div className="detail-price">
           <div className="name-course">{course.title}</div>
           <div className="price">
             <div className="new-price">
-              {formatCurrencyVND(course.price * (100-course.discountPercent)/100)}
+              {formatCurrencyVND(
+                (course.price * (100 - course.discountPercent)) / 100
+              )}
             </div>
 
             <div className="old-price">
@@ -114,6 +139,8 @@ function CourseDetail() {
         </div>
       </div>
       <div className="rating">
+        <CourseContent />
+
         <span
           style={{
             fontWeight: "600",

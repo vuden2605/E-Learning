@@ -4,8 +4,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
-  width: 350px;
+  // height: 307px;
+  // width: 350px;
+  height: 258px;
+  width: 277px;
   background-color: #fff;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -23,21 +25,21 @@
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
 
-      width: 350px;
+      width: 277px;
+      height: 157px;
     }
   }
   .card-content {
-    height: 100px;
     width: 100%;
     display: flex;
     flex-direction: column;
     .card-name {
       margin: 0px;
-      font-size: 18px;
+      font-size: 14px;
     }
     .progress {
       width: 100%;
-      height: 7px;
+      height: 5px;
       background: #ddd;
       border-radius: 5px;
       overflow: hidden;

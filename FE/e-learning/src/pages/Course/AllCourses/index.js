@@ -29,20 +29,25 @@ function AllCourses() {
   const [filters, setFilters] = useState({});
   const fetchCourses = async () => {
     try {
-      const data = await CourseService.getCourses({
-        page,
-        pageSize: 6,
-        ...filters,
-      });
+      const token = localStorage.getItem("accessToken");
+      const data = await CourseService.getCourses(
+        {
+          page,
+          pageSize: 6,
+          ...filters,
+        },
+        token
+      );
       setCourses(data.content);
       console.log(data.content);
       setTotal(data.totalElements);
+      console.log(data);
       console.log("số item:", data.totalElements);
 
-      console.log("số item/page:", data.pageSize);
+      console.log("số item/page:", data.size);
       console.log("số page:", data.totalPages);
 
-      setPageSize(data.pageSize);
+      setPageSize(data.size);
     } catch (err) {
       console.error(err);
     }
@@ -111,7 +116,46 @@ function AllCourses() {
       console.error(err);
     }
   };
+  /////-----------------my course-----------------------
+  const [mycourses, setMyCourses] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pagetotal, setPagetotal] = useState(0);
 
+  useEffect(() => {
+    const fetchMyCourses = async () => {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        console.log("Chưa đăng nhập");
+        return;
+      }
+
+      try {
+        const data = await CourseService.getMycourse({
+          token,
+          page: currentPage,
+          pageSize: 4,
+        });
+        console.log("mycourse", data.result);
+        setMyCourses(data.result.content);
+        setPagetotal(data.result.totalPages);
+        console.log("số page: ", pagetotal);
+        console.log("page hien tai:", currentPage);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMyCourses();
+  }, [currentPage]);
+  const handlePrevPage = () => {
+    if (currentPage > 0) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pagetotal - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
     <div className="course">
       <div className="my-course tab">
@@ -131,15 +175,20 @@ function AllCourses() {
             paddingLeft: "70px",
             paddingRight: "20px",
             display: "flex",
-            gap: "50px",
+            gap: "20px",
           }}
         >
-          <Mycourse />
-          <Mycourse />
-          <Mycourse />
+          {mycourses.map((val) => (
+          <Mycourse
+            key={val.courseResponse.id}
+            title={val.courseResponse.title}
+            thumbnailUrl={val.courseResponse.thumbnailUrl}
+          />
+        ))}
         </div>
         <div className="square-outlined">
           <LeftSquareOutlined
+            onClick={handlePrevPage}
             style={{
               fontSize: "30px",
               color: "#fff",
@@ -148,6 +197,7 @@ function AllCourses() {
             }}
           />
           <RightSquareOutlined
+            onClick={handleNextPage}
             style={{
               fontSize: "30px",
               color: "#fff",
