@@ -14,6 +14,7 @@ import UserInfo from "../pages/UserInfo";
 import CartDetail from "../pages/CartDetail";
 import PrivateRoute from "../components/PrivateRoute";
 import Mycourses from "../pages/MyCourse";
+import Message from "../pages/TestMessage"
 export const routes = [
   {
     path: "/",
@@ -88,4 +89,8 @@ export const routes = [
     path: "/register",
     element: <Register />,
   },
+  {
+    path: "/message",
+    element:<Message lessonId={1}/>
+  }
 ];

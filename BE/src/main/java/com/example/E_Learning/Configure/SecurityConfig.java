@@ -53,6 +53,9 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.POST, authEndpoints).permitAll()
 				.requestMatchers(HttpMethod.GET,publicEndpoints).permitAll()
 				.requestMatchers("/momo/**").permitAll()
+				.requestMatchers("/ws/**").permitAll()
+				.requestMatchers("/topic/**").permitAll()
+				.requestMatchers("/app/**").permitAll()
 				.anyRequest().authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2 -> oauth2

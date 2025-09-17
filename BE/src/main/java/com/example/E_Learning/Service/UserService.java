@@ -1,4 +1,5 @@
 package com.example.E_Learning.Service;
+import com.example.E_Learning.DTO.Request.UpdateProfileRequest;
 import com.example.E_Learning.DTO.Request.UserCreationRequest;
 import com.example.E_Learning.DTO.Response.UserResponse;
 import com.example.E_Learning.Entity.User;
@@ -34,6 +35,18 @@ public class UserService {
 		}
 		User user = userMapper.toUser(userCreationRequest);
 		user.setPassword(passwordEncoder.encode(userCreationRequest.getPassword()));
+		return userMapper.toUserResponse(userRepository.save(user));
+	}
+	public UserResponse updateProfile(Long userId, UpdateProfileRequest updateProfileRequest){
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+		if (updateProfileRequest.getFullName() != null) {
+			user.setFullName(updateProfileRequest.getFullName());
+		}
+
+		if (updateProfileRequest.getAvatarUrl() != null) {
+			user.setAvatarUrl(updateProfileRequest.getAvatarUrl());
+		}
 		return userMapper.toUserResponse(userRepository.save(user));
 	}
 }
