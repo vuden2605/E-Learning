@@ -28,6 +28,13 @@ function CourseDetail() {
     };
     fetchDetail();
   }, [id]);
+  useEffect(() => {
+    const getLessonByCourse = async () => {
+      const res = CourseService.getLessonByCourse(id);
+      console.log(res);
+    };
+    getLessonByCourse();
+  })
   return (
     <div className="course-detail">
       <div className="img-course">
@@ -139,7 +146,7 @@ function CourseDetail() {
         </div>
       </div>
       <div className="rating">
-        <CourseContent />
+        <CourseContent courseId = {id}/>
 
         <span
           style={{

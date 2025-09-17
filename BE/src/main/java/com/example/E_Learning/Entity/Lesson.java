@@ -8,6 +8,7 @@ import org.hibernate.sql.results.graph.Fetch;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,4 +32,6 @@ public class Lesson {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
 	private Course course;
+	@OneToMany(mappedBy = "lesson")
+	private Set<Material> materials;
 }

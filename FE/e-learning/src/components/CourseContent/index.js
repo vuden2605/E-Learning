@@ -1,7 +1,8 @@
 import "./style.scss";
 import { Collapse } from "antd";
-
-function CourseContent() {
+import { useEffect } from "react";
+import { CourseService } from "../../services/CourseService";
+function CourseContent(courseId) {
   const text = `
     A dog is a type of domesticated animal.
     Known for its loyalty and faithfulness,
@@ -26,7 +27,13 @@ function CourseContent() {
       children: <p>{text}</p>,
     },
   ];
-
+  useEffect(() => {
+    const getLessonByCourse = async () => {
+      const res = CourseService.getLessonByCourse(courseId);
+      console.log(res);
+    };
+    getLessonByCourse();
+  })
   const onChange = (key: string | string[]) => {
     console.log("Active panel:", key);
   };

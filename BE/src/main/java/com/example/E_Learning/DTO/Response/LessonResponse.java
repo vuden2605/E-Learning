@@ -6,6 +6,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -15,4 +17,5 @@ public class LessonResponse {
 	private Long id;
 	private String title;
 	private Integer lessonNumber;
+	private List<MaterialResponse> materials;
 }
