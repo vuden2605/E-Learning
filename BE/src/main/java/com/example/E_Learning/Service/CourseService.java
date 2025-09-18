@@ -3,19 +3,17 @@ package com.example.E_Learning.Service;
 import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
-import com.example.E_Learning.DTO.Response.CourseDetailResponse;
-import com.example.E_Learning.DTO.Response.CourseResponse;
+import com.example.E_Learning.DTO.Response.*;
 import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.CategoryRepository;
 import com.example.E_Learning.Repository.CourseRepository;
 import com.example.E_Learning.Repository.InstructorRepository;
-import com.example.E_Learning.mapper.CategoryMapper;
-import com.example.E_Learning.mapper.CourseMapper;
-import com.example.E_Learning.mapper.InstructorMapper;
+import com.example.E_Learning.mapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,7 +35,8 @@ public class CourseService {
 	private final CategoryMapper categoryMapper;
 	private final InstructorRepository instructorRepository;
 	private final InstructorMapper instructorMapper;
-	private final EnrollmentService enrollmentService;
+	private final MaterialMapper materialMapper;
+	private final LessonMapper lessonMapper;
 	public CourseResponse createCourse(CourseCreationRequest courseCreationRequest, Long instructorId ) {
 		Course course = courseMapper.toCourse(courseCreationRequest);
 
@@ -99,6 +98,17 @@ public class CourseService {
 		return courses.stream()
 				.map(courseMapper::toCourseResponse)
 				.toList();
+	}
+	public CourseContent getCourseContent (Long courseId) {
+		Course course = courseRepository.getCourseContentById(courseId)
+				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
+		List<LessonResponse> lessonResponses = course.getLessons().stream()
+				.map(lessonMapper::toLessonResponse)
+				.toList();
+		return CourseContent.builder()
+				.lessonResponses(lessonResponses)
+				.title(course.getTitle())
+				.build();
 	}
 
 }

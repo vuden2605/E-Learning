@@ -46,5 +46,12 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 		@Param("averageRating") Double averageRating,
 		@Param("totalRatings") Long totalRatings
 	);
+	@Query("""
+		SELECT c FROM Course c
+		LEFT JOIN FETCH c.lessons l
+		LEFT JOIN FETCH l.materials t
+		WHERE c.id =:courseId
+	""")
+	Optional<Course> getCourseContentById(@Param("courseId") Long courseId);
 
 }

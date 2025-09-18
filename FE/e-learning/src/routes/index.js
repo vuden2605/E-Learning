@@ -73,15 +73,7 @@ export const routes = [
           </PrivateRoute>
         ),
       },
-      {
-        path: "/mycourses/:id",
 
-        element: (
-          <PrivateRoute>
-            <MyCourseDetail />
-          </PrivateRoute>
-        ),
-      },
       {
         path: "/cartdetail",
         element: <CartDetail />,
@@ -99,5 +91,14 @@ export const routes = [
   {
     path: "/message",
     element: <Message lessonId={1} />,
+  },
+  {
+    path: "/mycourses/:id",
+
+    element: (
+      <PrivateRoute>
+        <MyCourseDetail />
+      </PrivateRoute>
+    ),
   },
 ];

@@ -8,7 +8,7 @@ const Message = ({ lessonId }) => {
   const [content, setContent] = useState("");
   const chatEndRef = useRef(null);
 
-  const currentUserId = localStorage.getItem("userId"); // 👈 lấy từ localStorage (set khi login)
+  const currentUserId = localStorage.getItem("userId"); 
 
   useEffect(() => {
     const stompClient = new Client({

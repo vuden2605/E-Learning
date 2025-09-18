@@ -5,16 +5,11 @@ import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.*;
 import com.example.E_Learning.Entity.Course;
-import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Service.CourseService;
-import com.example.E_Learning.Service.LessonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -81,4 +76,11 @@ public class CourseController {
 				.result(courseService.searchByName(name))
 				.build();
 	}
+	@GetMapping("/{courseId}/content")
+	public ApiResponse<CourseContent> getContent (@PathVariable Long courseId) {
+		return ApiResponse.<CourseContent>builder()
+				.result(courseService.getCourseContent(courseId))
+				.build();
+	}
+
 }

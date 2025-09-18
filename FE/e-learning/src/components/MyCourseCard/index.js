@@ -4,7 +4,7 @@ import "./style.scss";
 function Mycourse({ title, thumbnailUrl, id }) {
   return (
     <div className="card">
-      <Link to={`/mycourses/${id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/mycourses/${id}`} style={{ textDecoration: "none" , color:"#000"}}>
         <div className="card-img">
           <img src={thumbnailUrl}></img>
           {/* <img src="https://files.fullstack.edu.vn/f8-prod/courses/21/63e1bcbaed1dd.png"></img> */}

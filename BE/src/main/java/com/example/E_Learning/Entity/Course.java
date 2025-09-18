@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -44,4 +45,6 @@ public class Course {
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "instructor_id")
 	private Instructor instructor;
+	@OneToMany(mappedBy = "course")
+	private Set<Lesson> lessons;
 }
