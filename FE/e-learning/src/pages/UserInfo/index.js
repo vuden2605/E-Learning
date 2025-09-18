@@ -46,28 +46,24 @@ function UserInfo() {
   const user = useSelector((state) => state.user.currentUser);
 
   ///up file
-  const [file, setFile] = useState(null);
-  const [newavt, setNewavt] = useState();
-  // lấy link ảnh ở mới đc trả ra về update user
+
+  const [file, setFile] = useState(null); //file chuẩn bị tải
+  const [preview, setPreview] = useState(null); //hiển thị file trước khi lưu ảnh
   const handleUpload = async () => {
     try {
-      const res = await UserService.updateUser({ avatarUrl: `${newavt}` });
+      const src = await FileService.uploadFile(file); // lấy link ảnh trả về
+      const res = await UserService.updateUser({ avatarUrl: `${src}` }); //update link ảnh vô profile
       dispatch(updateUser(res));
     } catch (error) {
       console.error("Update failed:", error);
     }
   };
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
     setFile(e.target.files[0]);
-    console.log(file);
-    // lưu ảnh lên aws trả về link ảnh new
-    try {
-      const res = await FileService.uploadFile(e.target.files[0]);
-      // alert("Upload thành công!");
-      setNewavt(res);
-    } catch (err) {
-      console.error(err);
-      // alert("Upload thất bại!");
+
+    if (file) {
+      setPreview(URL.createObjectURL(file));
     }
   };
 
@@ -96,14 +92,14 @@ function UserInfo() {
               style={{
                 border: "10px solid #fff",
                 display: "flex",
-                justifyContent: "center", // canh giữa ngang
+                justifyContent: "center",
                 alignItems: "center",
                 padding: "20px 0",
                 backgroundColor: "#ebeaeaff",
               }}
             >
               <img
-                src={file ? newavt : user.avatarUrl}
+                src={file ? preview : user.avatarUrl} //nếu k có preview thì hiển thị avata cũ
                 style={{ width: "200px" }}
               ></img>
             </div>
