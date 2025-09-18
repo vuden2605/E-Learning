@@ -100,11 +100,10 @@ const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
     console.error( err);
   }
 };
-const getLessonByCourse = async(courseId) =>{
+const getCourseContent = async(courseId) =>{
   try {
     console.log("courseId nhận vào:", courseId);
-    const res = await axios.get(`${API_URL}/course/${courseId}/lesson`);
-    console.log(res.data);
+    const res = await axios.get(`${API_URL}/course/${courseId}/content`);
     return res.data.result;
   }
   catch(err) {
@@ -116,5 +115,5 @@ export const CourseService = {
   getCourses,
   getDetailCourse,
   searchCourse,
-  getLessonByCourse
+  getCourseContent,
 };
