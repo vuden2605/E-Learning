@@ -36,6 +36,7 @@ public class MessageService {
 		Message savedMessage = messageRepository.save(message);
 
 		return MessageResponse.builder()
+				.id(message.getId())
 				.content(savedMessage.getContent())
 				.userResponse(userMapper.toUserResponse(savedMessage.getUser()))
 				.lessonId(savedMessage.getLesson().getId())

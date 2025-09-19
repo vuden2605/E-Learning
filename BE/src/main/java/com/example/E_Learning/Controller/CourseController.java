@@ -4,7 +4,6 @@ import com.example.E_Learning.DTO.Request.CourseCreationRequest;
 import com.example.E_Learning.DTO.Request.CourseFilterRequest;
 import com.example.E_Learning.DTO.Request.PageCustomRequest;
 import com.example.E_Learning.DTO.Response.*;
-import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import com.example.E_Learning.DTO.Response.CourseContent;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/course")

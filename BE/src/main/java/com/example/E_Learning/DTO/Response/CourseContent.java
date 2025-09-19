@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class CourseContent {
 	private String title;
-	private List<LessonResponse> lessonResponses;
+	private List<LessonResponse> lessons;
 }

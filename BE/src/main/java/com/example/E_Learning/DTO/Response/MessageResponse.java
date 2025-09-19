@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class MessageResponse {
+	private Long id;
 	private String content;
 	private UserResponse userResponse;
 	private Long lessonId;

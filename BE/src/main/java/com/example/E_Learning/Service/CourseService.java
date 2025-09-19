@@ -13,7 +13,6 @@ import com.example.E_Learning.Repository.InstructorRepository;
 import com.example.E_Learning.mapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,9 +20,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.LongSummaryStatistics;
-import java.util.Set;
-import java.util.stream.Collectors;
+import com.example.E_Learning.DTO.Response.CourseContent;
 
 @Service
 @RequiredArgsConstructor
@@ -106,7 +103,7 @@ public class CourseService {
 				.map(lessonMapper::toLessonResponse)
 				.toList();
 		return CourseContent.builder()
-				.lessonResponses(lessonResponses)
+				.lessons(lessonResponses)
 				.title(course.getTitle())
 				.build();
 	}
