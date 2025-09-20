@@ -1,4 +1,6 @@
 import axios from "axios";
+import api from "../api/axios";
+
 const API_URL = process.env.REACT_APP_API_URL;
 const getCourses = async (
   {
@@ -110,10 +112,19 @@ const getCourseContent = async(courseId) =>{
     console.log(err);
   }
 }
+const getMaterialById = async (idCourse, idMaterial) => {
+  try {
+    const response = await api.get(`/enrollment/course/${idCourse}/material/${idMaterial}`);
+    return response.data.result;
+  } catch (error) {
+    console.error("Error fetching video url by ID:", error.message);
+  }
+};
 export const CourseService = {
   getMycourse,
   getCourses,
   getDetailCourse,
   searchCourse,
   getCourseContent,
+  getMaterialById
 };

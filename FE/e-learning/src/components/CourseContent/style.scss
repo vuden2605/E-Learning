@@ -2,3 +2,15 @@
   width: 722px;   // chỉnh ngang
   margin-bottom: 50px;
 }
+.material-item{
+cursor: pointer;
+height: 40px;
+display: flex;
+align-items: center;
+}
+.material-item:hover{
+  background-color: #F1F1F1;
+}
+.material-item-active{
+  background-color: #F8DFD7;
+}
