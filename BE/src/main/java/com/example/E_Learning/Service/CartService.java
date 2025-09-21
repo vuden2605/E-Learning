@@ -1,5 +1,6 @@
 package com.example.E_Learning.Service;
 
+import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.Entity.Cart;
 import com.example.E_Learning.Entity.CartDetail;
@@ -35,14 +36,12 @@ public class CartService {
 		cartRepository.deleteById(cartId);
 		return "Delete cart success";
 	}
-	public List<CourseResponse> myCart(Long userId) {
+	public List<CourseDetailResponse> myCart(Long userId) {
 		Cart cart = cartRepository.findByUserId(userId)
 				.orElseThrow(() -> new AppException(ErrorCode.CART_NOT_FOUND));
-		List<Course> courses = cart.getCartDetails().stream()
-				.map(CartDetail::getCourse)
-				.toList();
+		List<Course> courses = cartRepository.findCoursesInCart(cart.getId());
 		return courses.stream()
-				.map(courseMapper::toCourseResponse)
+				.map(courseMapper::toCourseDetailResponse)
 				.toList();
 	}
 	public String removeCourseFromCart(Long userId,Long courseId) {

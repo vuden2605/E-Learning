@@ -11,9 +11,4 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class InstructorResponse {
 	private UserResponse user;
-	private String education;
-	private String experience;
-	private String specialization;
-	private String cvUrl;
-	private String schoolName;
 }

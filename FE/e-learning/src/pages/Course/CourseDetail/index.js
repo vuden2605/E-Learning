@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { CourseService } from "../../../services/CourseService";
 import { formatCurrencyVND } from "../../../utils/formatCurrency";
 import CourseContent from "../../../components/CourseContent";
-
+import { CartService } from "../../../services/CartService.js";
 function CourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
@@ -36,6 +36,9 @@ function CourseDetail() {
     };
     getCourseContent();
   }, [id]);
+  const handleaddtocart = async() => {
+    await CartService.addToCart(id);
+  }
   return (
     <div className="course-detail">
       <div className="img-course">
@@ -104,7 +107,7 @@ function CourseDetail() {
             <div className="discount">50% OFF</div>
           </div>
           <div className="btn">
-            <Button type="primary" className="btn-addcart">
+            <Button type="primary" className="btn-addcart" onClick = {handleaddtocart}>
               Thêm
               <ShoppingCartOutlined />
             </Button>

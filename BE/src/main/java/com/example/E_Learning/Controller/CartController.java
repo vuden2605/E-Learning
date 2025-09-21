@@ -2,6 +2,7 @@ package com.example.E_Learning.Controller;
 
 import com.example.E_Learning.DTO.Request.CartDetailCreationRequest;
 import com.example.E_Learning.DTO.Response.ApiResponse;
+import com.example.E_Learning.DTO.Response.CourseDetailResponse;
 import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.Entity.Cart;
 import com.example.E_Learning.Entity.CartDetail;
@@ -37,10 +38,10 @@ public class CartController {
 				.build();
 	}
 	@GetMapping("/myCart")
-	public ApiResponse<List<CourseResponse>> myCart() {
+	public ApiResponse<List<CourseDetailResponse>> myCart() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		long userId = Long.parseLong(authentication.getName());
-		return ApiResponse.<List<CourseResponse>>builder()
+		return ApiResponse.<List<CourseDetailResponse>>builder()
 				.result(cartService.myCart(userId))
 				.build();
 	}
