@@ -37,9 +37,8 @@ public class CartService {
 		return "Delete cart success";
 	}
 	public List<CourseDetailResponse> myCart(Long userId) {
-		Cart cart = cartRepository.findByUserId(userId)
-				.orElseThrow(() -> new AppException(ErrorCode.CART_NOT_FOUND));
-		List<Course> courses = cartRepository.findCoursesInCart(cart.getId());
+
+		List<Course> courses = cartRepository.findCoursesInCart(userId);
 		return courses.stream()
 				.map(courseMapper::toCourseDetailResponse)
 				.toList();

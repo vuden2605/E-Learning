@@ -13,6 +13,14 @@ import java.util.Optional;
 public interface CartRepository extends JpaRepository<Cart,Long> {
 	boolean existsByUserId(Long userId);
 	Optional<Cart> findByUserId(Long userId);
-	@Query("SELECT cd.course FROM CartDetail cd WHERE cd.cart.id = :cartId")
-	List<Course> findCoursesInCart(Long cartId);
+	@Query("""
+		SELECT DISTINCT co FROM CartDetail cd
+		JOIN cd.cart c
+		JOIN cd.course co
+		JOIN FETCH co.instructor i
+		JOIN FETCH i.user u
+		WHERE c.user.id = :userId
+	"""
+	)
+	List<Course> findCoursesInCart(Long userId);
 }
