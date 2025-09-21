@@ -14,7 +14,8 @@ import UserInfo from "../pages/UserInfo";
 import CartDetail from "../pages/CartDetail";
 import PrivateRoute from "../components/PrivateRoute";
 import Mycourses from "../pages/MyCourse";
-import Message from "../pages/TestMessage"
+import Message from "../pages/TestMessage";
+import MyCourseDetail from "../pages/MyCourseDetail";
 export const routes = [
   {
     path: "/",
@@ -72,12 +73,10 @@ export const routes = [
           </PrivateRoute>
         ),
       },
+
       {
         path: "/cartdetail",
-        element: (
-          <CartDetail />
-
-        ),
+        element: <CartDetail />,
       },
     ],
   },
@@ -91,6 +90,15 @@ export const routes = [
   },
   {
     path: "/message",
-    element:<Message lessonId={1}/>
-  }
+    element: <Message lessonId={1} />,
+  },
+  {
+    path: "/mycourses/:id",
+
+    element: (
+      <PrivateRoute>
+        <MyCourseDetail />
+      </PrivateRoute>
+    ),
+  },
 ];

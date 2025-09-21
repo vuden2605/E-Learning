@@ -35,6 +35,7 @@ function Mycourses() {
         {courses.map((val) => (
           <MyCourse
             key={val.courseResponse.id}
+            id={val.courseResponse.id}
             title={val.courseResponse.title}
             thumbnailUrl={val.courseResponse.thumbnailUrl}
           />

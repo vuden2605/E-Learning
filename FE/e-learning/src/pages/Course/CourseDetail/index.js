@@ -19,7 +19,7 @@ function CourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
   const [course, setCourse] = useState({});
-  const [content,setContent] = useState();
+  const [content, setContent] = useState();
   useEffect(() => {
     const fetchDetail = async () => {
       const res = await CourseService.getDetailCourse(id);
@@ -30,11 +30,12 @@ function CourseDetail() {
   }, [id]);
   useEffect(() => {
     const getCourseContent = async () => {
-      const res= await CourseService.getCourseContent(id);
+      const res = await CourseService.getCourseContent(id);
+      console.log("content: ", res);
       setContent(res);
     };
     getCourseContent();
-  },[id])
+  }, [id]);
   return (
     <div className="course-detail">
       <div className="img-course">
@@ -146,7 +147,7 @@ function CourseDetail() {
         </div>
       </div>
       <div className="rating">
-        <CourseContent lessons = {content?.lessons}/>
+        <CourseContent lessons={content?.lessonResponses} />
 
         <span
           style={{

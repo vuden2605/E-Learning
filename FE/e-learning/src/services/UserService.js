@@ -1,4 +1,6 @@
 import api from "../api/axios";
+import axios from "axios";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const getCurrentUser = async () => {
   try {
@@ -20,15 +22,15 @@ const getUserById = async (id) => {
   }
 };
 
-const updateUser = async (id, userData) => {
+const updateUser = async (userData) => {
   try {
-    const response = await api.put(`/user/${id}`, userData);
-    console.log("User updated:", response.data.result);
+    const response = await api.patch("/user", userData);
     return response.data.result;
   } catch (error) {
-    console.error("Error updating user:", error.message);
+    console.error("Error updating user:", error);
   }
 };
+
 
 const logout = async () => {
   try {
@@ -39,9 +41,9 @@ const logout = async () => {
     console.error("Error during logout:", error.message);
   }
 };
-export  const UserService = {
+export const UserService = {
   getCurrentUser,
   getUserById,
   updateUser,
-  logout
+  logout,
 };

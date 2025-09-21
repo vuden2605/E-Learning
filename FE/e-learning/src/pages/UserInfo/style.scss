@@ -88,3 +88,34 @@
     }
   }
 }
+.custom-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 45px;
+  border: 1px solid #652cc9;
+  color: #652cc9;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 600;
+
+  transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: #ece6f9;
+}
+.btn-upload {
+  width: 100px;
+  color: #fff;
+  background-color: #652cc9;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-upload:hover {
+  background-color: #6b2bb7;
+}
