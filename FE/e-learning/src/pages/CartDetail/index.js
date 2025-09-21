@@ -4,7 +4,7 @@ import CartItem from "../../components/CartItem";
 import { formatCurrencyVND } from "../../utils/formatCurrency";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { CartService } from "../../services/CartService";
-
+import { CheckoutService } from "../../services/CheckoutService";
 function CartDetail() {
   const [cartItems, setCartItems] = useState([]);
 
@@ -20,6 +20,12 @@ function CartDetail() {
     };
     fetchCartItems();
   }, []);
+  const handleCheckout = async () => {
+    const urlMomo = await CheckoutService.checkout();
+    if (urlMomo) {
+      window.location.href = urlMomo; // redirect sang trang thanh toán MoMo
+    }
+  };
   console.log("cartItems:", cartItems);
   const cartCount = cartItems.length;
 
@@ -69,7 +75,7 @@ function CartDetail() {
           <div className="cart-summary">
             <div style={{ color: "#5A5C71", fontWeight: "600" }}>Tổng:</div>
             <div className="total-price">{formatCurrencyVND(totalPrice)}</div>
-            <button className="btn-checkount">
+            <button className="btn-checkount"  onClick = {handleCheckout}>
               Tiến hành thanh toán <ArrowRightOutlined />
             </button>
           </div>

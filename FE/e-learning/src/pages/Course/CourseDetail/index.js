@@ -38,6 +38,7 @@ function CourseDetail() {
   }, [id]);
   const handleaddtocart = async() => {
     await CartService.addToCart(id);
+    
   }
   return (
     <div className="course-detail">

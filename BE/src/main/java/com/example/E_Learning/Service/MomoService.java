@@ -24,8 +24,8 @@ public class MomoService {
 	private static final String partnerCode = "MOMO";
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
-	private static final String returnUrl = "https://momo.vn/return";
-	private static final String notifyUrl = "https://a3d2ecb4cc56.ngrok-free.app/elearning/api/momo/notify";
+	private static final String returnUrl = "http://localhost:3001";
+	private static final String notifyUrl = "https://a7234f7ca81a.ngrok-free.app/elearning/api/momo/notify";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final CourseRepository courseRepository;
