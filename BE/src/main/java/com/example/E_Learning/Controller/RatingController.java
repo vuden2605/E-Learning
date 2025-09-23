@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/rating")
 public class RatingController {
 	private final RatingService ratingService;
-	@PostMapping("/{courseId}")
+	@PostMapping("/course/{courseId}")
 	public ApiResponse<String> rateCourse (@PathVariable Long courseId, @RequestBody RatingCreationRequest ratingCreationRequest) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Long userId = Long.parseLong(authentication.getName());

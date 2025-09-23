@@ -70,7 +70,7 @@ public class CourseService {
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
 				.build();
 	}
-	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, PageCustomRequest pageRequest) {
+	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),
 				pageRequest.getPageSize(),
 				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
@@ -80,7 +80,6 @@ public class CourseService {
 				                                               courseFilterRequest.getMaxPrice(),
 				                                               courseFilterRequest.getDiscountPercent(),
 				                                               courseFilterRequest.getTitle(),
-				                                               userId,
 				                                               pageable);
 		return coursePage.map(courseMapper::toCourseResponse);
 	}

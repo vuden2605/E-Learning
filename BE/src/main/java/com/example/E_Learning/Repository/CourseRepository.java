@@ -23,7 +23,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
       AND (:maxPrice IS NULL OR (c.price * (1 - c.discountPercent/100.0)) <= :maxPrice)
       AND (:discountPercent IS NULL OR c.discountPercent >= :discountPercent)
       AND (:title IS NULL OR LOWER(c.title) LIKE LOWER(CONCAT('%', :title, '%')))
-      AND (:userId IS NULL OR NOT EXISTS (SELECT 1  FROM Enrollment e WHERE e.user.id = :userId AND e.course.id = c.id))
     """)
 	Page<Course> findCoursesByFilter(
 			@Param("categoryId") Long categoryId,
@@ -31,7 +30,6 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 			@Param("maxPrice") Long maxPrice,
 			@Param("discountPercent") Integer discountPercent,
 			@Param("title") String title,
-			@Param("userId") Long userId,
 			Pageable pageable
 	);
 	List<Course> findByInstructorId (Long instructorId);
