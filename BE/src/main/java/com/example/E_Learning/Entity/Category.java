@@ -16,6 +16,9 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(columnDefinition = "NVARCHAR(100)")
 	private String name;
+	@Column(columnDefinition = "NVARCHAR(1000)")
 	private String description;
+	private String thumbnailUrl;
 }

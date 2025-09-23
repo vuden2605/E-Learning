@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RatingRepository extends JpaRepository<Rating,Long> {
 	boolean existsByUserIdAndCourseId(Long userId, Long courseId);
-	@Query("SELECT AVG(r.rating), count(r) FROM Rating r WHERE r.course.id = :courseId")
+	@Query("SELECT AVG(r.rate), count(r) FROM Rating r WHERE r.course.id = :courseId")
 	Object findAverageAndTotalRatingByCourseId(@Param("courseId") Long courseId);
 }

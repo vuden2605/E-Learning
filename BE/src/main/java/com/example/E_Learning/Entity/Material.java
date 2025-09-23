@@ -18,7 +18,9 @@ public class Material {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String title;
+	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String description;
+	@Column(columnDefinition = "NVARCHAR(100)")
 	private String type;
 	private String url;
 	private Integer orderIndex;

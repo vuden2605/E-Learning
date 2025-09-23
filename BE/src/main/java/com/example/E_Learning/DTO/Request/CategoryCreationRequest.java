@@ -15,4 +15,5 @@ public class CategoryCreationRequest {
 	private String name;
 	@NotBlank(message = "REQUIRED_CATEGORY_DESCRIPTION")
 	private String description;
+	private String thumbnailUrl;
 }

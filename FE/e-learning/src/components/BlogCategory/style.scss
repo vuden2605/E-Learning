@@ -9,9 +9,9 @@
   
       .category-image {
         width: 100%;
+        height: 200px;  // 👈 fix chiều cao chung
         border-radius: 12px;
-        object-fit: cover;
-        margin-bottom: -20px;
+        object-fit: cover; // giúp ảnh cắt và giữ tỉ lệ
       }
     }
   }

@@ -17,24 +17,24 @@ public class RatingService {
 	private final UserRepository userRepository;
 	private final CourseRepository courseRepository;
 
-	public String rateCourse (Long userId, RatingCreationRequest ratingCreationRequest) {
-		if (ratingRepository.existsByUserIdAndCourseId(userId, ratingCreationRequest.getCourseId())) {
+	public String rateCourse (Long userId, Long courseId, RatingCreationRequest ratingCreationRequest) {
+		if (ratingRepository.existsByUserIdAndCourseId(userId, courseId)) {
 			throw new AppException(ErrorCode.RATING_ALREADY_EXISTS);
 		}
 		Rating rating = Rating.builder()
 				.user(userRepository.getReferenceById(userId))
-				.course(courseRepository.getReferenceById(ratingCreationRequest.getCourseId()))
-				.rating(ratingCreationRequest.getRating())
+				.course(courseRepository.getReferenceById(courseId))
+				.rate(ratingCreationRequest.getRate())
 				.comment(ratingCreationRequest.getComment())
 				.build();
 		ratingRepository.save(rating);
-		Object result = ratingRepository.findAverageAndTotalRatingByCourseId(ratingCreationRequest.getCourseId());
+		Object result = ratingRepository.findAverageAndTotalRatingByCourseId(courseId);
 		Object[] arr = (Object[]) result;
 
 		Double avg = arr[0] != null ? Math.round(((Double) arr[0]) * 10.0) / 10.0 : 0.0;
 		Long total = arr[1] != null ? (Long) arr[1] : 0L;
 
-		courseRepository.updateAverageAndTotalRating(ratingCreationRequest.getCourseId(), avg, total);
+		courseRepository.updateAverageAndTotalRating(courseId, avg, total);
 		return "Create rating successfully";
 	}
 }

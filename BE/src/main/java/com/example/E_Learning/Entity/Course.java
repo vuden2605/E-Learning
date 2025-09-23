@@ -21,13 +21,16 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String title;
+	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String description;
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
 	private String thumbnailUrl;
-	private Integer studentCount;
+	@Builder.Default
+	private Integer studentCount = 0;
 	private Long discountPercent;
 	private Long price;
 	@Builder.Default

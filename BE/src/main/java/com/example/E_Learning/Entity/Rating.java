@@ -25,7 +25,7 @@ public class Rating {
 	@JoinColumn(name = "course_id")
 	private Course course;
 	@Column(nullable = false)
-	private int rating;
+	private int rate;
 	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String comment;
 	@CreationTimestamp
