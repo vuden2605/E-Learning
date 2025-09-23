@@ -90,6 +90,20 @@
         justify-content: space-between;
 
         padding-top: 10px;
+        .btn-mycourse {
+          margin-top: 20px;
+          background-color: #fff;
+          border: 1px solid #68b5b8;
+          color: #68b5b8;
+          font-size: 16px;
+          font-weight: 500;
+          width: 170px;
+          height: 40px;
+          &:hover {
+            color: #fff;
+            background-color: #68b5b8;
+          }
+        }
         .btn-addcart {
           background-color: #fff;
           border: 1px solid #68b5b8;
@@ -178,6 +192,5 @@
         }
       }
     }
-    
   }
 }

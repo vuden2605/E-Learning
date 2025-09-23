@@ -132,6 +132,7 @@ public class CourseService {
 						.comment(rating.getComment())
 						.user(userMapper.toUserResponse(rating.getUser()))
 						.rate(rating.getRate())
+						.createdAt(rating.getCreatedAt())
 						.build())
 				.toList();
 	}
