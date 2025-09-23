@@ -38,4 +38,7 @@ public class RatingService {
 		courseRepository.updateAverageAndTotalRating(courseId, avg, total);
 		return "Create rating successfully";
 	}
+	public Boolean isExistByUserIdAndCourseId(Long userId, Long courseId) {
+		return ratingRepository.existsByUserIdAndCourseId(userId, courseId);
+	}
 }
