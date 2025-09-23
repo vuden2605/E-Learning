@@ -23,9 +23,13 @@ function CartDetail() {
   const handleCheckout = async () => {
     const urlMomo = await CheckoutService.checkout();
     if (urlMomo) {
-      window.location.href = urlMomo; // redirect sang trang thanh toán MoMo
+      window.location.href = urlMomo; 
     }
   };
+  const handleRemoveItem = async (id) => {
+    await CartService.removeFromCart(id);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  }
   console.log("cartItems:", cartItems);
   const cartCount = cartItems.length;
 
@@ -59,9 +63,7 @@ function CartDetail() {
                     newPrice={Math.round(item.price*(1-item.discountPercent/100))}
                     oldPrice={item.price}
                     onDelete={(id) =>
-                      setCartItems((prev) =>
-                        prev.filter((cartItem) => cartItem.id !== id)
-                      )
+                      handleRemoveItem(id)
                     }
                   />
                 ))
