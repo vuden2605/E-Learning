@@ -21,4 +21,12 @@ public class RatingController {
 				.result(ratingService.rateCourse(userId, courseId, ratingCreationRequest))
 				.build();
 	}
+	@GetMapping("/exists/course/{courseId}")
+	public ApiResponse<Boolean> xistsByUserIdAndCourseId(@PathVariable Long courseId) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long userId = Long.parseLong(authentication.getName());
+		return ApiResponse.<Boolean>builder()
+				.result(ratingService.isExistByUserIdAndCourseId(userId, courseId))
+				.build();
+	}
 }
