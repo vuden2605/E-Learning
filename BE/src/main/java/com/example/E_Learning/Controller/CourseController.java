@@ -8,7 +8,6 @@ import com.example.E_Learning.Service.CourseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -52,8 +51,13 @@ public class CourseController {
 //	}
 	@GetMapping("/filter")
 	public ApiResponse<Page<CourseResponse>> getCourses (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long userId = null;
+		if (authentication != null && !"anonymousUser".equals(authentication.getName())) {
+			userId = Long.parseLong(authentication.getName());
+		}
 		return ApiResponse.<Page<CourseResponse>>builder()
-						.result(courseService.findCoursesByFilter(courseFilterRequest,pageRequest))
+						.result(courseService.findCoursesByFilter(courseFilterRequest,userId,pageRequest))
 						.build();
 	}
 	@GetMapping("/instructor/me")

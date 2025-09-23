@@ -23,4 +23,6 @@ public class CourseResponse {
 	private Long totalRatings;
 	private LocalDateTime createdAt;
 	private Integer studentCount;
+	@Builder.Default
+	private Boolean isPurchased = false;
 }

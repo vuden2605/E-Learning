@@ -9,6 +9,7 @@ import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.CategoryRepository;
 import com.example.E_Learning.Repository.CourseRepository;
+import com.example.E_Learning.Repository.EnrollmentRepository;
 import com.example.E_Learning.Repository.InstructorRepository;
 import com.example.E_Learning.mapper.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+
 import com.example.E_Learning.DTO.Response.CourseContent;
 
 @Service
@@ -32,7 +35,7 @@ public class CourseService {
 	private final CategoryMapper categoryMapper;
 	private final InstructorRepository instructorRepository;
 	private final InstructorMapper instructorMapper;
-	private final MaterialMapper materialMapper;
+	private final EnrollmentRepository enrollmentRepository;
 	private final LessonMapper lessonMapper;
 	public CourseResponse createCourse(CourseCreationRequest courseCreationRequest, Long instructorId ) {
 		Course course = courseMapper.toCourse(courseCreationRequest);
@@ -70,7 +73,7 @@ public class CourseService {
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
 				.build();
 	}
-	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, PageCustomRequest pageRequest) {
+	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, PageCustomRequest pageRequest) {
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),
 				pageRequest.getPageSize(),
 				Sort.by(Sort.Direction.fromString(pageRequest.getDirection()),pageRequest.getSortBy())
@@ -81,7 +84,14 @@ public class CourseService {
 				                                               courseFilterRequest.getDiscountPercent(),
 				                                               courseFilterRequest.getTitle(),
 				                                               pageable);
-		return coursePage.map(courseMapper::toCourseResponse);
+		Page<CourseResponse> courseResponsePage = coursePage.map(courseMapper::toCourseResponse);
+		if (userId != null) {
+			Set<Long> enrolledCourseIds = enrollmentRepository.findCourseIdByUserId(userId);
+			courseResponsePage.forEach(courseResponse -> {
+				courseResponse.setIsPurchased(enrolledCourseIds.contains(courseResponse.getId()));
+			});
+		}
+		return courseResponsePage;
 	}
 	public List<CourseResponse> myInstructorCourse (Long instructorId) {
 		List<Course> courses = courseRepository.findByInstructorId(instructorId);
