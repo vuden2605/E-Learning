@@ -15,6 +15,7 @@ import { CourseService } from "../../../services/CourseService";
 import { formatCurrencyVND } from "../../../utils/formatCurrency";
 import CourseContent from "../../../components/CourseContent";
 import { CartService } from "../../../services/CartService.js";
+import ReviewCard from "../../../components/ReviewCard/index.js";
 function CourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
@@ -40,6 +41,15 @@ function CourseDetail() {
     await CartService.addToCart(id);
     
   }
+  const [rates,setRates]=useState([]);
+  useEffect(() => {
+    const fetchRating = async () => {
+      const res = await CourseService.getRating(id);
+      console.log("ratingggg:", res);
+      setRates(res);
+    };
+    fetchRating();
+  }, [id]);
   return (
     <div className="course-detail">
       <div className="img-course">
@@ -208,7 +218,7 @@ function CourseDetail() {
             </li>
           </div>
         </div>
-        <div className="review-card">
+        {/* <div className="review-card">
           <div className="review-header">
             <img src={cmtavt}></img>
             <span className="name">J97</span>
@@ -229,7 +239,8 @@ function CourseDetail() {
             nhày nhơ nhấy nhòn nhủ nhơ nhến nhi nhem nhờ nhơ nhòng nhười nhanh
             nhâu nhó nhay nhột nhày nhi nhỗ nhánh nhay
           </div>
-        </div>
+        </div> */}
+        <ReviewCard/>
       </div>
     </div>
   );

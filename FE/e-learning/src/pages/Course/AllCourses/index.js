@@ -179,13 +179,13 @@ function AllCourses() {
           }}
         >
           {mycourses.map((val) => (
-          <Mycourse
-            key={val.courseResponse.id}
-            id={val.courseResponse.id}
-            title={val.courseResponse.title}
-            thumbnailUrl={val.courseResponse.thumbnailUrl}
-          />
-        ))}
+            <Mycourse
+              key={val.courseResponse.id}
+              id={val.courseResponse.id}
+              title={val.courseResponse.title}
+              thumbnailUrl={val.courseResponse.thumbnailUrl}
+            />
+          ))}
         </div>
         <div className="square-outlined">
           <LeftSquareOutlined
@@ -365,6 +365,7 @@ function AllCourses() {
                 price={val.price}
                 discount={val.discountPercent}
                 thumbnailUrl={val.thumbnailUrl}
+                isPurchased={val.isPurchased}
               />
             ))}
           </div>

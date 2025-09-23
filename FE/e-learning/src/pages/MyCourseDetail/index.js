@@ -110,7 +110,7 @@ function MyCourseDetail() {
             Nội dung khóa học
           </div>
           <CourseContent
-            lessons={content?.lessonResponses}
+            lessons={content?.lessons}
             materialOnclick={handleClickMaterial}
             idMaterialParent={idMaterial}
           />

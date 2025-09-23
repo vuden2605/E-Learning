@@ -23,26 +23,48 @@
     margin: 10px;
     margin-top: 0px;
   }
-  .description {
-    margin: 10px;
-    margin-top: 0px;
-    font-weight: 400;
-    color: #000;
-  }
+ .description {
+  margin: 10px;
+  margin-top: 0px;
+  font-weight: 400;
+  color: #000;
+  width: 230px;
+
+  display: -webkit-box;           /* Dùng flexbox dạng cột */
+  -webkit-box-orient: vertical;   /* Hướng theo chiều dọc */
+  -webkit-line-clamp: 2;          /* Giới hạn 2 dòng */
+  overflow: hidden;               /* Ẩn phần dư */
+}
+
+
   .price-tag {
     display: flex;
-    gap: 30px;
+    gap: 10px;
     margin: 10px;
     margin-bottom: 20px;
     .btn-addcart {
+      margin-top: 20px;
       background-color: #fff;
-      border: 1px solid #68B5B8;
-      color: #68B5B8;
-      &:hover{
-        color:#fff;
-        background-color: #68B5B8;
+      border: 1px solid #68b5b8;
+      color: #68b5b8;
+      width: 120px;
+      margin-left: 20px;
+      &:hover {
+        color: #fff;
+        background-color: #68b5b8;
       }
+    }
+    .btn-mycourse {
+      margin-top: 20px;
+      background-color: #fff;
+      border: 1px solid #68b5b8;
+      color: #68b5b8;
 
+      width: 145px;
+      &:hover {
+        color: #fff;
+        background-color: #68b5b8;
+      }
     }
     .old-price {
       margin-top: 5px;
@@ -50,8 +72,9 @@
       font-weight: 200;
     }
     .new-price {
+      width: 90px;
       margin-top: 5px;
-      color: #68B5B8;
+      color: #68b5b8;
       font-weight: 700;
     }
   }
