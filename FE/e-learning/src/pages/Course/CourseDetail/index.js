@@ -240,7 +240,16 @@ function CourseDetail() {
             nhâu nhó nhay nhột nhày nhi nhỗ nhánh nhay
           </div>
         </div> */}
-        <ReviewCard/>
+        {rates.map((val,index)=>(
+                  <ReviewCard key={index}
+                  avatarUrl={val.user.avatarUrl}
+                  fullName={val.user.fullName}
+                  rate={val.rate}
+                  comment={val.comment}
+                  // time: chưa có
+                  />
+
+        ))}
       </div>
     </div>
   );

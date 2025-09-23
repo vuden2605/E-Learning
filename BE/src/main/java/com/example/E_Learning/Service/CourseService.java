@@ -59,10 +59,10 @@ public class CourseService {
 	public void deleteCourse(Long courseId) {
 		courseRepository.deleteById(courseId);
 	}
-	public CourseDetailResponse getCourseDetailById(Long courseId) {
+	public CourseDetailResponse getCourseDetailById(Long courseId, Long userId) {
 		Course course = courseRepository.getDetailById(courseId)
 				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
-		return CourseDetailResponse.builder()
+		CourseDetailResponse courseDetailResponse = CourseDetailResponse.builder()
 				.id(course.getId())
 				.title(course.getTitle())
 				.description(course.getDescription())
@@ -72,7 +72,14 @@ public class CourseService {
 				.price(course.getPrice())
 				.instructor(instructorMapper.toInstructorResponse(course.getInstructor()))
 				.category(categoryMapper.toCategoryResponse(course.getCategory()))
+				.averageRating(course.getAverageRating())
+				.totalRatings(course.getTotalRatings())
 				.build();
+		if (userId != null) {
+			Set<Long> enrolledCourseIds = enrollmentRepository.findCourseIdByUserId(userId);
+			courseDetailResponse.setIsPurchased(enrolledCourseIds.contains(courseDetailResponse.getId()));
+		}
+		return courseDetailResponse;
 	}
 	public Page<CourseResponse> findCoursesByFilter (CourseFilterRequest courseFilterRequest, Long userId, PageCustomRequest pageRequest) {
 		Pageable pageable = PageRequest.of(pageRequest.getPage(),

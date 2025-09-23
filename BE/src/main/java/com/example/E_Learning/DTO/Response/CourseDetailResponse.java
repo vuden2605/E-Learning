@@ -25,4 +25,6 @@ public class CourseDetailResponse {
 	private InstructorResponse instructor;
 	private Double averageRating;
 	private Long totalRatings;
+	@Builder.Default
+	private Boolean isPurchased = false;
 }
