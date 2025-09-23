@@ -39,8 +39,13 @@ public class CourseController {
 	}
 	@GetMapping("/detail/{id}")
 	public ApiResponse<CourseDetailResponse> getCourseDetailById(@PathVariable Long id) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Long userId = null;
+		if (authentication != null && !"anonymousUser".equals(authentication.getName())) {
+			userId = Long.parseLong(authentication.getName());
+		}
 		return ApiResponse.<CourseDetailResponse>builder()
-				.result(courseService.getCourseDetailById(id))
+				.result(courseService.getCourseDetailById(id, userId))
 				.build();
 	}
 //	@GetMapping("/category/{categoryId}")
