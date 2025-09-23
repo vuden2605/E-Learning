@@ -9,6 +9,7 @@ import com.example.E_Learning.Repository.RatingRepository;
 import com.example.E_Learning.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class RatingService {
 	private final RatingRepository ratingRepository;
 	private final UserRepository userRepository;
 	private final CourseRepository courseRepository;
-
+	@Transactional
 	public String rateCourse (Long userId, Long courseId, RatingCreationRequest ratingCreationRequest) {
 		if (ratingRepository.existsByUserIdAndCourseId(userId, courseId)) {
 			throw new AppException(ErrorCode.RATING_ALREADY_EXISTS);

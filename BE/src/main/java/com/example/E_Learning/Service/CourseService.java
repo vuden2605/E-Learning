@@ -37,6 +37,7 @@ public class CourseService {
 	private final InstructorMapper instructorMapper;
 	private final EnrollmentRepository enrollmentRepository;
 	private final LessonMapper lessonMapper;
+	private final UserMapper userMapper;
 	public CourseResponse createCourse(CourseCreationRequest courseCreationRequest, Long instructorId ) {
 		Course course = courseMapper.toCourse(courseCreationRequest);
 
@@ -115,6 +116,17 @@ public class CourseService {
 				.lessons(lessonResponses)
 				.title(course.getTitle())
 				.build();
+	}
+	public List<RatingResponse> getCourseRatings(Long courseId) {
+		Course course = courseRepository.findById(courseId)
+				.orElseThrow(() -> new AppException(ErrorCode.COURSE_NOT_FOUND));
+		return course.getRatings().stream()
+				.map(rating -> RatingResponse.builder()
+						.comment(rating.getComment())
+						.user(userMapper.toUserResponse(rating.getUser()))
+						.rate(rating.getRate())
+						.build())
+				.toList();
 	}
 
 }

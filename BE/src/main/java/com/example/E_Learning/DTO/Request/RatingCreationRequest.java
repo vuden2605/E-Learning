@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 public class RatingCreationRequest {
 	private Long userId;
-	private int rate;
+	private Integer rate;
 	private String comment;
 }

@@ -81,5 +81,11 @@ public class CourseController {
 				.result(courseService.getCourseContent(courseId))
 				.build();
 	}
+	@GetMapping("/{courseId}/ratings")
+	public ApiResponse<List<RatingResponse>> getCourseRatings (@PathVariable Long courseId) {
+		return ApiResponse.<List<RatingResponse>>builder()
+				.result(courseService.getCourseRatings(courseId))
+				.build();
+	}
 
 }

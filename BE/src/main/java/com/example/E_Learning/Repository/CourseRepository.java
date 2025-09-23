@@ -34,6 +34,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 	);
 	List<Course> findByInstructorId (Long instructorId);
 	List<Course> findByTitleContainingIgnoreCase (String title);
+	@Modifying
 	@Query("""
 	UPDATE Course c
 	SET c.averageRating = :averageRating, c.totalRatings = :totalRatings

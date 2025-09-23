@@ -50,4 +50,6 @@ public class Course {
 	private Instructor instructor;
 	@OneToMany(mappedBy = "course")
 	private Set<Lesson> lessons;
+	@OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Rating> ratings;
 }
