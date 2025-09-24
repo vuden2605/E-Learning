@@ -30,7 +30,7 @@ public class SecurityConfig {
 			"/auth/**",
 			"/user/**",
 			"/instructor/**",
-			"/s3/upload/**"
+			"/s3/upload"
 	};
 	private final String [] publicEndpoints = {
 			"/category/**",

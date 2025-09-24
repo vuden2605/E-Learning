@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { formatCurrencyVND } from "../../utils/formatCurrency";
-
+import { CartService} from "../../services/CartService.js";
 function CourseCard({
   title,
   description,
@@ -13,6 +13,9 @@ function CourseCard({
   id,
   isPurchased,
 }) {
+  const addToCart = async () => {
+    await CartService.addToCart(id);
+  }
   return (
     <div className="coursecard">
       <Link to={`/course/detail/${id}`} style={{ textDecoration: "none" }}>
@@ -51,7 +54,7 @@ function CourseCard({
             </Button>
           </Link>
         ) : (
-          <Button type="primary" className="btn-addcart">
+          <Button type="primary" className="btn-addcart" onClick = {() => addToCart(id)}>
             <ShoppingCartOutlined />
             Thêm vào giỏ
           </Button>

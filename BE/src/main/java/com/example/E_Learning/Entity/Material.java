@@ -17,6 +17,7 @@ public class Material {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(columnDefinition = "NVARCHAR(200)")
 	private String title;
 	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String description;
