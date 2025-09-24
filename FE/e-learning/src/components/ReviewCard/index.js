@@ -2,6 +2,8 @@ import "./style.scss";
 import { Button, Rate, Collapse } from "antd";
 
 function ReviewCard({avatarUrl, fullName, rate, comment, time}) {
+  const date = new Date(time);
+
   return (
     <div className="review-card">
       <div className="review-header">
@@ -17,7 +19,7 @@ function ReviewCard({avatarUrl, fullName, rate, comment, time}) {
             style={{ fontSize: "9px", color: "#3B8562" }}
           />
         </div>
-        <div className="date">13 tháng 8, 2025</div>
+        <div className="date">{date.toLocaleDateString("vi-VN")}</div>
       </div>
       <div className="review-content">{comment}</div>
     </div>

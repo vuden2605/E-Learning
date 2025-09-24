@@ -47,7 +47,7 @@ function CourseDetail() {
     const fetchRating = async () => {
       const res = await CourseService.getRating(id);
       setRates(res);
-      console.log("ratingggg:", rates);
+      console.log("ratingggg:", res);
     };
     fetchRating();
   }, [id]);
@@ -81,6 +81,7 @@ function CourseDetail() {
         const res = await CourseService.ratingCourse(val, id);
         //set rates ở trong này nữa
         console.log("đánh giá:", res);
+        setRates((prev) => [...prev, res.data.result]);
 
         setIsOpen(false);
       } catch (err) {
@@ -88,7 +89,11 @@ function CourseDetail() {
       }
     }
   };
-
+  //tính toán thông số
+  const avgRate =
+    rates.length > 0
+      ? rates.reduce((sum, item) => sum + item.rate, 0) / rates.length
+      : 0;
   return (
     <div className="course-detail">
       {isOpen && (
@@ -253,48 +258,38 @@ function CourseDetail() {
         </div>
         <div className="rating-summary">
           <div>
-            <div className="rating-score">4.6</div>
+            <div className="rating-score">{avgRate}</div>
             <div className="rating-stars">
               <Rate
                 disabled
-                defaultValue={4.6}
+                allowHalf
+                value={avgRate}
                 style={{ fontSize: "14px", color: "#3B8562" }}
               />
             </div>
-            <div className="rating-count">138 N bài đánh giá</div>
+            <div className="rating-count">{rates.length} bài đánh giá</div>
           </div>
+          
           <div className="rating-distribute">
-            <li>
-              {/* render truyền tỉ lệ vô style */}
-              <span>5</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>4</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>3</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>2</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>1</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
+            {[5, 4, 3, 2, 1].map((star) => {
+              const count = rates.filter((r) => r.rate === star).length;
+              const percent = rates.length ? (count / rates.length) * 100 : 0;
+
+              return (
+                <li
+                  key={star}
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
+                  <span>{star}</span>
+                  <div className="rating_bar">
+                    <div
+                      className="rating_bar_child"
+                      style={{ width: `${percent}%` }}
+                    ></div>
+                  </div>
+                </li>
+              );
+            })}
           </div>
         </div>
 
@@ -305,7 +300,7 @@ function CourseDetail() {
             fullName={val.user.fullName}
             rate={val.rate}
             comment={val.comment}
-            // time: chưa có
+            time={val.createdAt}
           />
         ))}
       </div>

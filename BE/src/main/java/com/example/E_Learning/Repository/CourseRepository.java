@@ -1,5 +1,6 @@
 package com.example.E_Learning.Repository;
 
+import com.example.E_Learning.DTO.Response.CourseResponse;
 import com.example.E_Learning.Entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,5 +53,5 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 		WHERE c.id =:courseId
 	""")
 	Optional<Course> getCourseContentById(@Param("courseId") Long courseId);
-
+	List<Course> findTop4ByOrderByStudentCountDesc();
 }

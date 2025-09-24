@@ -147,6 +147,15 @@ const ratingCourse = async (body, id) => {
     console.log(err);
   }
 };
+const findTopSellingCourses = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/course/top-selling`);
+    console.log("top-selling:", res);
+    return res.data.result;
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const CourseService = {
   getMycourse,
   getCourses,
@@ -157,4 +166,5 @@ export const CourseService = {
   getRating,
   checkRating,
   ratingCourse,
+  findTopSellingCourses,
 };

@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS0;databaseName=E-LearningTest;encrypt=true;trustServerCertificate=true
     username: sa
-    password:
+    password: 1
   jpa:
     hibernate:
       ddl-auto: update
