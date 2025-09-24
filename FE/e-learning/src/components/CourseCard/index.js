@@ -4,9 +4,16 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { formatCurrencyVND } from "../../utils/formatCurrency";
 
-function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
+function CourseCard({
+  title,
+  description,
+  price,
+  discount,
+  thumbnailUrl,
+  id,
+  isPurchased,
+}) {
   return (
-    // NHỚ XÓA THẺ LINK TRONG NÀY, ROUTER CỦA PAGE COURSEDETAIL
     <div className="coursecard">
       <Link to={`/course/detail/${id}`} style={{ textDecoration: "none" }}>
         <div className="img-course">
@@ -17,24 +24,39 @@ function CourseCard({ title, description, price, discount, thumbnailUrl, id }) {
             {title}
           </h1>
         </div>
-        <div className="description">{description}</div>
-        <div className="price-tag">
+        <div className="description">
+          {description}
+
+        </div>
+      </Link>
+
+      <div className="price-tag">
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="old-price">
+            <del>
+              <i>{formatCurrencyVND(price)}</i>
+            </del>
+          </div>
+          <div className="new-price">
+            {formatCurrencyVND((price * (100 - discount)) / 100)}
+          </div>
+        </div>
+        {isPurchased ? (
+          <Link
+            to={`/mycourses/${id}`}
+            style={{ textDecoration: "none", color: "#000" }}
+          >
+            <Button type="primary" className="btn-mycourse">
+              Chuyển đến khóa học
+            </Button>
+          </Link>
+        ) : (
           <Button type="primary" className="btn-addcart">
             <ShoppingCartOutlined />
             Thêm vào giỏ
           </Button>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <div className="old-price">
-              <del>
-                <i>{formatCurrencyVND(price)}</i>
-              </del>
-            </div>
-            <div className="new-price">
-              {formatCurrencyVND((price * (100 - discount)) / 100)}
-            </div>
-          </div>
-        </div>
-      </Link>
+        )}
+      </div>
     </div>
   );
 }

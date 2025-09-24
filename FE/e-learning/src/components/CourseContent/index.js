@@ -13,7 +13,7 @@ function CourseContent({ lessons, materialOnclick, idMaterialParent }) {
   }, [idMaterialParent]);
 
   if (!lessons || lessons.length === 0) return <p>Chưa có bài học nào.</p>;
-
+  console.log("lesonnnn:", lessons);
   const items = [...lessons]
     .sort((a, b) => a.id - b.id)
     .map((lesson) => ({

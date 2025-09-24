@@ -90,6 +90,20 @@
         justify-content: space-between;
 
         padding-top: 10px;
+        .btn-mycourse {
+          margin-top: 20px;
+          background-color: #fff;
+          border: 1px solid #68b5b8;
+          color: #68b5b8;
+          font-size: 16px;
+          font-weight: 500;
+          width: 170px;
+          height: 40px;
+          &:hover {
+            color: #fff;
+            background-color: #68b5b8;
+          }
+        }
         .btn-addcart {
           background-color: #fff;
           border: 1px solid #68b5b8;
@@ -135,6 +149,20 @@
     // background-color: #e5effd;
     margin-top: 20px;
     width: 1150px;
+    .rating-click {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      border-radius: 10px;
+      color: #3b8562;
+      font-weight: 500;
+      cursor: pointer;
+      margin-left: 200px;
+    }
+    .rating-click:hover {
+      background-color: #e4efef;
+    }
     .rating-summary {
       margin-top: 20px;
 
@@ -171,51 +199,28 @@
 
           .rating_bar_child {
             height: 100%;
-            width: 30%; // giá trị % tiến trình
+            width: 0px; // giá trị % tiến trình
             background: #3b8562;
             border-radius: 5px;
           }
         }
       }
     }
-    .review-card {
-      color: #363636;
-      margin-top: 50px;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #a2aab3;
-      .review-header {
-        display: flex;
-        gap: 15px;
-
-        img {
-          width: 40px;
-          height: 40px;
-          border-radius: 20px;
-          object-fit: cover;
-        }
-        .name {
-          margin-top: 10px;
-          font-size: 13px;
-          font-weight: 500;
-        }
-      }
-      .review-rating {
-        display: flex;
-        margin-top: 15px;
-        .custom-rate .ant-rate-star {
-          margin-right: 2px;
-        }
-        .date {
-          margin-top: 3px;
-          margin-left: 5px;
-          font-size: 13px;
-        }
-      }
-      .review-content {
-        color: #606367;
-      }
-    }
   }
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3); /* tối nền nhẹ */
+  backdrop-filter: blur(6px); /* nhòe nền */
+  display: flex;
+  justify-content: center; /* căn giữa ngang */
+  align-items: center; /* căn giữa dọc */
+  z-index: 999; /* nổi lên trên */
+  
+}
+
+

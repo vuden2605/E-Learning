@@ -47,7 +47,7 @@ const getCourses = async (
 };
 const getDetailCourse = async (id) => {
   try {
-    const res = await axios.get(`${API_URL}/course/detail/${id}`);
+    const res = await api.get(`${API_URL}/course/detail/${id}`);
     // console.log("detail:", res);
     return res.data.result;
   } catch (err) {
@@ -70,11 +70,11 @@ const searchCourse = async (value) => {
 //   try {
 //     const res = await axios.get(`${API_URL}/enrollment/me`, {
 //       headers: {
-//         Authorization: `Bearer ${token}`, 
+//         Authorization: `Bearer ${token}`,
 //       },
 //     });
 //     console.log("api request:",res);
-//     return res.data; 
+//     return res.data;
 //   } catch (err) {
 //     console.log(err);
 //   }
@@ -82,7 +82,7 @@ const searchCourse = async (value) => {
 const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
   try {
     const params = { page, pageSize };
-    console.log("token la:",token);
+    console.log("token la:", token);
 
     const res = await axios.get(`${API_URL}/enrollment/me`, {
       params,
@@ -99,25 +99,52 @@ const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
 
     return res.data;
   } catch (err) {
-    console.error( err);
+    console.error(err);
   }
 };
-const getCourseContent = async(courseId) =>{
+const getCourseContent = async (courseId) => {
   try {
     console.log("courseId nhận vào:", courseId);
     const res = await axios.get(`${API_URL}/course/${courseId}/content`);
     return res.data.result;
-  }
-  catch(err) {
+  } catch (err) {
     console.log(err);
   }
-}
+};
 const getMaterialById = async (idCourse, idMaterial) => {
   try {
-    const response = await api.get(`/enrollment/course/${idCourse}/material/${idMaterial}`);
+    const response = await api.get(
+      `/enrollment/course/${idCourse}/material/${idMaterial}`
+    );
     return response.data.result;
   } catch (error) {
     console.error("Error fetching video url by ID:", error.message);
+  }
+};
+const getRating = async (id) => {
+  try {
+    const response = await api.get(`course/${id}/ratings`);
+    return response.data.result;
+  } catch (err) {
+    console.log(err);
+  }
+};
+const checkRating = async (id) => {
+  try {
+    const res = await api.get(
+      `http://localhost:8080/elearning/api/rating/exists/course/${id}`
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const ratingCourse = async (body, id) => {
+  try {
+    const res = await api.post(`rating/course/${id}`, body);
+    return res;
+  } catch (err) {
+    console.log(err);
   }
 };
 const findTopSellingCourses = async () => {
@@ -136,5 +163,8 @@ export const CourseService = {
   searchCourse,
   getCourseContent,
   getMaterialById,
+  getRating,
+  checkRating,
+  ratingCourse,
   findTopSellingCourses,
 };

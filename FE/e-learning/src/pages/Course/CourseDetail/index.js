@@ -9,12 +9,14 @@ import {
   YoutubeOutlined,
 } from "@ant-design/icons";
 import { Button, Rate, Collapse } from "antd";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CourseService } from "../../../services/CourseService";
 import { formatCurrencyVND } from "../../../utils/formatCurrency";
 import CourseContent from "../../../components/CourseContent";
 import { CartService } from "../../../services/CartService.js";
+import ReviewCard from "../../../components/ReviewCard/index.js";
+import ModalRating from "../../../components/ModalRating/index.js";
 function CourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
@@ -36,12 +38,72 @@ function CourseDetail() {
     };
     getCourseContent();
   }, [id]);
-  const handleaddtocart = async() => {
+  const handleaddtocart = async () => {
     await CartService.addToCart(id);
-    
-  }
+  };
+  // fetch đánh giá
+  const [rates, setRates] = useState([]);
+  useEffect(() => {
+    const fetchRating = async () => {
+      const res = await CourseService.getRating(id);
+      setRates(res);
+      console.log("ratingggg:", res);
+    };
+    fetchRating();
+  }, [id]);
+  //------------Oánh giá------------------
+  const [isOpen, setIsOpen] = useState();
+  const handleOpenModelRating = () => {
+    setIsOpen(true);
+  };
+  const handleCloseModelRating = () => {
+    setIsOpen(false);
+  };
+  // ktra đã đánh giá chưa
+  const [isRating, setIsRating] = useState(false);
+  useEffect(() => {
+    const checkRating = async () => {
+      const res = await CourseService.checkRating(id);
+      setIsRating(res.result);
+    };
+    checkRating();
+  }, [id]);
+
+  /// thêm message khi đánh giá thành công
+  const handleSubmitRating = async (val) => {
+    console.log("form rating:", val);
+
+    if (isRating) {
+      alert("đã đánh giá");
+      setIsOpen(false);
+    } else {
+      try {
+        const res = await CourseService.ratingCourse(val, id);
+        //set rates ở trong này nữa
+        console.log("đánh giá:", res);
+        setRates((prev) => [...prev, res.data.result]);
+
+        setIsOpen(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+  //tính toán thông số
+  const avgRate =
+    rates.length > 0
+      ? rates.reduce((sum, item) => sum + item.rate, 0) / rates.length
+      : 0;
   return (
     <div className="course-detail">
+      {isOpen && (
+        <div className="modal-overlay">
+          <ModalRating
+            onCloseModal={handleCloseModelRating}
+            onSubmitRating={handleSubmitRating}
+          />
+        </div>
+      )}
       <div className="img-course">
         <img className="img-cover" src={course.thumbnailUrl}></img>
         <img className="img-main" src={course.thumbnailUrl}></img>
@@ -108,13 +170,37 @@ function CourseDetail() {
             <div className="discount">50% OFF</div>
           </div>
           <div className="btn">
-            <Button type="primary" className="btn-addcart" onClick = {handleaddtocart}>
-              Thêm
-              <ShoppingCartOutlined />
-            </Button>
-            <Button type="primary" className="btn-buy">
-              Mua ngay
-            </Button>
+            {course.isPurchased ? (
+              <Link
+                to={`/mycourses/${id}`}
+                style={{ textDecoration: "none", color: "#000" }}
+              >
+                <Button type="primary" className="btn-mycourse">
+                  Chuyển đến khóa học
+                </Button>
+              </Link>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  gap: "60px",
+                  justifyContent: "space-between",
+                  paddingTop: "10px",
+                }}
+              >
+                <Button
+                  type="primary"
+                  className="btn-addcart"
+                  onClick={handleaddtocart}
+                >
+                  Thêm
+                  <ShoppingCartOutlined />
+                </Button>
+                <Button type="primary" className="btn-buy">
+                  Mua ngay
+                </Button>
+              </div>
+            )}
           </div>
           <div
             style={{
@@ -151,85 +237,72 @@ function CourseDetail() {
         </div>
       </div>
       <div className="rating">
-        <CourseContent lessons={content?.lessonResponses} />
-
-        <span
-          style={{
-            fontWeight: "600",
-            fontSize: "30px",
-            color: "#000",
-          }}
-        >
-          Xếp hạng và đánh giá
-        </span>
+        <CourseContent lessons={content?.lessons} />
+        <div style={{ display: "flex" }}>
+          <span
+            style={{
+              fontWeight: "600",
+              fontSize: "30px",
+              color: "#000",
+            }}
+          >
+            Xếp hạng và đánh giá
+          </span>
+          {course.isPurchased ? (
+            <div className="rating-click" onClick={handleOpenModelRating}>
+              Đánh giá khóa học
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
         <div className="rating-summary">
           <div>
-            <div className="rating-score">4.6</div>
+            <div className="rating-score">{avgRate}</div>
             <div className="rating-stars">
               <Rate
                 disabled
-                defaultValue={4.6}
+                allowHalf
+                value={avgRate}
                 style={{ fontSize: "14px", color: "#3B8562" }}
               />
             </div>
-            <div className="rating-count">138 N bài đánh giá</div>
+            <div className="rating-count">{rates.length} bài đánh giá</div>
           </div>
+          
           <div className="rating-distribute">
-            <li>
-              {/* render truyền tỉ lệ vô style */}
-              <span>5</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>4</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>3</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>2</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
-            <li>
-              <span>1</span>
-              <div className="rating_bar">
-                <div className="rating_bar_child"></div>
-              </div>
-            </li>
+            {[5, 4, 3, 2, 1].map((star) => {
+              const count = rates.filter((r) => r.rate === star).length;
+              const percent = rates.length ? (count / rates.length) * 100 : 0;
+
+              return (
+                <li
+                  key={star}
+                  style={{ display: "flex", alignItems: "center", gap: "8px" }}
+                >
+                  <span>{star}</span>
+                  <div className="rating_bar">
+                    <div
+                      className="rating_bar_child"
+                      style={{ width: `${percent}%` }}
+                    ></div>
+                  </div>
+                </li>
+              );
+            })}
           </div>
         </div>
-        <div className="review-card">
-          <div className="review-header">
-            <img src={cmtavt}></img>
-            <span className="name">J97</span>
-          </div>
-          <div className="review-rating">
-            <div className="rate-start">
-              <Rate
-                disabled
-                defaultValue={4.6}
-                className="custom-rate"
-                style={{ fontSize: "9px", color: "#3B8562" }}
-              />
-            </div>
-            <div className="date">13 tháng 8, 2025</div>
-          </div>
-          <div className="review-content">
-            Nhồng nhần nhên nhôi nhánh nhay nhọa nhời nhem nhong nhút nhây nhừ
-            nhày nhơ nhấy nhòn nhủ nhơ nhến nhi nhem nhờ nhơ nhòng nhười nhanh
-            nhâu nhó nhay nhột nhày nhi nhỗ nhánh nhay
-          </div>
-        </div>
+
+        {rates.map((val, index) => (
+          <ReviewCard
+            key={index}
+            avatarUrl={val.user.avatarUrl}
+            fullName={val.user.fullName}
+            rate={val.rate}
+            comment={val.comment}
+            time={val.createdAt}
+          />
+        ))}
       </div>
     </div>
   );
