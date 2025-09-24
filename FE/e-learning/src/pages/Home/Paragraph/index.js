@@ -486,7 +486,7 @@ function Paragraph() {
                             >
                                 KHÓA HỌC BÁN CHẠY
                             </div>
-                            <Link to='/courses'>
+                            <Link to='/course'>
                                 <button class="learn-more">
                                     <span class="circle" aria-hidden="true">
                                         <span class="icon arrow"></span>
