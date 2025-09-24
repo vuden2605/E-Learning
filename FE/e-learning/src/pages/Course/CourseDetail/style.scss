@@ -149,6 +149,20 @@
     // background-color: #e5effd;
     margin-top: 20px;
     width: 1150px;
+    .rating-click {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      border-radius: 10px;
+      color: #3b8562;
+      font-weight: 500;
+      cursor: pointer;
+      margin-left: 200px;
+    }
+    .rating-click:hover {
+      background-color: #e4efef;
+    }
     .rating-summary {
       margin-top: 20px;
 
@@ -194,3 +208,19 @@
     }
   }
 }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3); /* tối nền nhẹ */
+  backdrop-filter: blur(6px); /* nhòe nền */
+  display: flex;
+  justify-content: center; /* căn giữa ngang */
+  align-items: center; /* căn giữa dọc */
+  z-index: 999; /* nổi lên trên */
+  
+}
+
+

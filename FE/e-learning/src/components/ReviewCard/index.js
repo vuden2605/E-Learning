@@ -2,7 +2,6 @@ import "./style.scss";
 import { Button, Rate, Collapse } from "antd";
 
 function ReviewCard({avatarUrl, fullName, rate, comment, time}) {
-  console.log("reviewcard:", avatarUrl, fullName, rate, comment, time);
   return (
     <div className="review-card">
       <div className="review-header">

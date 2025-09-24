@@ -129,6 +129,24 @@ const getRating = async (id) => {
     console.log(err);
   }
 };
+const checkRating = async (id) => {
+  try {
+    const res = await api.get(
+      `http://localhost:8080/elearning/api/rating/exists/course/${id}`
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const ratingCourse = async (body, id) => {
+  try {
+    const res = await api.post(`rating/course/${id}`, body);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const CourseService = {
   getMycourse,
   getCourses,
@@ -137,4 +155,6 @@ export const CourseService = {
   getCourseContent,
   getMaterialById,
   getRating,
+  checkRating,
+  ratingCourse,
 };

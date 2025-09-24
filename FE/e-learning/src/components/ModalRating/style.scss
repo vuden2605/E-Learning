@@ -1,0 +1,58 @@
+.modal {
+  width: 480px;
+  height: 370px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+
+  .modal-content {
+    width: 435px;
+    height: 325px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .close {
+      margin-left: 405px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      border-radius: 20px;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 500;
+      justify-content: center;
+    }
+    .close:hover {
+      background-color: rgb(167, 160, 160);
+      color: #fff;
+    }
+    .modal-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .modal-comment {
+      border: 1px solid #3e207e;
+    }
+    .btn-save {
+      height: 40px;
+      margin-top: 5px;
+      width: 130px;
+      font-weight: 500;
+      color: #fff;
+      background-color: #3e207e;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 305px;
+    }
+    .btn-save:hover {
+      background-color: #6442ad; /* tối hơn một chút */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

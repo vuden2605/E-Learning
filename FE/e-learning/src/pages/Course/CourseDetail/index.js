@@ -16,6 +16,7 @@ import { formatCurrencyVND } from "../../../utils/formatCurrency";
 import CourseContent from "../../../components/CourseContent";
 import { CartService } from "../../../services/CartService.js";
 import ReviewCard from "../../../components/ReviewCard/index.js";
+import ModalRating from "../../../components/ModalRating/index.js";
 function CourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
@@ -40,17 +41,64 @@ function CourseDetail() {
   const handleaddtocart = async () => {
     await CartService.addToCart(id);
   };
+  // fetch đánh giá
   const [rates, setRates] = useState([]);
   useEffect(() => {
     const fetchRating = async () => {
       const res = await CourseService.getRating(id);
-      console.log("ratingggg:", res);
       setRates(res);
+      console.log("ratingggg:", rates);
     };
     fetchRating();
   }, [id]);
+  //------------Oánh giá------------------
+  const [isOpen, setIsOpen] = useState();
+  const handleOpenModelRating = () => {
+    setIsOpen(true);
+  };
+  const handleCloseModelRating = () => {
+    setIsOpen(false);
+  };
+  // ktra đã đánh giá chưa
+  const [isRating, setIsRating] = useState(false);
+  useEffect(() => {
+    const checkRating = async () => {
+      const res = await CourseService.checkRating(id);
+      setIsRating(res.result);
+    };
+    checkRating();
+  }, [id]);
+
+  /// thêm message khi đánh giá thành công
+  const handleSubmitRating = async (val) => {
+    console.log("form rating:", val);
+
+    if (isRating) {
+      alert("đã đánh giá");
+      setIsOpen(false);
+    } else {
+      try {
+        const res = await CourseService.ratingCourse(val, id);
+        //set rates ở trong này nữa
+        console.log("đánh giá:", res);
+
+        setIsOpen(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   return (
     <div className="course-detail">
+      {isOpen && (
+        <div className="modal-overlay">
+          <ModalRating
+            onCloseModal={handleCloseModelRating}
+            onSubmitRating={handleSubmitRating}
+          />
+        </div>
+      )}
       <div className="img-course">
         <img className="img-cover" src={course.thumbnailUrl}></img>
         <img className="img-main" src={course.thumbnailUrl}></img>
@@ -184,17 +232,25 @@ function CourseDetail() {
         </div>
       </div>
       <div className="rating">
-        <CourseContent lessons={content?.lessonResponses} />
-
-        <span
-          style={{
-            fontWeight: "600",
-            fontSize: "30px",
-            color: "#000",
-          }}
-        >
-          Xếp hạng và đánh giá
-        </span>
+        <CourseContent lessons={content?.lessons} />
+        <div style={{ display: "flex" }}>
+          <span
+            style={{
+              fontWeight: "600",
+              fontSize: "30px",
+              color: "#000",
+            }}
+          >
+            Xếp hạng và đánh giá
+          </span>
+          {course.isPurchased ? (
+            <div className="rating-click" onClick={handleOpenModelRating}>
+              Đánh giá khóa học
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
         <div className="rating-summary">
           <div>
             <div className="rating-score">4.6</div>
