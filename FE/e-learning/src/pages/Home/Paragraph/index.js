@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { FaArrowRightLong } from "react-icons/fa6";
 import tailieu from '../../../assets/images/icon-tailieu.png';
@@ -510,7 +510,7 @@ function Paragraph() {
                         </div>
 
                         <div style={{ display: "flex", width: "1150px", gap: "40px" }} data-aos="fade-right">
-                            {topCourses.map((course) =>
+                            {topCourses?.map((course) =>
                                 <CourseCard 
                                     key={course.id}
                                     id={course.id}

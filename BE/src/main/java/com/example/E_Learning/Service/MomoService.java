@@ -25,7 +25,7 @@ public class MomoService {
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
 	private static final String returnUrl = "http://localhost:3001";
-	private static final String notifyUrl = "https://a7234f7ca81a.ngrok-free.app/elearning/api/momo/notify";
+	private static final String notifyUrl = "https://3727bd47fe2c.ngrok-free.app/elearning/api/momo/notify";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final CourseRepository courseRepository;
@@ -145,20 +145,26 @@ public class MomoService {
 							.method("Momo")
 							.build();
 					invoiceRepostiory.save(invoice);
-					List<Enrollment> enrollments = order.getOrderDetails()
+					List<Course> courses = order.getOrderDetails()
 							.stream()
 							.map(OrderDetail::getCourse)
+							.toList();
+					List<Enrollment> enrollments = courses
+							.stream()
 							.map(course -> Enrollment.builder()
 									.course(course)
 									.user(order.getUser())
 									.build())
 							.toList();
 					enrollmentRepository.saveAll(enrollments);
+					courses.forEach(course -> course.setStudentCount(course.getStudentCount()+1));
+					courseRepository.saveAll(courses);
 					User user = order.getUser();
 					Cart cart = cartRepository.findByUserId(user.getId())
 							.orElseThrow(() -> new AppException(ErrorCode.CART_NOT_FOUND));
 					List<CartDetail> cartDetails = cartDetailRepository.findByCartId(cart.getId());
 					cartDetailRepository.deleteAll(cartDetails);
+
 					return "Pay success";
 				}
 			}
