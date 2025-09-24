@@ -92,5 +92,10 @@ public class CourseController {
 				.result(courseService.getCourseRatings(courseId))
 				.build();
 	}
-
+	@GetMapping("/top-selling")
+	public ApiResponse<List<CourseResponse>> getTopSellingCourses() {
+		return ApiResponse.<List<CourseResponse>>builder()
+				.result(courseService.topSellingCourses())
+				.build();
+	}
 }

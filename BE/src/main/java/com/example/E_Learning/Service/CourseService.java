@@ -136,5 +136,11 @@ public class CourseService {
 						.build())
 				.toList();
 	}
+	public List<CourseResponse> topSellingCourses() {
+		List<Course> courses = courseRepository.findTop4ByOrderByStudentCountDesc();
+		return courses.stream()
+				.map(courseMapper::toCourseResponse)
+				.toList();
+	}
 
 }

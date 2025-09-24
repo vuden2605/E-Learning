@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { use, useEffect, useRef, useState } from 'react';
 import './style.scss';
 import { FaArrowRightLong } from "react-icons/fa6";
 import tailieu from '../../../assets/images/icon-tailieu.png';
@@ -33,8 +33,20 @@ import CourseCard from '../../../components/CourseCard';
 import { Link } from 'react-router-dom';
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+import { CourseService } from '../../../services/CourseService';
 function Paragraph() {
+    const [topCourses, setTopCourses] = useState([]);
+    useEffect(() => {
+        const fetchTopCourses = async () => {
+            try {
+                const courses = await CourseService.findTopSellingCourses();
+                setTopCourses(courses);
+            } catch (error) {
+                console.error("Error fetching top courses:", error);
+            }
+        };
+        fetchTopCourses();
+    }, []);
     useEffect(() => {
         const items = document.querySelectorAll('.success-item');
         const observer = new IntersectionObserver(
@@ -486,7 +498,7 @@ function Paragraph() {
                             >
                                 KHÓA HỌC BÁN CHẠY
                             </div>
-                            <Link to='/courses'>
+                            <Link to='/course'>
                                 <button class="learn-more">
                                     <span class="circle" aria-hidden="true">
                                         <span class="icon arrow"></span>
@@ -498,10 +510,17 @@ function Paragraph() {
                         </div>
 
                         <div style={{ display: "flex", width: "1150px", gap: "40px" }} data-aos="fade-right">
-                            <CourseCard />
-                            <CourseCard />
-                            <CourseCard />
-                            <CourseCard />
+                            {topCourses.map((course) =>
+                                <CourseCard 
+                                    key={course.id}
+                                    id={course.id}
+                                    title={course.title}
+                                    description={course.description}
+                                    price={course.price}
+                                    discount={course.discount}
+                                    thumbnailUrl={course.thumbnailUrl}
+                                    
+                                />)}
                         </div>
                     </div>
                 </div>

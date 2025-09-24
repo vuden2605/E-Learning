@@ -120,11 +120,21 @@ const getMaterialById = async (idCourse, idMaterial) => {
     console.error("Error fetching video url by ID:", error.message);
   }
 };
+const findTopSellingCourses = async () => {
+  try {
+    const res = await axios.get(`${API_URL}/course/top-selling`);
+    console.log("top-selling:", res);
+    return res.data.result;
+  } catch (err) {
+    console.log(err);
+  }
+};
 export const CourseService = {
   getMycourse,
   getCourses,
   getDetailCourse,
   searchCourse,
   getCourseContent,
-  getMaterialById
+  getMaterialById,
+  findTopSellingCourses,
 };
