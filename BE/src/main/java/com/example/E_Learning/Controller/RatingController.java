@@ -23,7 +23,7 @@ public class RatingController {
 				.build();
 	}
 	@GetMapping("/exists/course/{courseId}")
-	public ApiResponse<Boolean> xistsByUserIdAndCourseId(@PathVariable Long courseId) {
+	public ApiResponse<Boolean> existsByUserIdAndCourseId(@PathVariable Long courseId) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Long userId = Long.parseLong(authentication.getName());
 		return ApiResponse.<Boolean>builder()
