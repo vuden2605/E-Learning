@@ -1,9 +1,9 @@
 import "./style.scss";
-import { Button } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button, notification } from "antd";
+import { FrownOutlined, ShoppingCartOutlined, SmileOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { formatCurrencyVND } from "../../utils/formatCurrency";
-import { CartService} from "../../services/CartService.js";
+import { CartService } from "../../services/CartService.js";
 function CourseCard({
   title,
   description,
@@ -13,11 +13,38 @@ function CourseCard({
   id,
   isPurchased,
 }) {
+  const [api, contextHolder] = notification.useNotification();
+
   const addToCart = async () => {
-    await CartService.addToCart(id);
-  }
+    try {
+      await CartService.addToCart(id);
+
+      api.open({
+        message: "Thông báo!",
+        description: "Thêm vào giỏ hàng thành công",
+        icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+        showProgress: true,
+        zIndex: 3000,
+        pauseOnHover: false,
+        duration: 1.5,
+      });
+    } catch (error) {
+      api.open({
+        message: "Lỗi!",
+        description: "Sản phẩm đã có trong giỏ hàng",
+        icon: <FrownOutlined style={{ color: "red" }} />,
+        showProgress: true,
+        zIndex: 3000,
+        pauseOnHover: false,
+        duration: 2,
+      });
+    }
+  };
+
   return (
     <div className="coursecard">
+      {contextHolder}
+
       <Link to={`/course/detail/${id}`} style={{ textDecoration: "none" }}>
         <div className="img-course">
           <img src={thumbnailUrl}></img>
@@ -27,10 +54,7 @@ function CourseCard({
             {title}
           </h1>
         </div>
-        <div className="description">
-          {description}
-
-        </div>
+        <div className="description">{description}</div>
       </Link>
 
       <div className="price-tag">
@@ -54,7 +78,11 @@ function CourseCard({
             </Button>
           </Link>
         ) : (
-          <Button type="primary" className="btn-addcart" onClick = {() => addToCart(id)}>
+          <Button
+            type="primary"
+            className="btn-addcart"
+            onClick={() => addToCart(id)}
+          >
             <ShoppingCartOutlined />
             Thêm vào giỏ
           </Button>

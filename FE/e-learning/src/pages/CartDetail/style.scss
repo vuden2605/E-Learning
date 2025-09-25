@@ -46,3 +46,10 @@
     }
   }
 }
+.ant-notification {
+  position: fixed !important;
+  top: 10% !important;
+  left: 100% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}

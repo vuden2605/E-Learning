@@ -7,7 +7,7 @@ const addToCart = async (courseId) => {
   } catch (error) {
     if (error.response) {
       console.log("Error response data:", error.response.data);
-      return error.response.data; 
+      throw error.response.data; 
     }
     throw error; 
   }

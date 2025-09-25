@@ -1,4 +1,4 @@
-import api from "../api/axios"
+import api from "../api/axios";
 const getCourses = async (
   {
     page = 0,
@@ -26,7 +26,7 @@ const getCourses = async (
     console.log("token:", token);
 
     const res = await api.get("/course/filter", {
-      params
+      params,
     });
     // console.log("res", res);
 
@@ -72,10 +72,12 @@ const searchCourse = async (value) => {
 const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
   try {
     const params = { page, pageSize };
+    console.log("số item trong page: ", pageSize);
+
     console.log("token la:", token);
 
     const res = await api.get("/enrollment/me", {
-      params
+      params,
     });
     return res.data;
   } catch (err) {
@@ -110,9 +112,7 @@ const getRating = async (id) => {
 };
 const checkRating = async (id) => {
   try {
-    const res = await api.get(
-      `/rating/exists/course/${id}`
-    );
+    const res = await api.get(`/rating/exists/course/${id}`);
     return res.data;
   } catch (error) {
     console.log(error);

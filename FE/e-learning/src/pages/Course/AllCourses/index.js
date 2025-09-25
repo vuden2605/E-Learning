@@ -156,6 +156,7 @@ function AllCourses() {
       setCurrentPage(currentPage + 1);
     }
   };
+
   return (
     <div className="course">
       <div className="my-course tab">
@@ -178,7 +179,7 @@ function AllCourses() {
             gap: "20px",
           }}
         >
-          {mycourses.map((val) => (
+          {mycourses?.map((val) => (
             <Mycourse
               key={val.courseResponse.id}
               id={val.courseResponse.id}

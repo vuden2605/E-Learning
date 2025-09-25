@@ -5,10 +5,11 @@ import {
   InstagramOutlined,
   PhoneOutlined,
   ShoppingCartOutlined,
+  SmileOutlined,
   TwitterOutlined,
   YoutubeOutlined,
 } from "@ant-design/icons";
-import { Button, Rate, Collapse } from "antd";
+import { Button, Rate, Collapse, notification } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CourseService } from "../../../services/CourseService";
@@ -54,7 +55,19 @@ function CourseDetail() {
   //------------Oánh giá------------------
   const [isOpen, setIsOpen] = useState();
   const handleOpenModelRating = () => {
-    setIsOpen(true);
+    if (isRating) {
+      api.open({
+        message: "Thông báo!",
+        description: "Khóa học đã được đánh giá",
+        icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+        showProgress: true,
+        zIndex: 3000,
+        pauseOnHover: false,
+        duration: 1.5, //time
+      });
+    } else {
+      setIsOpen(true);
+    }
   };
   const handleCloseModelRating = () => {
     setIsOpen(false);
@@ -70,23 +83,30 @@ function CourseDetail() {
   }, [id]);
 
   /// thêm message khi đánh giá thành công
+  const [api, contextHolder] = notification.useNotification();
+
   const handleSubmitRating = async (val) => {
     console.log("form rating:", val);
 
-    if (isRating) {
-      alert("đã đánh giá");
-      setIsOpen(false);
-    } else {
-      try {
-        const res = await CourseService.ratingCourse(val, id);
-        //set rates ở trong này nữa
-        console.log("đánh giá:", res);
-        setRates((prev) => [...prev, res.data.result]);
+    try {
+      const res = await CourseService.ratingCourse(val, id);
+      //set rates ở trong này nữa
+      console.log("đánh giá:", res);
+      setRates((prev) => [...prev, res.data.result]);
 
-        setIsOpen(false);
-      } catch (err) {
-        console.log(err);
-      }
+      setIsOpen(false);
+      setIsRating(true);
+      api.open({
+        message: "Thông báo!",
+        description: "Cảm ơn bạn đã đánh giá",
+        icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+        showProgress: true,
+        zIndex: 3000,
+        pauseOnHover: false,
+        duration: 1.5, //time
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
   //tính toán thông số
@@ -96,7 +116,9 @@ function CourseDetail() {
       : 0;
   return (
     <div className="course-detail">
-      {isOpen && (
+      {contextHolder}
+
+      {isOpen && !isRating && (
         <div className="modal-overlay">
           <ModalRating
             onCloseModal={handleCloseModelRating}
@@ -269,7 +291,7 @@ function CourseDetail() {
             </div>
             <div className="rating-count">{rates.length} bài đánh giá</div>
           </div>
-          
+
           <div className="rating-distribute">
             {[5, 4, 3, 2, 1].map((star) => {
               const count = rates.filter((r) => r.rate === star).length;

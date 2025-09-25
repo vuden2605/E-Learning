@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import "./style.scss";
 import CartItem from "../../components/CartItem";
 import { formatCurrencyVND } from "../../utils/formatCurrency";
-import { ArrowRightOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, SmileOutlined } from "@ant-design/icons";
 import { CartService } from "../../services/CartService";
 import { CheckoutService } from "../../services/CheckoutService";
+import { notification } from "antd";
 function CartDetail() {
   const [cartItems, setCartItems] = useState([]);
 
@@ -23,24 +24,39 @@ function CartDetail() {
   const handleCheckout = async () => {
     const urlMomo = await CheckoutService.checkout();
     if (urlMomo) {
-      window.location.href = urlMomo; 
+      window.location.href = urlMomo;
     }
   };
+  ///THÔNG BÁO
+  const [api, contextHolder] = notification.useNotification();
+
   const handleRemoveItem = async (id) => {
     await CartService.removeFromCart(id);
     setCartItems((prev) => prev.filter((item) => item.id !== id));
-  }
+    api.open({
+      message: "Thông báo!",
+      description: "Xóa thành công",
+      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+      showProgress: true,
+      zIndex: 3000,
+      pauseOnHover: false,
+      duration: 1.5, //time
+    });
+  };
   console.log("cartItems:", cartItems);
   const cartCount = cartItems.length;
 
   // Tính tổng tiền
   const totalPrice = cartItems.reduce(
-    (sum, item) => sum + (Math.round(item.price*(1-item.discountPercent/100)) || 0),
+    (sum, item) =>
+      sum + (Math.round(item.price * (1 - item.discountPercent / 100)) || 0),
     0
   );
 
   return (
     <div className="cartdetail">
+      {/* thêm này để có thông báo */}
+      {contextHolder}
       <div className="cart-container">
         <h1>Giỏ hàng</h1>
         <div style={{ display: "flex", gap: "60px" }}>
@@ -60,11 +76,11 @@ function CartDetail() {
                     author={item.instructor.user.email}
                     rating={item.averageRating}
                     ratingCount={item.totalRatings}
-                    newPrice={Math.round(item.price*(1-item.discountPercent/100))}
+                    newPrice={Math.round(
+                      item.price * (1 - item.discountPercent / 100)
+                    )}
                     oldPrice={item.price}
-                    onDelete={(id) =>
-                      handleRemoveItem(id)
-                    }
+                    onDelete={(id) => handleRemoveItem(id)}
                   />
                 ))
               ) : (
@@ -77,7 +93,7 @@ function CartDetail() {
           <div className="cart-summary">
             <div style={{ color: "#5A5C71", fontWeight: "600" }}>Tổng:</div>
             <div className="total-price">{formatCurrencyVND(totalPrice)}</div>
-            <button className="btn-checkount"  onClick = {handleCheckout}>
+            <button className="btn-checkount" onClick={handleCheckout}>
               Tiến hành thanh toán <ArrowRightOutlined />
             </button>
           </div>

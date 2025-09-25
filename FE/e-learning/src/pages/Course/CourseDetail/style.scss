@@ -220,7 +220,12 @@
   justify-content: center; /* căn giữa ngang */
   align-items: center; /* căn giữa dọc */
   z-index: 999; /* nổi lên trên */
-  
 }
 
-
+.ant-notification {
+  position: fixed !important;
+  top: 10% !important;
+  left: 100% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
