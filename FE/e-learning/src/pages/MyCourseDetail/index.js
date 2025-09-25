@@ -5,8 +5,9 @@ import { CourseService } from "../../services/CourseService";
 import logo from "../../assets/images/logo.png";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import ChatUI from "../../components/Chat";
 import CourseContent from "../../components/CourseContent";
-
+import { MessageOutlined } from "@ant-design/icons";
 function MyCourseDetail() {
   const { id } = useParams();
   console.log("id-param:", id);
@@ -35,11 +36,11 @@ function MyCourseDetail() {
     };
     getCourseContent();
   }, [id]);
-
+  
   // material active
   const [idMaterial, setIdMaterial] = useState(null);
   const [urlVideo, setUrlVideo] = useState("");
-
+  const [openChat, setOpenChat] = useState(false);
   // gọi API mỗi khi idMaterial thay đổi
   useEffect(() => {
     if (!idMaterial) return;
@@ -69,7 +70,11 @@ function MyCourseDetail() {
   const handleMaterialNext = () => {
     if (idMaterial < totalMaterial) setIdMaterial(idMaterial + 1);
   };
-
+  const handleOpenChat = () => {
+    console.log("Opening chat, current state:", openChat);
+    setOpenChat(true);
+    console.log("After setState:", true);
+  };
   return (
     <div className="mycourse-detail">
       <div className="course-header">
@@ -136,6 +141,26 @@ function MyCourseDetail() {
           <RightOutlined className="next" />
         </Button>
       </div>
+      <Button
+        type="primary"
+        shape="round"
+        icon={<MessageOutlined />}
+        size="large"
+        style={{
+          position: "fixed",
+          bottom: 30,
+          left: 30,
+          background: "#f06595",
+          border: "none",
+          zIndex: 1000
+        }}
+        onClick={handleOpenChat}
+      >
+        Hỏi đáp
+      </Button>
+
+      {/* Chat Drawer */}
+      <ChatUI open={openChat} onClose={() => setOpenChat(false)} />
     </div>
   );
 }

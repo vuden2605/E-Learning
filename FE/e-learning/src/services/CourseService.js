@@ -1,7 +1,4 @@
-import axios from "axios";
-import api from "../api/axios";
-
-const API_URL = process.env.REACT_APP_API_URL;
+import api from "../api/axios"
 const getCourses = async (
   {
     page = 0,
@@ -28,16 +25,9 @@ const getCourses = async (
     if (title) params.title = title;
     console.log("token:", token);
 
-    const headers = {};
-    if (token) {
-      headers.Authorization = `Bearer ${token}`;
-    }
-
-    const res = await axios.get(`${API_URL}/course/filter`, {
-      params,
-      headers,
+    const res = await api.get("/course/filter", {
+      params
     });
-    console.log(" URL:", headers);
     // console.log("res", res);
 
     return res.data.result;
@@ -47,7 +37,7 @@ const getCourses = async (
 };
 const getDetailCourse = async (id) => {
   try {
-    const res = await api.get(`${API_URL}/course/detail/${id}`);
+    const res = await api.get(`/course/detail/${id}`);
     // console.log("detail:", res);
     return res.data.result;
   } catch (err) {
@@ -56,7 +46,7 @@ const getDetailCourse = async (id) => {
 };
 const searchCourse = async (value) => {
   try {
-    const res = await axios.get(`${API_URL}/course/search?name=${value}`);
+    const res = await api.get(`/course/search?name=${value}`);
     // console.log(
     //   " URL:",
     //   axios.getUri({ url: `${API_URL}/course/search?name=${value}` })
@@ -84,19 +74,9 @@ const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
     const params = { page, pageSize };
     console.log("token la:", token);
 
-    const res = await axios.get(`${API_URL}/enrollment/me`, {
-      params,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const res = await api.get("/enrollment/me", {
+      params
     });
-
-    console.log(
-      "URL:",
-      axios.getUri({ url: `${API_URL}/enrollment/me`, params })
-    );
-    console.log("api request:", res);
-
     return res.data;
   } catch (err) {
     console.error(err);
@@ -104,8 +84,7 @@ const getMycourse = async ({ token, page = 0, pageSize = 4 }) => {
 };
 const getCourseContent = async (courseId) => {
   try {
-    console.log("courseId nhận vào:", courseId);
-    const res = await axios.get(`${API_URL}/course/${courseId}/content`);
+    const res = await api.get(`/course/${courseId}/content`);
     return res.data.result;
   } catch (err) {
     console.log(err);
@@ -132,7 +111,7 @@ const getRating = async (id) => {
 const checkRating = async (id) => {
   try {
     const res = await api.get(
-      `http://localhost:8080/elearning/api/rating/exists/course/${id}`
+      `/rating/exists/course/${id}`
     );
     return res.data;
   } catch (error) {
@@ -149,7 +128,7 @@ const ratingCourse = async (body, id) => {
 };
 const findTopSellingCourses = async () => {
   try {
-    const res = await axios.get(`${API_URL}/course/top-selling`);
+    const res = await api.get("/course/top-selling");
     console.log("top-selling:", res);
     return res.data.result;
   } catch (err) {
