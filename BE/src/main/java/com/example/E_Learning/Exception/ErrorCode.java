@@ -78,7 +78,10 @@ public enum ErrorCode {
 	//Order
 	ORDER_NOT_FOUND(12001,"Order not found",HttpStatus.BAD_REQUEST),
 	//Material
-	MATERIAL_NOT_FOUND(13001,"Material not found",HttpStatus.NOT_FOUND);
+	MATERIAL_NOT_FOUND(13001,"Material not found",HttpStatus.NOT_FOUND),
+	MATERIAL_ALREADY_EXISTS(13002,"Material already exists",HttpStatus.CONFLICT),
+	// Message
+	MESSAGE_NOT_FOUND(14001, "Message not found", HttpStatus.NOT_FOUND);
 	private final int code;
 	private final String message;
 	private final HttpStatus httpStatusCode;

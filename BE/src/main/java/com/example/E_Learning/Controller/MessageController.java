@@ -21,15 +21,15 @@ import java.util.Objects;
 @RequestMapping("/message")
 public class MessageController {
 	private final MessageService messageService;
-	@MessageMapping("/lesson/{lessonId}/send")
-	@SendTo("/topic/lesson/{lessonId}")
-	public MessageResponse sendMessage(@DestinationVariable Long lessonId,
+	@MessageMapping("/material/{materialId}/send")
+	@SendTo("/topic/material/{materialId}")
+	public MessageResponse sendMessage(@DestinationVariable Long materialId,
 	                                   @Payload MessageRequest messageRequest,
 	                                   SimpMessageHeaderAccessor headerAccessor) {
 		Long userId = (Long) Objects.requireNonNull(headerAccessor.getSessionAttributes()).get("userId");
 		if (userId == null) {
 			throw new AppException(ErrorCode.UNAUTHENTICATED);
 		}
-		return messageService.createMessage(messageRequest,lessonId,userId);
+		return messageService.createMessage(messageRequest,materialId,userId);
 	}
 }
