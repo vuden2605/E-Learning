@@ -25,10 +25,11 @@ function MyCourseDetail() {
 
         // tính tổng số materials
         const totalMaterials =
-          res?.lessonResponses?.reduce(
+          res?.lessons?.reduce(
             (sum, lesson) => sum + (lesson.materials?.length || 0),
             0
           ) || 0;
+        console.log("tổng số bài: ", totalMaterials);
         setTotalMaterial(totalMaterials);
       } catch (err) {
         console.error("Lỗi load course content:", err);
@@ -36,7 +37,7 @@ function MyCourseDetail() {
     };
     getCourseContent();
   }, [id]);
-  
+
   // material active
   const [idMaterial, setIdMaterial] = useState(null);
   const [urlVideo, setUrlVideo] = useState("");
@@ -66,9 +67,11 @@ function MyCourseDetail() {
   const handleMaterialPrev = () => {
     if (idMaterial > 1) setIdMaterial(idMaterial - 1);
   };
+  // console.log("bài hiện tại:", totalMaterial);
 
   const handleMaterialNext = () => {
     if (idMaterial < totalMaterial) setIdMaterial(idMaterial + 1);
+    // console.log("bài tiếp theo:", idMaterial);
   };
   const handleOpenChat = () => {
     console.log("Opening chat, current state:", openChat);
@@ -152,7 +155,7 @@ function MyCourseDetail() {
           left: 30,
           background: "#f06595",
           border: "none",
-          zIndex: 1000
+          zIndex: 1000,
         }}
         onClick={handleOpenChat}
       >
