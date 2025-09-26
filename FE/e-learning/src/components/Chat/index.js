@@ -11,8 +11,9 @@ const Chat = ({ materialId, open, onClose }) => {
   const [client, setClient] = useState(null);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [parentId, setParentId] = useState(null); // ID comment đang reply
-  const [replyingTo, setReplyingTo] = useState(null); // tên user đang reply
+  const [parentId, setParentId] = useState(null); 
+  const [parentReply, setParentReply] = useState(null);
+  const [replyingTo, setReplyingTo] = useState(null); 
   const chatEndRef = useRef(null);
 
   useEffect(() => {
@@ -27,8 +28,6 @@ const Chat = ({ materialId, open, onClose }) => {
         console.error("Lỗi khi load messages:", err);
       }
     };
-
-    // Hàm thêm message mới vào tree
     const addMessageToTree = (messages, newMessage) => {
       if (!newMessage.parentId) {
         return [...messages, { ...newMessage, replies: [] }];
@@ -40,10 +39,7 @@ const Chat = ({ materialId, open, onClose }) => {
             replies: [...(msg.replies || []), { ...newMessage, replies: [] }],
           };
         }
-        return {
-          ...msg,
-          replies: msg.replies ? addMessageToTree(msg.replies, newMessage) : [],
-        };
+        return msg;
       });
     };
 
@@ -53,7 +49,6 @@ const Chat = ({ materialId, open, onClose }) => {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
       onConnect: () => {
-        console.log("✅ Connected to WebSocket");
         fetchMessages();
         subscription = stompClient.subscribe(
           `/topic/material/${materialId}`,
@@ -89,6 +84,7 @@ const Chat = ({ materialId, open, onClose }) => {
       });
       setInput("");
       setParentId(null);
+      setParentReply(null);
       setReplyingTo(null);
     }
   };
@@ -97,9 +93,10 @@ const Chat = ({ materialId, open, onClose }) => {
     sendMessage();
   };
 
-  const handleReply = (msgId, author) => {
-    setParentId(msgId);
+  const handleReply = (msg, author) => {
+    setParentId(msg.parentId ? msg.parentId : msg.id);   
     setReplyingTo(author);
+    setParentReply(msg.id);
   };
 
   return (
@@ -108,6 +105,7 @@ const Chat = ({ materialId, open, onClose }) => {
       placement="right"
       onClose={() => {
         setParentId(null);
+        setParentReply(null);
         setReplyingTo(null);
         setInput("");
         onClose();
@@ -115,8 +113,7 @@ const Chat = ({ materialId, open, onClose }) => {
       open={open}
       width={450}
     >
-      {/* Chỉ hiển thị input ở cuối nếu không trong trạng thái reply */}
-      {!parentId && (
+      {!parentReply  && (
         <>
           <Input.TextArea
             rows={3}
@@ -136,8 +133,7 @@ const Chat = ({ materialId, open, onClose }) => {
             key={item.id}
             item={item}
             onReply={handleReply}
-            parentId={parentId}
-            replyingTo={replyingTo}
+            parentReply={parentReply}
             input={input}
             setInput={setInput}
             handleSubmit={handleSubmit}

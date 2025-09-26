@@ -3,7 +3,7 @@ import { Avatar, Button, Typography, Input } from "antd";
 const { Text } = Typography;
 const { TextArea } = Input;
 
-const CommentItem = ({ item, onReply, level = 0, parentId, input, setInput, handleSubmit }) => {
+const CommentItem = ({ item, onReply, level = 0, parentId, parentReply, input, setInput, handleSubmit }) => {
   return (
     <div style={{ marginLeft: level * 20, marginBottom: 16 }}>
       <div style={{ display: "flex" }}>
@@ -16,14 +16,14 @@ const CommentItem = ({ item, onReply, level = 0, parentId, input, setInput, hand
             <Button
               type="link"
               size="small"
-              onClick={() => onReply(item.id, item.userResponse.fullName)}
+              onClick={() => onReply(item, item.userResponse.fullName)}
             >
               Phản hồi
             </Button>
           </div>
 
           {/* Hiển thị input ngay dưới comment được chọn */}
-          {parentId === item.id && (
+          {parentReply === item.id && (
             <div style={{ marginTop: 8 }}>
               <TextArea
                 rows={2}
@@ -40,7 +40,7 @@ const CommentItem = ({ item, onReply, level = 0, parentId, input, setInput, hand
                   style={{ marginLeft: 8 }}
                   onClick={() => {
                     setInput("");
-                    onReply(null, null); // reset parentId
+                    onReply(null, null); 
                   }}
                 >
                   Hủy
@@ -59,7 +59,7 @@ const CommentItem = ({ item, onReply, level = 0, parentId, input, setInput, hand
               key={reply.id}
               item={reply}
               onReply={onReply}
-              parentId={parentId}
+              parentReply={parentReply}
               input={input}
               setInput={setInput}
               handleSubmit={handleSubmit}
