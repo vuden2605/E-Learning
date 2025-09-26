@@ -12,5 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MessageRequest {
 	@NotBlank
-	private String content;     
+	private String content;
+	private Long parentId;
 }

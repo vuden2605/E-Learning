@@ -5,7 +5,7 @@ import { CourseService } from "../../services/CourseService";
 import logo from "../../assets/images/logo.png";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import ChatUI from "../../components/Chat";
+import Chat from "../../components/Chat";
 import CourseContent from "../../components/CourseContent";
 import { MessageOutlined } from "@ant-design/icons";
 function MyCourseDetail() {
@@ -163,7 +163,7 @@ function MyCourseDetail() {
       </Button>
 
       {/* Chat Drawer */}
-      <ChatUI open={openChat} onClose={() => setOpenChat(false)} />
+      <Chat materialId={idMaterial} open={openChat} onClose={() => setOpenChat(false)} />
     </div>
   );
 }

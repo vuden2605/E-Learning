@@ -5,6 +5,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,13 +20,18 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
-	@JoinColumn(name = "lesson_id")
-	private Lesson lesson;
+	@JoinColumn(name = "material_id")
+	private Material material;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	@Column(columnDefinition = "NVARCHAR(MAX)")
 	private String content;
 	@CreationTimestamp
-	private LocalDateTime created_at;
+	private LocalDateTime createdAt;
+	@ManyToOne
+	@JoinColumn(name = "parent_id")
+	private Message parent;
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	private List<Message> replies = new ArrayList<>();
 }

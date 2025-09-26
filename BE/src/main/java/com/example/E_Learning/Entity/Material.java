@@ -6,6 +6,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -33,4 +35,6 @@ public class Material {
 	private LocalDateTime createdAt;
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+	@OneToMany(mappedBy = "material", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Message> messages;
 }

@@ -2,14 +2,18 @@ package com.example.E_Learning.Service;
 
 import com.example.E_Learning.DTO.Request.MaterialCreationRequest;
 import com.example.E_Learning.DTO.Response.MaterialResponse;
+import com.example.E_Learning.DTO.Response.MessageResponse;
 import com.example.E_Learning.Entity.Course;
 import com.example.E_Learning.Entity.Lesson;
 import com.example.E_Learning.Entity.Material;
+import com.example.E_Learning.Entity.Message;
 import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.LessonRepository;
 import com.example.E_Learning.Repository.MaterialRepository;
+import com.example.E_Learning.Repository.MessageRepository;
 import com.example.E_Learning.mapper.MaterialMapper;
+import com.example.E_Learning.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +25,9 @@ import java.util.List;
 public class MaterialService {
 	private final MaterialRepository materialRepository;
 	private final MaterialMapper materialMapper;
+	private final UserMapper userMapper;
 	private final LessonRepository lessonRepository;
+	private final MessageRepository messageRepository;
 	public MaterialResponse createMaterial (MaterialCreationRequest materialCreationRequest, Long lessonId, Long instructorId) {
 		Material material = materialMapper.toMaterial(materialCreationRequest);
 		Lesson lesson = lessonRepository.findById(lessonId)
@@ -37,6 +43,31 @@ public class MaterialService {
 		List<Material> materials = materialRepository.findByLessonId(lessonId);
 		return materials.stream()
 				.map(materialMapper::toMaterialResponse)
+				.toList();
+	}
+	public List<MessageResponse> getMessagesByMaterialId(Long materialId) {
+		Material material = materialRepository.findById(materialId)
+				.orElseThrow(() -> new AppException(ErrorCode.MATERIAL_NOT_FOUND));
+		List<Message> messages = messageRepository.findByMaterialIdAndParentIsNullOrderByCreatedAtAsc(materialId);
+		return messages.stream()
+				.map(message -> MessageResponse.builder()
+						.id(message.getId())
+						.content(message.getContent())
+						.userResponse(userMapper.toUserResponse(message.getUser()))
+						.materialId(materialId)
+						.parentId(message.getParent() != null ? message.getParent().getId() : null)
+						.sentAt(message.getCreatedAt())
+						.replies(message.getReplies().stream()
+								.map(reply -> MessageResponse.builder()
+										.id(reply.getId())
+										.content(reply.getContent())
+										.userResponse(userMapper.toUserResponse(reply.getUser()))
+										.materialId(materialId)
+										.sentAt(reply.getCreatedAt())
+										.parentId(reply.getParent().getId())
+										.build())
+								.toList())
+						.build())
 				.toList();
 	}
 }
