@@ -26,7 +26,7 @@ public class Rating {
 	private Course course;
 	@Column(nullable = false)
 	private int rate;
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Column(columnDefinition = "TEXT")
 	private String comment;
 	@CreationTimestamp
 	private LocalDateTime createdAt;

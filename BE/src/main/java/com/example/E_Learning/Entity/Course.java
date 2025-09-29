@@ -21,9 +21,9 @@ public class Course {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Column(nullable = false, length = 150)
 	private String title;
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Column(length = 500)
 	private String description;
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")

@@ -25,7 +25,7 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	@CreationTimestamp
 	private LocalDateTime createdAt;

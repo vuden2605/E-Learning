@@ -21,7 +21,7 @@ public class Blog {
 	private Long id;
 	@Column(nullable = false, length = 150)
 	private String title;
-	@Column(columnDefinition = "NVARCHAR(MAX)")
+	@Lob
 	private String content;
 	@ManyToOne
 	@JoinColumn(name = "instructor_id")

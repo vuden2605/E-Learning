@@ -1,38 +1,43 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
-    context-path: /elearning/api
+    context-path: ${CONTEXT_PATH:/elearning/api}
 
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS0;databaseName=E-LearningTest;encrypt=true;trustServerCertificate=true
-    username: sa
-    password: 1
+    url: jdbc:mysql://${MYSQL_HOST:db}:${MYSQL_PORT:3306}/${MYSQL_DB_NAME:E-LearningTest}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver  
+
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
-    database-platform: org.hibernate.dialect.SQLServerDialect
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    
   servlet:
     multipart:
-      max-file-size: 500MB
-      max-request-size: 500MB
+      max-file-size: ${MAX_FILE_SIZE:500MB}
+      max-request-size: ${MAX_REQUEST_SIZE:500MB}
 
 jwt:
-  secret-key: your-super-secret-key-12345678901234567890123456789012
+  secret-key: ${JWT_SECRET_KEY:your-super-secret-key}
+  access-time: ${JWT_ACCESS_TIME:3000000}
+  refresh-time: ${JWT_REFRESH_TIME:604800000}
 
-  access-time: 3000000
-
-  refresh-time: 604800000
 aws:
-  accessKey: AKIAQH3T6CWXGPQPYXPN
-  secretKey: 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
-  region: ap-southeast-2
+  accessKey: ${AWS_ACCESS_KEY}
+  secretKey: ${AWS_SECRET_KEY}
+  region: ${AWS_REGION:ap-southeast-2}
   s3:
-    bucketName: vvv-elearning
+    bucketName: ${AWS_S3_BUCKET:vvv-elearning}
+
 logging:
   level:
-    root: INFO
-    com.example.E_Learning: DEBUG
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.example.E_Learning: ${LOG_LEVEL_APP:DEBUG}
+
 google:
-  clientId: 830106511321-8kbg5cjn0ahglb7m9sh9i1av02v8jj56.apps.googleusercontent.com
+  clientId: ${GOOGLE_CLIENT_ID:}
+

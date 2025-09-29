@@ -1,0 +1,18 @@
+# IDE
+.idea/
+.vscode/
+
+# Java / Spring Boot
+target/
+*.log
+
+# Node / React
+node_modules/
+build/
+dist/
+
+# Env file
+.env
+
+# Docker volumes
+mysql_data/

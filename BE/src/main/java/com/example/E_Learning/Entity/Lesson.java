@@ -21,7 +21,7 @@ public class Lesson {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(columnDefinition = "NVARCHAR(200)")
+	@Column(length = 150, nullable = false)
 	private String title;
 	private Integer lessonNumber;
 	@CreationTimestamp

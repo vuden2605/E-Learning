@@ -6,9 +6,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 const { Title } = Typography;
-
 const Register = ({ onClose }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.currentUser);
@@ -22,7 +21,7 @@ const Register = ({ onClose }) => {
       const token = credentialResponse.credential;
       console.log("Google token:", token);
 
-      const res = await axios.post(
+      const res = await api.post(
         "http://localhost:8080/elearning/api/auth/google",
         { token },
         { withCredentials: true } 
