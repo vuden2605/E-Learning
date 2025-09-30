@@ -40,4 +40,8 @@ logging:
 
 google:
   clientId: ${GOOGLE_CLIENT_ID:}
+app:
+  momo:
+    returnUrl: ${MOMO_RETURN_URL:http://localhost:3001}
+    notifyUrl: ${MOMO_NOTIFY_URL:http://localhost:8080/elearning/api/momo/notify}
 

@@ -7,6 +7,8 @@ import { setUser } from "../../redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import api from "../../api/axios";
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+console.log("API URL:", REACT_APP_API_URL);
 const { Title } = Typography;
 const Register = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const Register = ({ onClose }) => {
       console.log("Google token:", token);
 
       const res = await api.post(
-        "http://localhost:8080/elearning/api/auth/google",
+        `${REACT_APP_API_URL}/api/auth/google`,
         { token },
         { withCredentials: true } 
       );

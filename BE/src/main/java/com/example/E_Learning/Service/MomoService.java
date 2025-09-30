@@ -6,6 +6,7 @@ import com.example.E_Learning.Exception.AppException;
 import com.example.E_Learning.Exception.ErrorCode;
 import com.example.E_Learning.Repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -24,8 +25,10 @@ public class MomoService {
 	private static final String partnerCode = "MOMO";
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
-	private static final String returnUrl = "http://localhost:3001";
-	private static final String notifyUrl = "https://3cbfa1e64e87.ngrok-free.app/elearning/api/momo/notify";
+	@Value("${app.momo.return.url}")
+	private static final String returnUrl = "";
+	@Value("${app.momo.notify.url}")
+	private static final String notifyUrl = "";
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final CourseRepository courseRepository;
