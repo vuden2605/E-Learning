@@ -1,0 +1,47 @@
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    context-path: ${CONTEXT_PATH:/elearning/api}
+
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB_NAME:E-LearningTest}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: ${MYSQL_USER:admin}
+    password: ${MYSQL_PASSWORD:AdminPass!23}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  servlet:
+    multipart:
+      max-file-size: ${MAX_FILE_SIZE:500MB}
+      max-request-size: ${MAX_REQUEST_SIZE:500MB}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY:your-super-secret-key-12345678901234567890123456789012}
+  access-time: ${JWT_ACCESS_TIME:3000000}
+  refresh-time: ${JWT_REFRESH_TIME:604800000}
+
+aws:
+  accessKey: ${AWS_ACCESS_KEY:AKIAQH3T6CWXGPQPYXPN}
+  secretKey: ${AWS_SECRET_KEY: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}
+  region: ${AWS_REGION:ap-southeast-2}
+  s3:
+    bucketName: ${AWS_S3_BUCKET:vvv-elearning}
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.example.E_Learning: ${LOG_LEVEL_APP:DEBUG}
+
+google:
+  clientId: ${GOOGLE_CLIENT_ID:830106511321-8kbg5cjn0ahglb7m9sh9i1av02v8jj56.apps.googleusercontent.com}
+
+app:
+  momo:
+    returnUrl: ${MOMO_RETURN_URL:http://localhost:3001}
+    notifyUrl: ${MOMO_NOTIFY_URL:http://localhost:8080/elearning/api/momo/notify}

@@ -47,7 +47,7 @@ function CartDetail() {
   const cartCount = cartItems.length;
 
   // Tính tổng tiền
-  const totalPrice = cartItems.reduce(
+  const totalPrice = (cartItems || []).reduce(
     (sum, item) =>
       sum + (Math.round(item.price * (1 - item.discountPercent / 100)) || 0),
     0

@@ -33,6 +33,8 @@ services:
       - AWS_REGION=${AWS_REGION}
       - AWS_S3_BUCKET=${AWS_S3_BUCKET}
       - GOOGLE_CLIENTID=${GOOGLE_CLIENT_ID}
+      - MOMO_RETURN_URL=${MOMO_RETURN_URL}
+      - MOMO_NOTIFY_URL=${MOMO_NOTIFY_URL}
     ports:
       - "8080:8080"
     depends_on:

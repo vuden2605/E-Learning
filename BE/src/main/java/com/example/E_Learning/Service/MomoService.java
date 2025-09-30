@@ -25,10 +25,10 @@ public class MomoService {
 	private static final String partnerCode = "MOMO";
 	private static final String accessKey = "F8BBA842ECF85";
 	private static final String secretKey = "K951B6PE1waDMi640xX08PD3vg6EkVlz";
-	@Value("${app.momo.return.url}")
-	private static final String returnUrl = "";
-	@Value("${app.momo.notify.url}")
-	private static final String notifyUrl = "";
+	@Value("${app.momo.returnUrl}")
+	private String returnUrl;
+	@Value("${app.momo.notifyUrl}")
+	private String notifyUrl;
 	private static final String endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 	private final OrderRepository orderRepository;
 	private final CourseRepository courseRepository;

@@ -24,7 +24,7 @@ const Register = ({ onClose }) => {
       console.log("Google token:", token);
 
       const res = await api.post(
-        `${REACT_APP_API_URL}/api/auth/google`,
+        `${REACT_APP_API_URL}/auth/google`,
         { token },
         { withCredentials: true } 
       );
